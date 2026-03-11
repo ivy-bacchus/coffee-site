@@ -5,6 +5,7 @@ import Decorations from '../../components/Decorations.astro';
 import { t } from '../../i18n';
 
 const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout lang={lang} currentPath={`/${lang}`}>
@@ -44,7 +45,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_origins')}
       description={t(lang, 'home.section_origins_desc')}
-      href={`/${lang}/origins`}
+      href={`${base}/${lang}/origins`}
       icon="🌍"
       accentLabel="Terroir & Farms"
       variant="featured"
@@ -53,7 +54,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_science')}
       description={t(lang, 'home.section_science_desc')}
-      href={`/${lang}/science`}
+      href={`${base}/${lang}/science`}
       icon="🔬"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
@@ -62,7 +63,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_brewing')}
       description={t(lang, 'home.section_brewing_desc')}
-      href={`/${lang}/brewing`}
+      href={`${base}/${lang}/brewing`}
       icon="💧"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
@@ -76,7 +77,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_processing')}
       description={t(lang, 'home.section_processing_desc')}
-      href={`/${lang}/processing`}
+      href={`${base}/${lang}/processing`}
       icon="🫘"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
@@ -85,7 +86,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_tools')}
       description={t(lang, 'home.section_tools_desc')}
-      href={`/${lang}/tools`}
+      href={`${base}/${lang}/tools`}
       icon="⚖️"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
@@ -97,7 +98,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_cupping')}
       description={t(lang, 'home.section_cupping_desc')}
-      href={`/${lang}/cupping`}
+      href={`${base}/${lang}/cupping`}
       icon="👅"
       variant="compact"
       comingSoon
@@ -107,7 +108,7 @@ const lang = 'en';
     <SectionCard
       title={t(lang, 'home.section_varieties')}
       description={t(lang, 'home.section_varieties_desc')}
-      href={`/${lang}/varieties`}
+      href={`${base}/${lang}/varieties`}
       icon="🌱"
       variant="compact"
       comingSoon

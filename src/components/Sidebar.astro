@@ -60,8 +60,9 @@ const navItems = [
   <nav class="flex-1 py-2 overflow-y-auto">
     <ul class="space-y-0.5 px-3">
       {navItems.map((item) => {
-        const isActive = currentPath === item.href ||
-          (item.key !== 'home' && currentPath.startsWith(item.href));
+        const normalizedCurrent = `${base}${currentPath}`;
+        const isActive = normalizedCurrent === item.href ||
+          (item.key !== 'home' && normalizedCurrent.startsWith(item.href));
         return (
           <li>
             <a
