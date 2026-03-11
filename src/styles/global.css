@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+/* === Design Tokens === */
+@theme {
+  --color-primary: #3C2415;
+  --color-secondary: #D4A574;
+  --color-background: #FDF6EE;
+  --color-accent: #C1553B;
+  --color-text: #2C1810;
+  --color-text-light: #6B5244;
+  --color-border: #E0D0C1;
+  --color-card: #FFFFFF;
+  --color-card-hover: #FFF8F0;
+  --color-sidebar: #3C2415;
+  --color-sidebar-text: #E8D5C4;
+  --color-sidebar-active: #D4A574;
+
+  --font-heading: 'Playfair Display', 'Noto Serif JP', serif;
+  --font-body: 'Inter', 'Noto Sans JP', sans-serif;
+  --font-accent: 'Caveat', cursive;
+}
+
+/* === Base Styles === */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.8;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  line-height: 1.3;
+}
+
+/* === Menu-style Decorations === */
+.menu-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-secondary),
+    transparent
+  );
+  margin: 2rem 0;
+}
+
+.menu-label {
+  font-family: var(--font-accent);
+  color: var(--color-text-light);
+  font-size: 1.125rem;
+}
+
+/* === Card Style === */
+.menu-card {
+  background: var(--color-card);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(60, 36, 21, 0.08);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.menu-card:hover {
+  background: var(--color-card-hover);
+  box-shadow: 0 4px 16px rgba(60, 36, 21, 0.12);
+  transform: translateY(-2px);
+}
+
+/* === Section Title (chalkboard style accent) === */
+.section-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: var(--color-secondary);
+  border-radius: 2px;
+}
+
+/* === Article Prose === */
+.prose-coffee h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-secondary);
+}
+
+.prose-coffee h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-coffee p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-coffee ul, .prose-coffee ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose-coffee ul { list-style-type: disc; }
+.prose-coffee ol { list-style-type: decimal; }
+
+.prose-coffee li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-coffee blockquote {
+  border-left: 3px solid var(--color-secondary);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: var(--color-card);
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-style: italic;
+  color: var(--color-text-light);
+}
+
+.prose-coffee strong {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.prose-coffee .info-box {
+  background: linear-gradient(135deg, var(--color-card) 0%, var(--color-card-hover) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.prose-coffee .info-box h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-coffee table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.prose-coffee th {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.prose-coffee th:first-child { border-radius: 0.5rem 0 0 0; }
+.prose-coffee th:last-child { border-radius: 0 0.5rem 0 0; }
+
+.prose-coffee td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prose-coffee tr:last-child td:first-child { border-radius: 0 0 0 0.5rem; }
+.prose-coffee tr:last-child td:last-child { border-radius: 0 0 0.5rem 0; }
+
+.prose-coffee tr:hover td {
+  background: var(--color-card-hover);
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 4px;
+}

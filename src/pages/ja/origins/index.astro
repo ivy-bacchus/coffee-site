@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Decorations from '../../../components/Decorations.astro';
+import { t } from '../../../i18n';
+
+const lang = 'ja';
+
+const countries = [
+  {
+    slug: 'ethiopia',
+    name: 'エチオピア',
+    nameEn: 'Ethiopia',
+    flag: '🇪🇹',
+    tagline: 'コーヒー発祥の地',
+    flavors: ['フローラル', 'ベリー', 'シトラス'],
+    color: 'from-green-800/10 to-amber-800/5',
+  },
+  {
+    slug: 'kenya',
+    name: 'ケニア',
+    nameEn: 'Kenya',
+    flag: '🇰🇪',
+    tagline: '鮮烈な酸とジューシーさ',
+    flavors: ['ブラックカラント', 'トマト', 'グレープフルーツ'],
+    color: 'from-red-800/10 to-green-800/5',
+  },
+  {
+    slug: 'colombia',
+    name: 'コロンビア',
+    nameEn: 'Colombia',
+    flag: '🇨🇴',
+    tagline: 'バランスの芸術',
+    flavors: ['キャラメル', 'ナッツ', 'レッドアップル'],
+    color: 'from-yellow-800/10 to-blue-800/5',
+  },
+];
+
+const comingSoon = [
+  { name: 'ブラジル', flag: '🇧🇷' },
+  { name: 'グアテマラ', flag: '🇬🇹' },
+  { name: 'パナマ', flag: '🇵🇦' },
+  { name: 'イエメン', flag: '🇾🇪' },
+];
+---
+
+<BaseLayout lang={lang} currentPath={`/${lang}/origins`}>
+  <!-- Header -->
+  <div class="mb-12">
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl mb-2 -rotate-1">
+      Terroir & Farms
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-tight mb-4">
+      産地・農園
+    </h1>
+    <p class="text-lg text-[var(--color-text-light)] max-w-2xl leading-relaxed">
+      コーヒーの味わいは、育った土地で決まる。標高、気候、土壌、品種、そして精製法——
+      テロワールが生み出す多様なフレーバーを、主要産地ごとに深掘りします。
+    </p>
+  </div>
+
+  <Decorations type="divider" />
+
+  <!-- Country cards -->
+  <div class="space-y-6 mb-12">
+    {countries.map((country, i) => (
+      <a
+        href={`/${lang}/origins/${country.slug}`}
+        class:list={[
+          'block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
+          `bg-gradient-to-r ${country.color}`,
+        ]}
+      >
+        <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
+          <!-- Flag + Name -->
+          <div class="flex items-center gap-4 md:min-w-[200px]">
+            <span class="text-5xl">{country.flag}</span>
+            <div>
+              <h2 class="text-2xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors">
+                {country.name}
+              </h2>
+              <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm">
+                {country.nameEn}
+              </p>
+            </div>
+          </div>
+
+          <!-- Tagline -->
+          <p class="flex-1 text-[var(--color-text-light)] text-base">
+            {country.tagline}
+          </p>
+
+          <!-- Flavor tags -->
+          <div class="flex flex-wrap gap-2">
+            {country.flavors.map((f) => (
+              <span class="text-xs px-3 py-1 rounded-full bg-[var(--color-primary)]/8 text-[var(--color-primary)] font-medium">
+                {f}
+              </span>
+            ))}
+          </div>
+
+          <!-- Arrow -->
+          <svg class="w-5 h-5 text-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-all shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <Decorations type="beans" />
+
+  <!-- Coming soon -->
+  <div class="mb-8">
+    <p class="font-[var(--font-accent)] text-xl text-[var(--color-text-light)] mb-4">Coming soon...</p>
+    <div class="flex flex-wrap gap-3">
+      {comingSoon.map((c) => (
+        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border border-[var(--color-border)] opacity-50">
+          <span class="text-xl">{c.flag}</span>
+          <span class="text-sm text-[var(--color-text-light)]">{c.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

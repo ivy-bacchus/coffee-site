@@ -1,0 +1,39 @@
+{
+  "site": {
+    "title": "Coffee Study",
+    "description": "コーヒーを深く学ぶためのサイト"
+  },
+  "nav": {
+    "home": "ホーム",
+    "origins": "産地・農園",
+    "processing": "精製法",
+    "science": "コーヒーの化学",
+    "brewing": "抽出ガイド",
+    "tools": "レシピ計算機",
+    "cupping": "カッピング",
+    "varieties": "品種図鑑"
+  },
+  "home": {
+    "hero_title": "コーヒーを、もっと深く。",
+    "hero_subtitle": "産地、精製、化学、抽出 —— スペシャルティコーヒーの世界を体系的に学ぶ",
+    "section_origins": "産地・農園",
+    "section_origins_desc": "テロワールが生み出す多様なフレーバー。主要産地の地理・気候・農園・品種を深掘りします。",
+    "section_processing": "精製法",
+    "section_processing_desc": "ウォッシュド、ナチュラル、ハニー、アナエロビック。精製が味わいに与える決定的な影響を解説。",
+    "section_science": "コーヒーの化学",
+    "section_science_desc": "メイラード反応、抽出動力学、水質。コーヒーの味を科学的に理解する。",
+    "section_brewing": "抽出ガイド",
+    "section_brewing_desc": "器具別の最適な抽出パラメータ。変数を理解し、自分の一杯をコントロールする。",
+    "section_tools": "レシピ計算機",
+    "section_tools_desc": "器具と杯数を選ぶだけ。最適な豆量・湯量・手順をすぐに確認。",
+    "section_cupping": "カッピング",
+    "section_cupping_desc": "SCAプロトコルに基づく官能評価。フレーバーを言語化する技術を学ぶ。",
+    "section_varieties": "品種図鑑",
+    "section_varieties_desc": "ティピカからゲイシャまで。アラビカ種の系譜とフレーバー特性を網羅。"
+  },
+  "common": {
+    "read_more": "もっと読む",
+    "coming_soon": "準備中",
+    "back_to_home": "ホームに戻る"
+  }
+}

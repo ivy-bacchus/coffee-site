@@ -1,0 +1,39 @@
+{
+  "site": {
+    "title": "Coffee Study",
+    "description": "A site for deep coffee learning"
+  },
+  "nav": {
+    "home": "Home",
+    "origins": "Origins & Farms",
+    "processing": "Processing",
+    "science": "Coffee Chemistry",
+    "brewing": "Brewing Guide",
+    "tools": "Recipe Calculator",
+    "cupping": "Cupping",
+    "varieties": "Varieties"
+  },
+  "home": {
+    "hero_title": "Dive Deeper into Coffee.",
+    "hero_subtitle": "Origins, processing, chemistry, brewing — a systematic journey through the world of specialty coffee",
+    "section_origins": "Origins & Farms",
+    "section_origins_desc": "Diverse flavors shaped by terroir. Explore the geography, climate, farms, and varieties of major producing regions.",
+    "section_processing": "Processing",
+    "section_processing_desc": "Washed, natural, honey, anaerobic. How processing decisively shapes the cup.",
+    "section_science": "Coffee Chemistry",
+    "section_science_desc": "Maillard reaction, extraction dynamics, water chemistry. Understanding coffee through science.",
+    "section_brewing": "Brewing Guide",
+    "section_brewing_desc": "Optimal parameters for each brew method. Understand the variables, control your cup.",
+    "section_tools": "Recipe Calculator",
+    "section_tools_desc": "Just pick your brewer and cup count. Get the ideal dose, water, and step-by-step instructions.",
+    "section_cupping": "Cupping",
+    "section_cupping_desc": "Sensory evaluation based on the SCA protocol. Learn to articulate flavor.",
+    "section_varieties": "Varieties",
+    "section_varieties_desc": "From Typica to Geisha. A comprehensive guide to Arabica lineage and flavor profiles."
+  },
+  "common": {
+    "read_more": "Read more",
+    "coming_soon": "Coming soon",
+    "back_to_home": "Back to home"
+  }
+}

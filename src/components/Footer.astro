@@ -1,0 +1,26 @@
+---
+import { type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<footer class="border-t border-[var(--color-border)] py-8 mt-12">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="font-[var(--font-accent)] text-lg text-[var(--color-secondary)] mb-2">
+      Coffee Study
+    </p>
+    <p class="text-sm text-[var(--color-text-light)]">
+      {lang === 'ja'
+        ? 'コーヒーの奥深い世界を、一杯ずつ。'
+        : 'Exploring the depth of coffee, one cup at a time.'}
+    </p>
+    <hr class="menu-divider my-4" />
+    <p class="text-xs text-[var(--color-text-light)]">
+      &copy; 2026 Coffee Study. All rights reserved.
+    </p>
+  </div>
+</footer>

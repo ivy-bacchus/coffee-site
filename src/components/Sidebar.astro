@@ -1,0 +1,157 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+
+const navItems = [
+  { key: 'home', href: `/${lang}`, icon: '☕' },
+  { key: 'origins', href: `/${lang}/origins`, icon: '🌍' },
+  { key: 'processing', href: `/${lang}/processing`, icon: '🫘' },
+  { key: 'science', href: `/${lang}/science`, icon: '🔬' },
+  { key: 'brewing', href: `/${lang}/brewing`, icon: '💧' },
+  { key: 'tools', href: `/${lang}/tools`, icon: '⚖️' },
+  { key: 'cupping', href: `/${lang}/cupping`, icon: '👅' },
+  { key: 'varieties', href: `/${lang}/varieties`, icon: '🌱' },
+];
+---
+
+<!-- Mobile hamburger button -->
+<button
+  id="sidebar-toggle"
+  class="fixed top-4 left-4 z-50 lg:hidden bg-[var(--color-primary)] text-white p-2.5 rounded-xl shadow-lg"
+  aria-label="Toggle menu"
+>
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+</button>
+
+<!-- Sidebar -->
+<aside
+  id="sidebar"
+  class="fixed top-0 left-0 h-full w-64 z-40
+         transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out
+         flex flex-col"
+  style="background: linear-gradient(180deg, #2C1810 0%, #3C2415 40%, #4A2E1C 100%);"
+>
+  <!-- Logo area -->
+  <div class="p-6 pb-4">
+    <a href={`/${lang}`} class="block">
+      <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm tracking-wider mb-1">
+        est. 2026
+      </p>
+      <h1 class="font-[var(--font-heading)] text-2xl font-bold text-white tracking-wide leading-tight">
+        Coffee<br />Study
+      </h1>
+    </a>
+  </div>
+
+  <!-- Thin decorative line -->
+  <div class="mx-6 h-px bg-gradient-to-r from-[var(--color-secondary)]/40 via-[var(--color-secondary)]/20 to-transparent mb-4" />
+
+  <!-- Navigation -->
+  <nav class="flex-1 py-2 overflow-y-auto">
+    <ul class="space-y-0.5 px-3">
+      {navItems.map((item) => {
+        const isActive = currentPath === item.href ||
+          (item.key !== 'home' && currentPath.startsWith(item.href));
+        return (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-all duration-200 relative',
+                isActive
+                  ? 'bg-white/10 text-white font-medium shadow-sm'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white/90',
+              ]}
+            >
+              {isActive && (
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-[var(--color-secondary)] rounded-r-full" />
+              )}
+              <span class="text-base">{item.icon}</span>
+              <span class="tracking-wide">{t(lang, `nav.${item.key}`)}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </nav>
+
+  <!-- Bottom section -->
+  <div class="p-4 space-y-3">
+    <p class="font-[var(--font-accent)] text-xs text-white/30 text-center px-4">
+      {lang === 'ja' ? 'コーヒーを、もっと深く。' : 'Dive deeper into coffee.'}
+    </p>
+
+    <!-- Language Toggle -->
+    <div class="flex rounded-xl overflow-hidden bg-white/5 border border-white/10">
+      <a
+        href={currentPath.replace(`/${lang}`, '/ja')}
+        class:list={[
+          'flex-1 text-center py-2 text-xs font-medium transition-all duration-200',
+          lang === 'ja'
+            ? 'bg-[var(--color-secondary)] text-[var(--color-primary)] font-bold'
+            : 'text-white/50 hover:text-white/80',
+        ]}
+      >
+        日本語
+      </a>
+      <a
+        href={currentPath.replace(`/${lang}`, '/en')}
+        class:list={[
+          'flex-1 text-center py-2 text-xs font-medium transition-all duration-200',
+          lang === 'en'
+            ? 'bg-[var(--color-secondary)] text-[var(--color-primary)] font-bold'
+            : 'text-white/50 hover:text-white/80',
+        ]}
+      >
+        English
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Overlay for mobile -->
+<div
+  id="sidebar-overlay"
+  class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden lg:hidden"
+></div>
+
+<script>
+  const toggle = document.getElementById('sidebar-toggle')!;
+  const sidebar = document.getElementById('sidebar')!;
+  const overlay = document.getElementById('sidebar-overlay')!;
+  const hamburger = document.getElementById('hamburger-icon')!;
+  const closeIcon = document.getElementById('close-icon')!;
+
+  function openSidebar() {
+    sidebar.classList.remove('-translate-x-full');
+    overlay.classList.remove('hidden');
+    hamburger.classList.add('hidden');
+    closeIcon.classList.remove('hidden');
+  }
+
+  function closeSidebar() {
+    sidebar.classList.add('-translate-x-full');
+    overlay.classList.add('hidden');
+    hamburger.classList.remove('hidden');
+    closeIcon.classList.add('hidden');
+  }
+
+  toggle.addEventListener('click', () => {
+    if (sidebar.classList.contains('-translate-x-full')) {
+      openSidebar();
+    } else {
+      closeSidebar();
+    }
+  });
+
+  overlay.addEventListener('click', closeSidebar);
+</script>

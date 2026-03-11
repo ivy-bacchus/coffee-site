@@ -1,0 +1,100 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  icon: string;
+  accentLabel?: string;
+  comingSoon?: boolean;
+  variant?: 'featured' | 'standard' | 'compact';
+  gradient?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  icon,
+  accentLabel,
+  comingSoon = false,
+  variant = 'standard',
+  gradient = 'from-amber-900/5 to-transparent',
+} = Astro.props;
+---
+
+<a
+  href={comingSoon ? undefined : href}
+  class:list={[
+    'group block relative overflow-hidden rounded-2xl border border-[var(--color-border)] transition-all duration-300',
+    comingSoon ? 'opacity-50 cursor-default' : 'cursor-pointer hover:shadow-xl hover:-translate-y-1',
+    variant === 'featured' && 'md:col-span-2 md:row-span-2',
+    variant === 'compact' && '',
+  ]}
+>
+  <!-- Background gradient -->
+  <div class:list={[
+    'absolute inset-0 bg-gradient-to-br opacity-60 group-hover:opacity-100 transition-opacity',
+    gradient,
+  ]} />
+
+  <!-- Content -->
+  <div class:list={[
+    'relative',
+    variant === 'featured' ? 'p-8 md:p-10' : variant === 'compact' ? 'p-5' : 'p-6',
+  ]}>
+    <!-- Icon -->
+    <div class:list={[
+      'mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3',
+      variant === 'featured' ? 'text-5xl' : variant === 'compact' ? 'text-2xl' : 'text-3xl',
+    ]}>
+      {icon}
+    </div>
+
+    <!-- Accent label -->
+    {accentLabel && !comingSoon && (
+      <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-2 tracking-wide">
+        {accentLabel}
+      </p>
+    )}
+
+    <!-- Title -->
+    <h3 class:list={[
+      'font-[var(--font-heading)] text-[var(--color-primary)] font-bold leading-tight mb-2',
+      variant === 'featured' ? 'text-2xl md:text-3xl' : variant === 'compact' ? 'text-base' : 'text-lg',
+    ]}>
+      {title}
+    </h3>
+
+    <!-- Coming soon badge -->
+    {comingSoon && (
+      <span class="inline-block text-xs font-medium bg-[var(--color-secondary)]/15 text-[var(--color-text-light)] px-3 py-1 rounded-full mb-2 border border-[var(--color-secondary)]/20">
+        {accentLabel}
+      </span>
+    )}
+
+    <!-- Description -->
+    <p class:list={[
+      'text-[var(--color-text-light)] leading-relaxed',
+      variant === 'featured' ? 'text-base max-w-lg' : 'text-sm',
+    ]}>
+      {description}
+    </p>
+
+    <!-- Arrow indicator -->
+    {!comingSoon && (
+      <div class="mt-4 flex items-center gap-1 text-[var(--color-accent)] text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-8px] group-hover:translate-x-0">
+        <span class="font-[var(--font-accent)] text-base">
+          {Astro.props.href.includes('/ja') ? 'もっと読む' : 'Read more'}
+        </span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </div>
+    )}
+  </div>
+
+  <!-- Decorative corner -->
+  {variant === 'featured' && (
+    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[var(--color-secondary)]/10 to-transparent rounded-bl-full" />
+  )}
+</a>

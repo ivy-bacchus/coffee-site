@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionCard from '../../components/SectionCard.astro';
+import Decorations from '../../components/Decorations.astro';
+import { t } from '../../i18n';
+
+const lang = 'ja';
+---
+
+<BaseLayout lang={lang} currentPath={`/${lang}`}>
+  <!-- Hero Section — asymmetric, playful -->
+  <div class="relative mb-16 pt-4">
+    <!-- Floating accent text -->
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl md:text-2xl mb-3 -rotate-2 ml-4">
+      specialty coffee guide
+    </p>
+
+    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-[1.1] mb-6">
+      コーヒーを、<br />
+      <span class="text-[var(--color-accent)]">もっと深く。</span>
+    </h1>
+
+    <p class="text-lg md:text-xl text-[var(--color-text-light)] max-w-xl leading-relaxed mb-8">
+      {t(lang, 'home.hero_subtitle')}
+    </p>
+
+    <!-- Decorative steam -->
+    <div class="absolute top-0 right-8 opacity-40 hidden md:block">
+      <Decorations type="steam" />
+    </div>
+  </div>
+
+  <Decorations type="divider" />
+
+  <!-- Menu label — hand-drawn feel -->
+  <div class="text-center my-10">
+    <p class="font-[var(--font-accent)] text-3xl text-[var(--color-primary)] mb-1">
+      Menu
+    </p>
+    <p class="text-xs text-[var(--color-text-light)] tracking-[0.3em] uppercase">
+      what would you like to explore?
+    </p>
+  </div>
+
+  <!-- Bento-style irregular grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+    <!-- Featured: Origins (large, spans 2 cols + 2 rows) -->
+    <SectionCard
+      title={t(lang, 'home.section_origins')}
+      description={t(lang, 'home.section_origins_desc')}
+      href={`/${lang}/origins`}
+      icon="🌍"
+      accentLabel="Terroir & Farms"
+      variant="featured"
+      gradient="from-emerald-900/8 to-amber-900/3"
+    />
+
+    <!-- Science (standard, single cell) -->
+    <SectionCard
+      title={t(lang, 'home.section_science')}
+      description={t(lang, 'home.section_science_desc')}
+      href={`/${lang}/science`}
+      icon="🔬"
+      accentLabel="Chemistry & Physics"
+      gradient="from-blue-900/5 to-transparent"
+    />
+
+    <!-- Brewing (standard) -->
+    <SectionCard
+      title={t(lang, 'home.section_brewing')}
+      description={t(lang, 'home.section_brewing_desc')}
+      href={`/${lang}/brewing`}
+      icon="💧"
+      comingSoon
+      accentLabel={t(lang, 'common.coming_soon')}
+      gradient="from-cyan-900/5 to-transparent"
+    />
+  </div>
+
+  <Decorations type="beans" />
+
+  <!-- Second row: 2-column -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+    <SectionCard
+      title={t(lang, 'home.section_processing')}
+      description={t(lang, 'home.section_processing_desc')}
+      href={`/${lang}/processing`}
+      icon="🫘"
+      comingSoon
+      accentLabel={t(lang, 'common.coming_soon')}
+      gradient="from-orange-900/5 to-transparent"
+    />
+    <SectionCard
+      title={t(lang, 'home.section_tools')}
+      description={t(lang, 'home.section_tools_desc')}
+      href={`/${lang}/tools`}
+      icon="⚖️"
+      comingSoon
+      accentLabel={t(lang, 'common.coming_soon')}
+      gradient="from-amber-800/5 to-transparent"
+    />
+  </div>
+
+  <!-- Third row: 3-column compact -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+    <SectionCard
+      title={t(lang, 'home.section_cupping')}
+      description={t(lang, 'home.section_cupping_desc')}
+      href={`/${lang}/cupping`}
+      icon="👅"
+      variant="compact"
+      comingSoon
+      accentLabel={t(lang, 'common.coming_soon')}
+      gradient="from-rose-900/5 to-transparent"
+    />
+    <SectionCard
+      title={t(lang, 'home.section_varieties')}
+      description={t(lang, 'home.section_varieties_desc')}
+      href={`/${lang}/varieties`}
+      icon="🌱"
+      variant="compact"
+      comingSoon
+      accentLabel={t(lang, 'common.coming_soon')}
+      gradient="from-green-900/5 to-transparent"
+    />
+
+    <!-- Easter egg card -->
+    <div class="rounded-2xl border border-dashed border-[var(--color-secondary)]/30 p-5 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[var(--color-secondary)]/5 to-transparent">
+      <span class="text-2xl mb-2">✨</span>
+      <p class="font-[var(--font-accent)] text-lg text-[var(--color-secondary)]">
+        More coming soon...
+      </p>
+      <p class="text-xs text-[var(--color-text-light)] mt-1">
+        新しいコンテンツを準備中
+      </p>
+    </div>
+  </div>
+
+  <Decorations type="divider" />
+
+  <!-- Bottom quote -->
+  <div class="text-center py-8">
+    <blockquote class="font-[var(--font-heading)] text-xl md:text-2xl italic text-[var(--color-primary)]/70 max-w-lg mx-auto">
+      "Coffee is a lot more than just a drink; it's something happening."
+    </blockquote>
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] mt-3 text-lg">
+      — Gertrude Stein
+    </p>
+  </div>
+</BaseLayout>

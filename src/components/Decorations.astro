@@ -1,0 +1,56 @@
+---
+interface Props {
+  type: 'beans' | 'steam' | 'divider' | 'corner';
+}
+
+const { type } = Astro.props;
+---
+
+{type === 'beans' && (
+  <div class="flex justify-center gap-3 py-4 opacity-30" aria-hidden="true">
+    <svg class="w-5 h-5 text-[var(--color-primary)] rotate-[-20deg]" viewBox="0 0 24 24" fill="currentColor">
+      <ellipse cx="12" cy="12" rx="5" ry="8" />
+      <line x1="12" y1="4" x2="12" y2="20" stroke="var(--color-background)" stroke-width="1.5" />
+    </svg>
+    <svg class="w-4 h-4 text-[var(--color-secondary)] rotate-[15deg] mt-1" viewBox="0 0 24 24" fill="currentColor">
+      <ellipse cx="12" cy="12" rx="5" ry="8" />
+      <line x1="12" y1="4" x2="12" y2="20" stroke="var(--color-background)" stroke-width="1.5" />
+    </svg>
+    <svg class="w-5 h-5 text-[var(--color-primary)] rotate-[30deg]" viewBox="0 0 24 24" fill="currentColor">
+      <ellipse cx="12" cy="12" rx="5" ry="8" />
+      <line x1="12" y1="4" x2="12" y2="20" stroke="var(--color-background)" stroke-width="1.5" />
+    </svg>
+  </div>
+)}
+
+{type === 'steam' && (
+  <div class="flex justify-center py-2 opacity-20" aria-hidden="true">
+    <svg class="w-16 h-12" viewBox="0 0 64 48" fill="none" stroke="var(--color-secondary)" stroke-width="2">
+      <path d="M16 40 C16 30, 24 32, 24 22 C24 12, 16 14, 16 4" stroke-linecap="round" class="animate-steam-1" />
+      <path d="M32 44 C32 34, 40 36, 40 26 C40 16, 32 18, 32 8" stroke-linecap="round" class="animate-steam-2" />
+      <path d="M48 40 C48 30, 40 32, 40 22 C40 12, 48 14, 48 4" stroke-linecap="round" class="animate-steam-3" />
+    </svg>
+  </div>
+)}
+
+{type === 'divider' && (
+  <div class="flex items-center gap-4 py-6" aria-hidden="true">
+    <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/40 to-transparent" />
+    <svg class="w-6 h-6 text-[var(--color-secondary)] opacity-40" viewBox="0 0 24 24" fill="currentColor">
+      <ellipse cx="12" cy="12" rx="4" ry="7" transform="rotate(-30 12 12)" />
+      <line x1="9" y1="6" x2="15" y2="18" stroke="var(--color-background)" stroke-width="1.2" />
+    </svg>
+    <div class="flex-1 h-px bg-gradient-to-r from-transparent via-[var(--color-secondary)]/40 to-transparent" />
+  </div>
+)}
+
+<style>
+  @keyframes steam {
+    0% { opacity: 0.15; transform: translateY(0); }
+    50% { opacity: 0.3; }
+    100% { opacity: 0; transform: translateY(-8px); }
+  }
+  .animate-steam-1 { animation: steam 3s ease-in-out infinite; }
+  .animate-steam-2 { animation: steam 3s ease-in-out infinite 0.5s; }
+  .animate-steam-3 { animation: steam 3s ease-in-out infinite 1s; }
+</style>
