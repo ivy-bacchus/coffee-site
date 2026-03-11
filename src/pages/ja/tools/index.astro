@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import RecipeCalculator from '../../../components/RecipeCalculator';
+import Decorations from '../../../components/Decorations.astro';
+
+const lang = 'ja';
+---
+
+<BaseLayout lang={lang} currentPath={`/${lang}/tools`} title="レシピ計算機">
+  <div class="mb-10">
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl mb-2 -rotate-1">
+      Recipe Calculator
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-tight mb-4">
+      レシピ計算機
+    </h1>
+    <p class="text-lg text-[var(--color-text-light)] max-w-2xl leading-relaxed">
+      器具と杯数を選ぶだけ。最適な豆量・湯量・手順をすぐに確認できます。
+    </p>
+  </div>
+
+  <Decorations type="divider" />
+
+  <RecipeCalculator client:load />
+</BaseLayout>
