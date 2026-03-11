@@ -5,6 +5,7 @@ import OriginsMap from '../../../components/OriginsMap';
 import { t } from '../../../i18n';
 
 const lang = 'ja';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const countries = [
   {
@@ -66,7 +67,7 @@ const comingSoon = [
     <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-3">
       ↓ 国をクリックして産地詳細へ
     </p>
-    <OriginsMap client:load lang={lang} />
+    <OriginsMap client:load lang={lang} base={base} />
   </div>
 
   <Decorations type="divider" />
@@ -75,7 +76,7 @@ const comingSoon = [
   <div class="space-y-6 mb-12">
     {countries.map((country, i) => (
       <a
-        href={`/${lang}/origins/${country.slug}`}
+        href={`${base}/${lang}/origins/${country.slug}`}
         class:list={[
           'block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
           `bg-gradient-to-r ${country.color}`,

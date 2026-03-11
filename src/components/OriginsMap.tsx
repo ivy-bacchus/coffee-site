@@ -34,7 +34,7 @@ type WorldFeature = {
   geometry: GeoPermissibleObjects;
 };
 
-export default function OriginsMap({ lang = 'ja' }: { lang?: string }) {
+export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; base?: string }) {
   const [worldData, setWorldData] = useState<WorldFeature[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; country: Country } | null>(null);
@@ -76,7 +76,7 @@ export default function OriginsMap({ lang = 'ja' }: { lang?: string }) {
 
   const handleCountryClick = (country: Country) => {
     if (country.ready) {
-      window.location.href = `/${lang}/origins/${country.slug}`;
+      window.location.href = `${base}/${lang}/origins/${country.slug}`;
     }
   };
 
@@ -249,7 +249,7 @@ export default function OriginsMap({ lang = 'ja' }: { lang?: string }) {
         {coffeeCountries.filter(c => c.ready).map((country) => (
           <a
             key={country.id}
-            href={`/${lang}/origins/${country.slug}`}
+            href={`${base}/${lang}/origins/${country.slug}`}
             className="group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
             style={{
               borderColor: 'var(--color-border)',

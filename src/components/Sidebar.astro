@@ -7,16 +7,17 @@ interface Props {
 }
 
 const { lang, currentPath } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navItems = [
-  { key: 'home', href: `/${lang}`, icon: '☕' },
-  { key: 'origins', href: `/${lang}/origins`, icon: '🌍' },
-  { key: 'processing', href: `/${lang}/processing`, icon: '🫘' },
-  { key: 'science', href: `/${lang}/science`, icon: '🔬' },
-  { key: 'brewing', href: `/${lang}/brewing`, icon: '💧' },
-  { key: 'tools', href: `/${lang}/tools`, icon: '⚖️' },
-  { key: 'cupping', href: `/${lang}/cupping`, icon: '👅' },
-  { key: 'varieties', href: `/${lang}/varieties`, icon: '🌱' },
+  { key: 'home', href: `${base}/${lang}`, icon: '☕' },
+  { key: 'origins', href: `${base}/${lang}/origins`, icon: '🌍' },
+  { key: 'processing', href: `${base}/${lang}/processing`, icon: '🫘' },
+  { key: 'science', href: `${base}/${lang}/science`, icon: '🔬' },
+  { key: 'brewing', href: `${base}/${lang}/brewing`, icon: '💧' },
+  { key: 'tools', href: `${base}/${lang}/tools`, icon: '⚖️' },
+  { key: 'cupping', href: `${base}/${lang}/cupping`, icon: '👅' },
+  { key: 'varieties', href: `${base}/${lang}/varieties`, icon: '🌱' },
 ];
 ---
 
@@ -42,7 +43,7 @@ const navItems = [
 >
   <!-- Logo area -->
   <div class="p-6 pb-4">
-    <a href={`/${lang}`} class="block">
+    <a href={`${base}/${lang}`} class="block">
       <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm tracking-wider mb-1">
         est. 2026
       </p>
@@ -93,7 +94,7 @@ const navItems = [
     <!-- Language Toggle -->
     <div class="flex rounded-xl overflow-hidden bg-white/5 border border-white/10">
       <a
-        href={currentPath.replace(`/${lang}`, '/ja')}
+        href={currentPath.replace(`/${lang}`, `${base}/ja`)}
         class:list={[
           'flex-1 text-center py-2 text-xs font-medium transition-all duration-200',
           lang === 'ja'
@@ -104,7 +105,7 @@ const navItems = [
         日本語
       </a>
       <a
-        href={currentPath.replace(`/${lang}`, '/en')}
+        href={currentPath.replace(`/${lang}`, `${base}/en`)}
         class:list={[
           'flex-1 text-center py-2 text-xs font-medium transition-all duration-200',
           lang === 'en'
