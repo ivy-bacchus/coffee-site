@@ -44,11 +44,9 @@ const {
   ]}>
     <!-- Icon -->
     <div class:list={[
-      'mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3',
-      variant === 'featured' ? 'text-5xl' : variant === 'compact' ? 'text-2xl' : 'text-3xl',
-    ]}>
-      {icon}
-    </div>
+      'mb-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3 text-[var(--color-accent)]',
+      variant === 'featured' ? 'w-12 h-12' : variant === 'compact' ? 'w-7 h-7' : 'w-9 h-9',
+    ]} set:html={icon} />
 
     <!-- Accent label -->
     {accentLabel && !comingSoon && (

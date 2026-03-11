@@ -6,6 +6,16 @@ import { t } from '../../i18n';
 
 const lang = 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const icons = {
+  origins: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  science: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
+  brewing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  processing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  tools: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
+  cupping: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="5"/><line x1="10" y1="2" x2="10" y2="5"/><line x1="14" y1="2" x2="14" y2="5"/></svg>`,
+  varieties: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+};
 ---
 
 <BaseLayout lang={lang} currentPath={`/${lang}`}>
@@ -46,7 +56,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_origins')}
       description={t(lang, 'home.section_origins_desc')}
       href={`${base}/${lang}/origins`}
-      icon="🌍"
+      icon={icons.origins}
       accentLabel="Terroir & Farms"
       variant="featured"
       gradient="from-emerald-900/8 to-amber-900/3"
@@ -55,7 +65,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_science')}
       description={t(lang, 'home.section_science_desc')}
       href={`${base}/${lang}/science`}
-      icon="🔬"
+      icon={icons.science}
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
       gradient="from-blue-900/5 to-transparent"
@@ -64,7 +74,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_brewing')}
       description={t(lang, 'home.section_brewing_desc')}
       href={`${base}/${lang}/brewing`}
-      icon="💧"
+      icon={icons.brewing}
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
       gradient="from-cyan-900/5 to-transparent"
@@ -78,7 +88,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_processing')}
       description={t(lang, 'home.section_processing_desc')}
       href={`${base}/${lang}/processing`}
-      icon="🫘"
+      icon={icons.processing}
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
       gradient="from-orange-900/5 to-transparent"
@@ -87,7 +97,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_tools')}
       description={t(lang, 'home.section_tools_desc')}
       href={`${base}/${lang}/tools`}
-      icon="⚖️"
+      icon={icons.tools}
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
       gradient="from-amber-800/5 to-transparent"
@@ -99,7 +109,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_cupping')}
       description={t(lang, 'home.section_cupping_desc')}
       href={`${base}/${lang}/cupping`}
-      icon="👅"
+      icon={icons.cupping}
       variant="compact"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
@@ -109,7 +119,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       title={t(lang, 'home.section_varieties')}
       description={t(lang, 'home.section_varieties_desc')}
       href={`${base}/${lang}/varieties`}
-      icon="🌱"
+      icon={icons.varieties}
       variant="compact"
       comingSoon
       accentLabel={t(lang, 'common.coming_soon')}
