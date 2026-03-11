@@ -9,25 +9,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout lang={lang} currentPath={`/${lang}`}>
-  <!-- Hero Section — asymmetric, playful -->
-  <div class="relative mb-16 pt-4">
-    <!-- Floating accent text -->
-    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl md:text-2xl mb-3 -rotate-2 ml-4">
-      specialty coffee guide
-    </p>
+  <!-- Hero Section — with photo -->
+  <div class="relative mb-16 rounded-3xl overflow-hidden">
+    <!-- Hero image -->
+    <div class="relative h-72 md:h-96">
+      <img
+        src={`${base}/images/home/hero.jpg`}
+        alt="Coffee"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/70 to-transparent" />
+    </div>
 
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-[1.1] mb-6">
-      コーヒーを、<br />
-      <span class="text-[var(--color-accent)]">もっと深く。</span>
-    </h1>
-
-    <p class="text-lg md:text-xl text-[var(--color-text-light)] max-w-xl leading-relaxed mb-8">
-      {t(lang, 'home.hero_subtitle')}
-    </p>
-
-    <!-- Decorative steam -->
-    <div class="absolute top-0 right-8 opacity-40 hidden md:block">
-      <Decorations type="steam" />
+    <!-- Overlay text -->
+    <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-12">
+      <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl md:text-2xl mb-3 -rotate-2">
+        specialty coffee guide
+      </p>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-[1.1] mb-6">
+        コーヒーを、<br />
+        <span class="text-[var(--color-accent)]">もっと深く。</span>
+      </h1>
+      <p class="text-lg md:text-xl text-[var(--color-text-light)] max-w-xl leading-relaxed">
+        {t(lang, 'home.hero_subtitle')}
+      </p>
     </div>
   </div>
 

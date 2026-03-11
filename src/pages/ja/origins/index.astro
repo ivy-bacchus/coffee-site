@@ -16,6 +16,7 @@ const countries = [
     tagline: 'コーヒー発祥の地',
     flavors: ['フローラル', 'ベリー', 'シトラス'],
     color: 'from-green-800/10 to-amber-800/5',
+    image: `${base}/images/origins/ethiopia.jpg`,
   },
   {
     slug: 'kenya',
@@ -25,6 +26,7 @@ const countries = [
     tagline: '鮮烈な酸とジューシーさ',
     flavors: ['ブラックカラント', 'トマト', 'グレープフルーツ'],
     color: 'from-red-800/10 to-green-800/5',
+    image: `${base}/images/origins/kenya.jpg`,
   },
   {
     slug: 'colombia',
@@ -34,6 +36,7 @@ const countries = [
     tagline: 'バランスの芸術',
     flavors: ['キャラメル', 'ナッツ', 'レッドアップル'],
     color: 'from-yellow-800/10 to-blue-800/5',
+    image: `${base}/images/origins/colombia.jpg`,
   },
 ];
 
@@ -77,43 +80,41 @@ const comingSoon = [
     {countries.map((country, i) => (
       <a
         href={`${base}/${lang}/origins/${country.slug}`}
-        class:list={[
-          'block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1',
-          `bg-gradient-to-r ${country.color}`,
-        ]}
+        class="block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
       >
-        <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-6">
-          <!-- Flag + Name -->
-          <div class="flex items-center gap-4 md:min-w-[200px]">
-            <span class="text-5xl">{country.flag}</span>
-            <div>
+        <div class="flex flex-col md:flex-row">
+          <!-- Image -->
+          <div class="md:w-56 h-44 md:h-auto overflow-hidden flex-shrink-0 relative">
+            <img
+              src={country.image}
+              alt={country.name}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--color-card)]/60 hidden md:block" />
+          </div>
+
+          <!-- Content -->
+          <div class:list={['flex-1 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 bg-gradient-to-r', country.color]}>
+            <div class="md:min-w-[180px]">
+              <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-1">{country.nameEn}</p>
               <h2 class="text-2xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors">
                 {country.name}
               </h2>
-              <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm">
-                {country.nameEn}
-              </p>
+              <p class="text-[var(--color-text-light)] text-sm mt-1">{country.tagline}</p>
             </div>
+
+            <div class="flex flex-wrap gap-2 flex-1">
+              {country.flavors.map((f) => (
+                <span class="text-xs px-3 py-1 rounded-full bg-[var(--color-primary)]/8 text-[var(--color-primary)] font-medium border border-[var(--color-primary)]/10">
+                  {f}
+                </span>
+              ))}
+            </div>
+
+            <svg class="w-5 h-5 text-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-all shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </div>
-
-          <!-- Tagline -->
-          <p class="flex-1 text-[var(--color-text-light)] text-base">
-            {country.tagline}
-          </p>
-
-          <!-- Flavor tags -->
-          <div class="flex flex-wrap gap-2">
-            {country.flavors.map((f) => (
-              <span class="text-xs px-3 py-1 rounded-full bg-[var(--color-primary)]/8 text-[var(--color-primary)] font-medium">
-                {f}
-              </span>
-            ))}
-          </div>
-
-          <!-- Arrow -->
-          <svg class="w-5 h-5 text-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-all shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
         </div>
       </a>
     ))}
