@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Decorations from '../../../components/Decorations.astro';
+import OriginsMap from '../../../components/OriginsMap';
 import { t } from '../../../i18n';
 
 const lang = 'ja';
@@ -56,6 +57,16 @@ const comingSoon = [
       コーヒーの味わいは、育った土地で決まる。標高、気候、土壌、品種、そして精製法——
       テロワールが生み出す多様なフレーバーを、主要産地ごとに深掘りします。
     </p>
+  </div>
+
+  <Decorations type="divider" />
+
+  <!-- Interactive Map -->
+  <div class="mb-12">
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-3">
+      ↓ 国をクリックして産地詳細へ
+    </p>
+    <OriginsMap client:load lang={lang} />
   </div>
 
   <Decorations type="divider" />

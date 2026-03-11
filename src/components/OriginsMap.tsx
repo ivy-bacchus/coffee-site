@@ -1,0 +1,286 @@
+import { useState, useEffect, useRef } from 'react';
+import { geoNaturalEarth1, geoPath } from 'd3-geo';
+import type { GeoPermissibleObjects } from 'd3-geo';
+
+interface Country {
+  id: string;
+  name: string;
+  nameJa: string;
+  slug: string;
+  coords: [number, number]; // [lng, lat] centroid for label
+  color: string;
+  ready: boolean;
+  region: string;
+}
+
+const coffeeCountries: Country[] = [
+  { id: 'ETH', name: 'Ethiopia', nameJa: 'エチオピア', slug: 'ethiopia', coords: [40, 9], color: '#C1553B', ready: true, region: 'Africa' },
+  { id: 'KEN', name: 'Kenya', nameJa: 'ケニア', slug: 'kenya', coords: [37.9, -0.5], color: '#C1553B', ready: true, region: 'Africa' },
+  { id: 'COL', name: 'Colombia', nameJa: 'コロンビア', slug: 'colombia', coords: [-74, 4], color: '#C1553B', ready: true, region: 'Americas' },
+  { id: 'BRA', name: 'Brazil', nameJa: 'ブラジル', slug: 'brazil', coords: [-51, -10], color: '#D4A574', ready: false, region: 'Americas' },
+  { id: 'GTM', name: 'Guatemala', nameJa: 'グアテマラ', slug: 'guatemala', coords: [-90.5, 15.5], color: '#D4A574', ready: false, region: 'Americas' },
+  { id: 'CRI', name: 'Costa Rica', nameJa: 'コスタリカ', slug: 'costa-rica', coords: [-84, 10], color: '#D4A574', ready: false, region: 'Americas' },
+  { id: 'PAN', name: 'Panama', nameJa: 'パナマ', slug: 'panama', coords: [-80, 9], color: '#D4A574', ready: false, region: 'Americas' },
+  { id: 'IDN', name: 'Indonesia', nameJa: 'インドネシア', slug: 'indonesia', coords: [113, -2], color: '#D4A574', ready: false, region: 'Asia' },
+  { id: 'YEM', name: 'Yemen', nameJa: 'イエメン', slug: 'yemen', coords: [48, 15.5], color: '#D4A574', ready: false, region: 'Asia' },
+  { id: 'RWA', name: 'Rwanda', nameJa: 'ルワンダ', slug: 'rwanda', coords: [30, -2], color: '#D4A574', ready: false, region: 'Africa' },
+  { id: 'TZA', name: 'Tanzania', nameJa: 'タンザニア', slug: 'tanzania', coords: [35, -6], color: '#D4A574', ready: false, region: 'Africa' },
+];
+
+type WorldFeature = {
+  type: string;
+  id?: string;
+  properties: Record<string, unknown>;
+  geometry: GeoPermissibleObjects;
+};
+
+export default function OriginsMap({ lang = 'ja' }: { lang?: string }) {
+  const [worldData, setWorldData] = useState<WorldFeature[]>([]);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [tooltip, setTooltip] = useState<{ x: number; y: number; country: Country } | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  useEffect(() => {
+    // Load world topojson from CDN
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(async (topo) => {
+        const { feature } = await import('topojson-client');
+        const countries = feature(topo, topo.objects.countries) as { features: WorldFeature[] };
+        setWorldData(countries.features);
+      })
+      .catch(() => {
+        // Silently fail - map won't show world outlines but pins still work
+      });
+  }, []);
+
+  const width = 800;
+  const height = 420;
+
+  const projection = geoNaturalEarth1()
+    .scale(130)
+    .translate([width / 2, height / 2]);
+
+  const pathGenerator = geoPath(projection);
+
+  const getCoffeeCountry = (id: string) =>
+    coffeeCountries.find(c => {
+      // Map ISO numeric codes to our ISO alpha-3
+      const numericToAlpha3: Record<string, string> = {
+        '231': 'ETH', '404': 'KEN', '170': 'COL', '076': 'BRA',
+        '320': 'GTM', '188': 'CRI', '591': 'PAN', '360': 'IDN',
+        '887': 'YEM', '646': 'RWA', '834': 'TZA',
+      };
+      return numericToAlpha3[id] === c.id;
+    });
+
+  const handleCountryClick = (country: Country) => {
+    if (country.ready) {
+      window.location.href = `/${lang}/origins/${country.slug}`;
+    }
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent, country: Country) => {
+    setHovered(country.id);
+    const svgRect = svgRef.current?.getBoundingClientRect();
+    if (svgRect) {
+      setTooltip({
+        x: e.clientX - svgRect.left,
+        y: e.clientY - svgRect.top - 10,
+        country,
+      });
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const svgRect = svgRef.current?.getBoundingClientRect();
+    if (svgRect && tooltip) {
+      setTooltip(prev => prev ? { ...prev, x: e.clientX - svgRect.left, y: e.clientY - svgRect.top - 10 } : null);
+    }
+  };
+
+  return (
+    <div className="relative w-full">
+      {/* Legend */}
+      <div className="flex items-center gap-6 mb-4 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#C1553B] inline-block" />
+          <span style={{ color: 'var(--color-text-light)' }}>記事あり</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#D4A574] inline-block" />
+          <span style={{ color: 'var(--color-text-light)' }}>準備中</span>
+        </div>
+      </div>
+
+      <div
+        className="relative w-full rounded-2xl overflow-hidden border"
+        style={{ borderColor: 'var(--color-border)', background: 'linear-gradient(135deg, #1a0f08 0%, #2d1810 100%)' }}
+      >
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${width} ${height}`}
+          className="w-full"
+          style={{ display: 'block' }}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => { setHovered(null); setTooltip(null); }}
+        >
+          {/* Tropics lines */}
+          {(() => {
+            const tropicCancer = projection([0, 23.5]);
+            const tropicCapricorn = projection([0, -23.5]);
+            if (!tropicCancer || !tropicCapricorn) return null;
+            return (
+              <>
+                <line x1={0} y1={tropicCancer[1]} x2={width} y2={tropicCancer[1]}
+                  stroke="#D4A574" strokeOpacity={0.15} strokeDasharray="4,6" strokeWidth={1} />
+                <line x1={0} y1={tropicCapricorn[1]} x2={width} y2={tropicCapricorn[1]}
+                  stroke="#D4A574" strokeOpacity={0.15} strokeDasharray="4,6" strokeWidth={1} />
+                <text x={width - 8} y={tropicCancer[1] - 4}
+                  fill="#D4A574" fillOpacity={0.4} fontSize={9} textAnchor="end">
+                  Tropic of Cancer
+                </text>
+                <text x={width - 8} y={tropicCapricorn[1] - 4}
+                  fill="#D4A574" fillOpacity={0.4} fontSize={9} textAnchor="end">
+                  Tropic of Capricorn
+                </text>
+              </>
+            );
+          })()}
+
+          {/* World countries */}
+          {worldData.map((feature, i) => {
+            const coffeeCountry = getCoffeeCountry(String(feature.id));
+            const isHovered = coffeeCountry && hovered === coffeeCountry.id;
+            const pathData = pathGenerator(feature.geometry);
+            if (!pathData) return null;
+
+            return (
+              <path
+                key={i}
+                d={pathData}
+                fill={
+                  coffeeCountry
+                    ? isHovered
+                      ? coffeeCountry.ready ? '#C1553B' : '#D4A574'
+                      : coffeeCountry.ready ? '#C1553B99' : '#D4A57466'
+                    : '#3a2218'
+                }
+                stroke="#1a0f08"
+                strokeWidth={0.5}
+                style={{ cursor: coffeeCountry ? coffeeCountry.ready ? 'pointer' : 'default' : 'default' }}
+                onMouseEnter={coffeeCountry ? (e) => handleMouseEnter(e, coffeeCountry) : undefined}
+                onClick={coffeeCountry ? () => handleCountryClick(coffeeCountry) : undefined}
+              />
+            );
+          })}
+
+          {/* Country pins for labeled markers */}
+          {coffeeCountries.map((country) => {
+            const pos = projection(country.coords);
+            if (!pos) return null;
+            const isHov = hovered === country.id;
+
+            return (
+              <g
+                key={country.id}
+                transform={`translate(${pos[0]}, ${pos[1]})`}
+                style={{ cursor: country.ready ? 'pointer' : 'default' }}
+                onMouseEnter={(e) => handleMouseEnter(e, country)}
+                onClick={() => handleCountryClick(country)}
+              >
+                <circle
+                  r={isHov ? 7 : 5}
+                  fill={country.ready ? '#C1553B' : '#D4A574'}
+                  stroke="#FDF6EE"
+                  strokeWidth={1.5}
+                  style={{ transition: 'r 0.15s ease' }}
+                />
+                {isHov && (
+                  <circle r={12} fill={country.ready ? '#C1553B' : '#D4A574'} fillOpacity={0.25} />
+                )}
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Tooltip */}
+        {tooltip && (
+          <div
+            className="absolute pointer-events-none z-10 px-3 py-2 rounded-xl text-sm"
+            style={{
+              left: tooltip.x + 12,
+              top: tooltip.y - 40,
+              background: 'rgba(28, 15, 8, 0.95)',
+              border: '1px solid rgba(212, 165, 116, 0.3)',
+              backdropFilter: 'blur(8px)',
+              color: '#FDF6EE',
+            }}
+          >
+            <p className="font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
+              {tooltip.country.nameJa}
+            </p>
+            <p style={{ color: 'var(--color-secondary)', fontSize: '0.75rem' }}>
+              {tooltip.country.name}
+            </p>
+            {tooltip.country.ready ? (
+              <p style={{ color: '#C1553B', fontSize: '0.7rem', marginTop: '2px' }}>
+                クリックして詳細へ →
+              </p>
+            ) : (
+              <p style={{ color: 'rgba(212,165,116,0.6)', fontSize: '0.7rem', marginTop: '2px' }}>
+                準備中
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Coffee belt label */}
+        <div
+          className="absolute bottom-3 left-4 text-xs"
+          style={{ color: 'rgba(212, 165, 116, 0.5)', fontFamily: 'var(--font-accent)' }}
+        >
+          Coffee Belt — 23.5°N to 23.5°S
+        </div>
+      </div>
+
+      {/* Country cards below map */}
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {coffeeCountries.filter(c => c.ready).map((country) => (
+          <a
+            key={country.id}
+            href={`/${lang}/origins/${country.slug}`}
+            className="group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            style={{
+              borderColor: 'var(--color-border)',
+              background: 'linear-gradient(135deg, rgba(193,85,59,0.05) 0%, transparent 100%)',
+            }}
+          >
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ background: '#C1553B' }}
+            />
+            <div>
+              <p
+                className="font-bold text-sm group-hover:text-[#C1553B] transition-colors"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}
+              >
+                {country.nameJa}
+              </p>
+              <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
+                {country.region}
+              </p>
+            </div>
+            <svg
+              className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ color: '#C1553B' }}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
