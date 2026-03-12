@@ -13,6 +13,14 @@
 
   --font-heading: 'Noto Serif JP', Georgia, serif;
   --font-body: 'Manrope', sans-serif;
+
+  /* Compatibility aliases for section pages */
+  --color-accent: #bd490f;
+  --color-text-light: #6b5244;
+  --color-card: #ffffff;
+  --color-card-hover: #f8f6f4;
+  --color-bg: #f8f6f4;
+  --font-accent: 'Manrope', sans-serif;
 }
 
 /* === Base Styles === */
