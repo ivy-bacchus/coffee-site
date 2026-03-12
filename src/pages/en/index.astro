@@ -1,149 +1,191 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionCard from '../../components/SectionCard.astro';
-import Decorations from '../../components/Decorations.astro';
-import { t } from '../../i18n';
 
 const lang = 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const icons = {
-  origins: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-  science: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
-  brewing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-  processing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
-  tools: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
-  cupping: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="5"/><line x1="10" y1="2" x2="10" y2="5"/><line x1="14" y1="2" x2="14" y2="5"/></svg>`,
-  varieties: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
-};
+const sections = [
+  {
+    key: 'origins',
+    title: 'Origins & Farms',
+    desc: 'Ethiopia, Kenya, Colombia — explore how terroir shapes flavor.',
+    href: `${base}/${lang}/origins`,
+    image: `${base}/images/origins/ethiopia.jpg`,
+    badge: 'Terroir',
+  },
+  {
+    key: 'brewing',
+    title: 'Brewing Guide',
+    desc: 'V60, espresso, French press — theory and recipes by method.',
+    href: `${base}/${lang}/brewing`,
+    image: `${base}/images/brewing/v60.jpg`,
+    badge: 'Pour Over & Espresso',
+  },
+  {
+    key: 'science',
+    title: 'Coffee Science',
+    desc: 'Roasting chemistry, extraction physics — the "why" behind flavor.',
+    href: `${base}/${lang}/science`,
+    image: `${base}/images/science/roasting.jpg`,
+    badge: 'Chemistry & Physics',
+  },
+  {
+    key: 'processing',
+    title: 'Processing Methods',
+    desc: 'Washed, natural, honey — how processing shapes the cup.',
+    href: `${base}/${lang}/processing`,
+    image: `${base}/images/processing/natural.jpg`,
+    badge: 'Washed · Natural · Honey',
+  },
+  {
+    key: 'tools',
+    title: 'Recipe Calculator',
+    desc: 'Select a dripper and cup count — get instant brew ratios.',
+    href: `${base}/${lang}/tools`,
+    image: `${base}/images/brewing/espresso.jpg`,
+    badge: 'Recipe Calculator',
+  },
+];
+
+const featured = sections[0];
+const grid = sections.slice(1);
 ---
 
-<BaseLayout lang={lang} currentPath={`/${lang}`}>
-  <!-- Hero Section -->
-  <div class="relative mb-16 pt-4">
-    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl md:text-2xl mb-3 -rotate-2 ml-4">
-      specialty coffee guide
-    </p>
+<BaseLayout lang={lang} currentPath={`/${lang}`} fullWidth={true}>
 
-    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-[1.1] mb-6">
-      Dive Deeper<br />
-      <span class="text-[var(--color-accent)]">into Coffee.</span>
-    </h1>
-
-    <p class="text-lg md:text-xl text-[var(--color-text-light)] max-w-xl leading-relaxed mb-8">
-      {t(lang, 'home.hero_subtitle')}
-    </p>
-
-    <div class="absolute top-0 right-8 opacity-40 hidden md:block">
-      <Decorations type="steam" />
+  <!-- Hero -->
+  <section class="relative h-[88vh] min-h-[540px] flex items-end overflow-hidden">
+    <div class="absolute inset-0">
+      <img src={`${base}/images/home/hero.jpg`} alt="Coffee" class="w-full h-full object-cover" />
+      <div class="absolute inset-0" style="background: linear-gradient(to top, #221610 0%, rgba(34,22,16,0.55) 40%, rgba(34,22,16,0.1) 100%);" />
     </div>
-  </div>
-
-  <Decorations type="divider" />
-
-  <div class="text-center my-10">
-    <p class="font-[var(--font-accent)] text-3xl text-[var(--color-primary)] mb-1">
-      Menu
-    </p>
-    <p class="text-xs text-[var(--color-text-light)] tracking-[0.3em] uppercase">
-      what would you like to explore?
-    </p>
-  </div>
-
-  <!-- Bento grid -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-    <SectionCard
-      title={t(lang, 'home.section_origins')}
-      description={t(lang, 'home.section_origins_desc')}
-      href={`${base}/${lang}/origins`}
-      icon={icons.origins}
-      accentLabel="Terroir & Farms"
-      variant="featured"
-      gradient="from-emerald-900/8 to-amber-900/3"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_science')}
-      description={t(lang, 'home.section_science_desc')}
-      href={`${base}/${lang}/science`}
-      icon={icons.science}
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-blue-900/5 to-transparent"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_brewing')}
-      description={t(lang, 'home.section_brewing_desc')}
-      href={`${base}/${lang}/brewing`}
-      icon={icons.brewing}
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-cyan-900/5 to-transparent"
-    />
-  </div>
-
-  <Decorations type="beans" />
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-    <SectionCard
-      title={t(lang, 'home.section_processing')}
-      description={t(lang, 'home.section_processing_desc')}
-      href={`${base}/${lang}/processing`}
-      icon={icons.processing}
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-orange-900/5 to-transparent"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_tools')}
-      description={t(lang, 'home.section_tools_desc')}
-      href={`${base}/${lang}/tools`}
-      icon={icons.tools}
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-amber-800/5 to-transparent"
-    />
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-    <SectionCard
-      title={t(lang, 'home.section_cupping')}
-      description={t(lang, 'home.section_cupping_desc')}
-      href={`${base}/${lang}/cupping`}
-      icon={icons.cupping}
-      variant="compact"
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-rose-900/5 to-transparent"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_varieties')}
-      description={t(lang, 'home.section_varieties_desc')}
-      href={`${base}/${lang}/varieties`}
-      icon={icons.varieties}
-      variant="compact"
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-green-900/5 to-transparent"
-    />
-    <div class="rounded-2xl border border-dashed border-[var(--color-secondary)]/30 p-5 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[var(--color-secondary)]/5 to-transparent">
-      <span class="text-2xl mb-2">✨</span>
-      <p class="font-[var(--font-accent)] text-lg text-[var(--color-secondary)]">
-        More coming soon...
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
+      <span class="inline-block px-4 py-1 border border-white/25 rounded-full text-xs font-bold tracking-widest uppercase mb-6 text-white/80 backdrop-blur-sm">
+        Specialty Coffee Guide
+      </span>
+      <h1 class="font-[var(--font-heading)] text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6">
+        Dive Deeper<br />
+        <span style="color: #bd490f;">into Coffee.</span>
+      </h1>
+      <p class="text-lg md:text-xl text-white/65 max-w-lg leading-relaxed mb-10">
+        Origins, brewing, chemistry, processing — a systematic guide to the world of specialty coffee.
       </p>
-      <p class="text-xs text-[var(--color-text-light)] mt-1">
-        New content in preparation
-      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={`${base}/${lang}/origins`} class="inline-flex items-center gap-2 text-white font-bold px-8 py-3.5 rounded-xl transition-all hover:brightness-110" style="background-color: #bd490f;">
+          Start Exploring
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href={`${base}/${lang}/tools`} class="inline-flex items-center gap-2 text-white font-semibold px-8 py-3.5 rounded-xl border border-white/25 backdrop-blur-sm transition-all hover:bg-white/10">
+          Recipe Calculator
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <Decorations type="divider" />
+  <!-- Sections -->
+  <section class="py-24 bg-[var(--color-background)]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color: #bd490f;">Explore</p>
+          <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)]">Learn by Topic</h2>
+        </div>
+        <p class="text-[var(--color-text-muted)] text-sm max-w-xs leading-relaxed">
+          Five themes to explore the depth of specialty coffee.
+        </p>
+      </div>
 
-  <div class="text-center py-8">
-    <blockquote class="font-[var(--font-heading)] text-xl md:text-2xl italic text-[var(--color-primary)]/70 max-w-lg mx-auto">
-      "Coffee is a lot more than just a drink; it's something happening."
-    </blockquote>
-    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] mt-3 text-lg">
-      — Gertrude Stein
-    </p>
-  </div>
+      <div class="mb-6">
+        <a href={featured.href} class="group block rounded-2xl overflow-hidden relative shadow-lg hover:shadow-2xl transition-all duration-500" style="height: 420px;">
+          <img src={featured.image} alt={featured.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(34,22,16,0.85) 0%, rgba(34,22,16,0.4) 60%, transparent 100%);" />
+          <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide mb-4 text-white w-fit" style="background-color: #bd490f;">{featured.badge}</span>
+            <h3 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-white mb-2">{featured.title}</h3>
+            <p class="text-white/65 max-w-md text-sm leading-relaxed mb-5">{featured.desc}</p>
+            <span class="inline-flex items-center gap-2 text-white/50 text-sm font-semibold group-hover:text-white transition-colors">
+              Explore
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {grid.map((section) => (
+          <a href={section.href} class="group block rounded-xl overflow-hidden relative shadow hover:shadow-xl transition-all duration-500" style="aspect-ratio: 4/3;">
+            <img src={section.image} alt={section.title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]" />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(34,22,16,0.88) 0%, rgba(34,22,16,0.2) 60%, transparent 100%);" />
+            <div class="absolute inset-0 flex flex-col justify-end p-5">
+              <span class="text-[10px] font-bold uppercase tracking-widest mb-1.5" style="color: #bd490f;">{section.badge}</span>
+              <h3 class="font-[var(--font-heading)] text-base font-bold text-white leading-snug">{section.title}</h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy -->
+  <section class="py-24" style="background-color: #221610;">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="relative">
+          <div class="rounded-2xl overflow-hidden shadow-2xl aspect-square">
+            <img src={`${base}/images/science/roasting.jpg`} alt="Roasting" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute -bottom-5 -right-5 hidden md:block">
+            <div class="rounded-2xl p-6 text-white shadow-2xl" style="background-color: #bd490f; max-width: 200px;">
+              <p class="text-sm font-[var(--font-heading)] italic leading-snug">"Listen to the bean, adjust by the second. That's what roasting is."</p>
+            </div>
+          </div>
+        </div>
+        <div class="text-white">
+          <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color: #bd490f;">Deep Dive</p>
+          <h2 class="font-[var(--font-heading)] text-4xl font-bold mb-6 leading-tight">
+            Why is coffee<br />
+            <span style="color: #bd490f;">so complex?</span>
+          </h2>
+          <p class="text-white/55 mb-10 leading-relaxed text-lg">
+            Coffee contains over 1,000 aromatic compounds — more complex than wine. Explore it through science, origin, and craft.
+          </p>
+          <div class="space-y-7">
+            {[
+              { title: 'Terroir', desc: 'Soil, altitude, climate — each origin produces a unique flavor.' },
+              { title: 'Chemistry of Roasting', desc: 'Maillard reaction, caramelization — heat unlocks complexity.' },
+              { title: 'Physics of Extraction', desc: 'Temperature, grind, time — balance creates the perfect cup.' },
+            ].map((item) => (
+              <div class="flex gap-5">
+                <div class="w-2 h-2 rounded-full mt-2.5 shrink-0" style="background-color: #bd490f;" />
+                <div>
+                  <h5 class="font-bold text-white mb-1">{item.title}</h5>
+                  <p class="text-white/45 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 bg-[var(--color-background)]">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">Where will you start?</h2>
+      <p class="text-[var(--color-text-muted)] mb-10 max-w-md mx-auto leading-relaxed">
+        Start with origins, the science, or jump straight to brewing recipes.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href={`${base}/${lang}/origins`} class="px-8 py-3 rounded-xl font-bold text-white transition-all hover:brightness-110" style="background-color: #bd490f;">Explore Origins</a>
+        <a href={`${base}/${lang}/science`} class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all">Study the Science</a>
+        <a href={`${base}/${lang}/tools`} class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all">Use the Calculator</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>

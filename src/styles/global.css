@@ -2,22 +2,17 @@
 
 /* === Design Tokens === */
 @theme {
-  --color-primary: #3C2415;
-  --color-secondary: #D4A574;
-  --color-background: #FDF6EE;
-  --color-accent: #C1553B;
-  --color-text: #2C1810;
-  --color-text-light: #6B5244;
-  --color-border: #E0D0C1;
-  --color-card: #FFFFFF;
-  --color-card-hover: #FFF8F0;
-  --color-sidebar: #3C2415;
-  --color-sidebar-text: #E8D5C4;
-  --color-sidebar-active: #D4A574;
+  --color-primary: #bd490f;
+  --color-dark: #221610;
+  --color-background: #f8f6f4;
+  --color-surface: #ffffff;
+  --color-text: #1a1208;
+  --color-text-muted: #6b5244;
+  --color-border: #e4d8cc;
+  --color-secondary: #c8924a;
 
-  --font-heading: 'Playfair Display', 'Noto Serif JP', serif;
-  --font-body: 'Inter', 'Noto Sans JP', sans-serif;
-  --font-accent: 'Caveat', cursive;
+  --font-heading: 'Noto Serif JP', Georgia, serif;
+  --font-body: 'Manrope', sans-serif;
 }
 
 /* === Base Styles === */
@@ -25,65 +20,13 @@ body {
   font-family: var(--font-body);
   background-color: var(--color-background);
   color: var(--color-text);
-  line-height: 1.8;
+  line-height: 1.75;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
-  color: var(--color-primary);
+  color: var(--color-dark);
   line-height: 1.3;
-}
-
-/* === Menu-style Decorations === */
-.menu-divider {
-  border: none;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-secondary),
-    transparent
-  );
-  margin: 2rem 0;
-}
-
-.menu-label {
-  font-family: var(--font-accent);
-  color: var(--color-text-light);
-  font-size: 1.125rem;
-}
-
-/* === Card Style === */
-.menu-card {
-  background: var(--color-card);
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 8px rgba(60, 36, 21, 0.08);
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
-}
-
-.menu-card:hover {
-  background: var(--color-card-hover);
-  box-shadow: 0 4px 16px rgba(60, 36, 21, 0.12);
-  transform: translateY(-2px);
-}
-
-/* === Section Title (chalkboard style accent) === */
-.section-title {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.5rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60%;
-  height: 3px;
-  background: var(--color-secondary);
-  border-radius: 2px;
 }
 
 /* === Article Prose === */
@@ -93,7 +36,7 @@ h1, h2, h3, h4 {
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--color-secondary);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .prose-coffee h3 {
@@ -120,22 +63,22 @@ h1, h2, h3, h4 {
 }
 
 .prose-coffee blockquote {
-  border-left: 3px solid var(--color-secondary);
+  border-left: 3px solid var(--color-primary);
   padding: 1rem 1.5rem;
   margin: 1.5rem 0;
-  background: var(--color-card);
+  background: var(--color-surface);
   border-radius: 0 0.5rem 0.5rem 0;
   font-style: italic;
-  color: var(--color-text-light);
+  color: var(--color-text-muted);
 }
 
 .prose-coffee strong {
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--color-dark);
+  font-weight: 700;
 }
 
 .prose-coffee .info-box {
-  background: linear-gradient(135deg, var(--color-card) 0%, var(--color-card-hover) 100%);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   padding: 1.5rem;
@@ -155,7 +98,7 @@ h1, h2, h3, h4 {
 }
 
 .prose-coffee th {
-  background: var(--color-primary);
+  background: var(--color-dark);
   color: white;
   padding: 0.75rem 1rem;
   text-align: left;
@@ -175,12 +118,12 @@ h1, h2, h3, h4 {
 .prose-coffee tr:last-child td:last-child { border-radius: 0 0 0.5rem 0; }
 
 .prose-coffee tr:hover td {
-  background: var(--color-card-hover);
+  background: var(--color-background);
 }
 
 /* === Scrollbar === */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -188,6 +131,6 @@ h1, h2, h3, h4 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-secondary);
-  border-radius: 4px;
+  background: var(--color-border);
+  border-radius: 3px;
 }

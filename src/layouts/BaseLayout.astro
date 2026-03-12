@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import Sidebar from '../components/Sidebar.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { t, type Lang } from '../i18n';
 
@@ -8,9 +8,10 @@ interface Props {
   title?: string;
   lang: Lang;
   currentPath: string;
+  fullWidth?: boolean;
 }
 
-const { title, lang, currentPath } = Astro.props;
+const { title, lang, currentPath, fullWidth = false } = Astro.props;
 const siteTitle = t(lang, 'site.title');
 const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
 const description = t(lang, 'site.description');
@@ -28,18 +29,14 @@ const description = t(lang, 'site.description');
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet" />
     <title>{pageTitle}</title>
   </head>
-  <body class="min-h-screen">
-    <Sidebar lang={lang} currentPath={currentPath} />
-
-    <!-- Main content area -->
-    <div class="lg:ml-64 min-h-screen flex flex-col">
-      <main class="flex-1 px-6 py-8 pt-16 lg:pt-8 max-w-[960px] mx-auto w-full">
-        <slot />
-      </main>
-      <Footer lang={lang} />
-    </div>
+  <body class="min-h-screen flex flex-col">
+    <Header lang={lang} currentPath={currentPath} />
+    <main class:list={['flex-1', !fullWidth && 'max-w-5xl mx-auto w-full px-6 py-12']}>
+      <slot />
+    </main>
+    <Footer lang={lang} />
   </body>
 </html>

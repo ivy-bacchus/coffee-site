@@ -1,8 +1,7 @@
 ---
 import '../styles/global.css';
-import Sidebar from '../components/Sidebar.astro';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Decorations from '../components/Decorations.astro';
 import { t, type Lang } from '../i18n';
 
 interface Props {
@@ -32,43 +31,43 @@ const description = subtitle || t(lang, 'site.description');
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet" />
     <title>{pageTitle}</title>
   </head>
-  <body class="min-h-screen">
-    <Sidebar lang={lang} currentPath={currentPath} />
+  <body class="min-h-screen flex flex-col">
+    <Header lang={lang} currentPath={currentPath} />
 
-    <div class="lg:ml-64 min-h-screen flex flex-col">
-      <main class="flex-1 px-6 py-8 pt-16 lg:pt-8">
-        <!-- Article header -->
-        <header class="max-w-[720px] mx-auto mb-10">
+    <main class="flex-1">
+      <!-- Article header -->
+      <div class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+        <div class="max-w-3xl mx-auto px-6 py-12">
           {accentLabel && (
-            <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-lg mb-2">
+            <p class="text-xs font-bold tracking-widest uppercase text-[var(--color-primary)] mb-3">
               {accentLabel}
             </p>
           )}
-          <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-tight mb-4">
+          <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-dark)] leading-tight mb-4">
             {title}
           </h1>
           {subtitle && (
-            <p class="text-lg text-[var(--color-text-light)] leading-relaxed">
+            <p class="text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
               {subtitle}
             </p>
           )}
-          <Decorations type="divider" />
-        </header>
+        </div>
+      </div>
 
-        <!-- Article content -->
-        <article class="max-w-[720px] mx-auto prose-coffee">
+      <!-- Article content -->
+      <div class="max-w-3xl mx-auto px-6 py-12">
+        <article class="prose-coffee">
           <slot />
         </article>
 
         <!-- Back link -->
-        <div class="max-w-[720px] mx-auto mt-12">
-          <Decorations type="divider" />
+        <div class="mt-16 pt-8 border-t border-[var(--color-border)]">
           <a
             href={`${base}/${lang}`}
-            class="inline-flex items-center gap-2 text-[var(--color-accent)] hover:text-[var(--color-primary)] font-medium transition-colors"
+            class="inline-flex items-center gap-2 text-[var(--color-primary)] hover:text-[var(--color-dark)] font-semibold transition-colors text-sm"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -76,8 +75,9 @@ const description = subtitle || t(lang, 'site.description');
             {t(lang, 'common.back_to_home')}
           </a>
         </div>
-      </main>
-      <Footer lang={lang} />
-    </div>
+      </div>
+    </main>
+
+    <Footer lang={lang} />
   </body>
 </html>

@@ -1,0 +1,131 @@
+---
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const navItems = [
+  { key: 'origins', href: `${base}/${lang}/origins` },
+  { key: 'brewing', href: `${base}/${lang}/brewing` },
+  { key: 'science', href: `${base}/${lang}/science` },
+  { key: 'processing', href: `${base}/${lang}/processing` },
+  { key: 'tools', href: `${base}/${lang}/tools` },
+];
+
+const normalizedCurrent = `${base}${currentPath}`;
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-[var(--color-border)] bg-[var(--color-background)]/95 backdrop-blur-md">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
+    <!-- Logo -->
+    <a href={`${base}/${lang}`} class="flex items-center gap-2.5 shrink-0 group">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+        <line x1="6" y1="1" x2="6" y2="4"/>
+        <line x1="10" y1="1" x2="10" y2="4"/>
+        <line x1="14" y1="1" x2="14" y2="4"/>
+      </svg>
+      <span class="font-[var(--font-heading)] text-base font-bold text-[var(--color-dark)] tracking-tight">
+        Coffee Study
+      </span>
+    </a>
+
+    <!-- Nav links — desktop -->
+    <nav class="hidden md:flex items-center gap-1 flex-1 justify-center">
+      {navItems.map((item) => {
+        const isActive = normalizedCurrent === item.href ||
+          (item.key !== 'home' && normalizedCurrent.startsWith(item.href));
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              'relative px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors tracking-wide',
+              isActive
+                ? 'text-[var(--color-primary)] bg-[var(--color-primary)]/8'
+                : 'text-[var(--color-text-muted)] hover:text-[var(--color-dark)] hover:bg-[var(--color-border)]/40',
+            ]}
+          >
+            {t(lang, `nav.${item.key}`)}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Right: Lang toggle + hamburger -->
+    <div class="flex items-center gap-3 shrink-0">
+      <!-- Language Toggle -->
+      <div class="flex rounded-full overflow-hidden border border-[var(--color-border)] text-xs font-bold">
+        <a
+          href={currentPath.replace(`/${lang}`, `${base}/ja`)}
+          class:list={[
+            'px-3 py-1.5 transition-colors',
+            lang === 'ja'
+              ? 'bg-[var(--color-primary)] text-white'
+              : 'text-[var(--color-text-muted)] hover:bg-[var(--color-border)]/50',
+          ]}
+        >JA</a>
+        <a
+          href={currentPath.replace(`/${lang}`, `${base}/en`)}
+          class:list={[
+            'px-3 py-1.5 transition-colors',
+            lang === 'en'
+              ? 'bg-[var(--color-primary)] text-white'
+              : 'text-[var(--color-text-muted)] hover:bg-[var(--color-border)]/50',
+          ]}
+        >EN</a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button id="mobile-menu-btn" class="md:hidden p-1.5 text-[var(--color-dark)]" aria-label="Menu">
+        <svg id="menu-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="menu-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-[var(--color-border)] bg-[var(--color-background)]">
+    <nav class="px-6 py-4 flex flex-col gap-1">
+      {navItems.map((item) => {
+        const isActive = normalizedCurrent === item.href || normalizedCurrent.startsWith(item.href);
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              'px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors',
+              isActive
+                ? 'text-[var(--color-primary)] bg-[var(--color-primary)]/8'
+                : 'text-[var(--color-text-muted)]',
+            ]}
+          >
+            {t(lang, `nav.${item.key}`)}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const openIcon = document.getElementById('menu-open-icon')!;
+  const closeIcon = document.getElementById('menu-close-icon')!;
+
+  btn.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', isOpen);
+    openIcon.classList.toggle('hidden', !isOpen);
+    closeIcon.classList.toggle('hidden', isOpen);
+  });
+</script>

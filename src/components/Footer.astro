@@ -6,21 +6,62 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<footer class="border-t border-[var(--color-border)] py-8 mt-12">
-  <div class="max-w-4xl mx-auto px-6 text-center">
-    <p class="font-[var(--font-accent)] text-lg text-[var(--color-secondary)] mb-2">
-      Coffee Study
-    </p>
-    <p class="text-sm text-[var(--color-text-light)]">
-      {lang === 'ja'
-        ? 'コーヒーの奥深い世界を、一杯ずつ。'
-        : 'Exploring the depth of coffee, one cup at a time.'}
-    </p>
-    <hr class="menu-divider my-4" />
-    <p class="text-xs text-[var(--color-text-light)]">
-      &copy; 2026 Coffee Study. All rights reserved.
-    </p>
+<footer class="mt-auto" style="background-color: #221610;">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-2.5 mb-5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bd490f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+          <h2 class="font-[var(--font-heading)] text-lg font-bold text-white">Coffee Study</h2>
+        </div>
+        <p class="text-sm text-white/50 leading-relaxed max-w-xs">
+          {lang === 'ja'
+            ? 'スペシャルティコーヒーの産地・化学・抽出を体系的に学ぶための、中〜上級者向けリソース。'
+            : 'A resource for intermediate to advanced learners exploring the science, origins, and craft of specialty coffee.'}
+        </p>
+        <p class="font-[var(--font-heading)] text-sm italic text-white/25 mt-4">
+          {lang === 'ja' ? 'コーヒーを、もっと深く。' : 'Dive deeper into coffee.'}
+        </p>
+      </div>
+
+      <!-- Content links -->
+      <div>
+        <h5 class="text-white font-bold mb-5 uppercase tracking-widest text-xs">
+          {lang === 'ja' ? 'コンテンツ' : 'Content'}
+        </h5>
+        <ul class="space-y-3 text-sm text-white/50">
+          <li><a href={`${base}/${lang}/origins`} class="hover:text-white transition-colors">{lang === 'ja' ? '産地・農園' : 'Origins'}</a></li>
+          <li><a href={`${base}/${lang}/brewing`} class="hover:text-white transition-colors">{lang === 'ja' ? '抽出ガイド' : 'Brewing Guide'}</a></li>
+          <li><a href={`${base}/${lang}/science`} class="hover:text-white transition-colors">{lang === 'ja' ? 'コーヒーの化学' : 'Coffee Science'}</a></li>
+          <li><a href={`${base}/${lang}/processing`} class="hover:text-white transition-colors">{lang === 'ja' ? '精製プロセス' : 'Processing'}</a></li>
+          <li><a href={`${base}/${lang}/tools`} class="hover:text-white transition-colors">{lang === 'ja' ? 'レシピ計算機' : 'Recipe Calculator'}</a></li>
+        </ul>
+      </div>
+
+      <!-- About -->
+      <div>
+        <h5 class="text-white font-bold mb-5 uppercase tracking-widest text-xs">About</h5>
+        <p class="text-sm text-white/50 leading-relaxed">
+          {lang === 'ja'
+            ? 'スペシャルティコーヒーの世界を、科学的・文化的・感覚的な視点から探求するプロジェクトです。'
+            : 'A project exploring specialty coffee from scientific, cultural, and sensory perspectives.'}
+        </p>
+      </div>
+    </div>
+
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/25">
+      <p>&copy; 2026 Coffee Study. All rights reserved.</p>
+      <p>Powered by curiosity & caffeine.</p>
+    </div>
   </div>
 </footer>

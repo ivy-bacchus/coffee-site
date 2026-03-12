@@ -1,163 +1,274 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import SectionCard from '../../components/SectionCard.astro';
-import Decorations from '../../components/Decorations.astro';
 import { t } from '../../i18n';
 
 const lang = 'ja';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const icons = {
-  origins: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-  science: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
-  brewing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-  processing: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
-  tools: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
-  cupping: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="5"/><line x1="10" y1="2" x2="10" y2="5"/><line x1="14" y1="2" x2="14" y2="5"/></svg>`,
-  varieties: `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
-};
+const sections = [
+  {
+    key: 'origins',
+    title: '産地・農園',
+    subtitle: 'Origins & Farms',
+    desc: 'エチオピア、ケニア、コロンビア——テロワールが生む多様なフレーバーを深掘り。',
+    href: `${base}/${lang}/origins`,
+    image: `${base}/images/origins/ethiopia.jpg`,
+    badge: 'Terroir',
+  },
+  {
+    key: 'brewing',
+    title: '抽出ガイド',
+    subtitle: 'Brewing Methods',
+    desc: 'V60、エスプレッソ、フレンチプレス——器具ごとの理論とレシピ。',
+    href: `${base}/${lang}/brewing`,
+    image: `${base}/images/brewing/v60.jpg`,
+    badge: 'Pour Over & Espresso',
+  },
+  {
+    key: 'science',
+    title: 'コーヒーの化学',
+    subtitle: 'Coffee Science',
+    desc: '焙煎の化学反応、抽出の物理学——コーヒーの「なぜ」に迫る。',
+    href: `${base}/${lang}/science`,
+    image: `${base}/images/science/roasting.jpg`,
+    badge: 'Chemistry & Physics',
+  },
+  {
+    key: 'processing',
+    title: '精製プロセス',
+    subtitle: 'Processing Methods',
+    desc: 'ウォッシュド、ナチュラル、ハニー——精製法が味に与える影響。',
+    href: `${base}/${lang}/processing`,
+    image: `${base}/images/processing/natural.jpg`,
+    badge: 'Washed · Natural · Honey',
+  },
+  {
+    key: 'tools',
+    title: 'レシピ計算機',
+    subtitle: 'Tools & Calculator',
+    desc: 'ドリッパー別のレシピ計算機。杯数から最適な豆量を即算出。',
+    href: `${base}/${lang}/tools`,
+    image: `${base}/images/brewing/espresso.jpg`,
+    badge: 'Recipe Calculator',
+  },
+];
+
+const featured = sections[0];
+const grid = sections.slice(1);
 ---
 
-<BaseLayout lang={lang} currentPath={`/${lang}`}>
-  <!-- Hero Section — with photo -->
-  <div class="relative mb-16 rounded-3xl overflow-hidden">
-    <!-- Hero image -->
-    <div class="relative h-72 md:h-96">
+<BaseLayout lang={lang} currentPath={`/${lang}`} fullWidth={true}>
+
+  <!-- ==================== Hero ==================== -->
+  <section class="relative h-[88vh] min-h-[540px] flex items-end overflow-hidden">
+    <div class="absolute inset-0">
       <img
         src={`${base}/images/home/hero.jpg`}
         alt="Coffee"
         class="w-full h-full object-cover"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-bg)] via-[var(--color-bg)]/70 to-transparent" />
+      <div class="absolute inset-0" style="background: linear-gradient(to top, #221610 0%, rgba(34,22,16,0.55) 40%, rgba(34,22,16,0.1) 100%);" />
     </div>
 
-    <!-- Overlay text -->
-    <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-12">
-      <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl md:text-2xl mb-3 -rotate-2">
-        specialty coffee guide
-      </p>
-      <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-[1.1] mb-6">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
+      <span class="inline-block px-4 py-1 border border-white/25 rounded-full text-xs font-bold tracking-widest uppercase mb-6 text-white/80 backdrop-blur-sm">
+        Specialty Coffee Guide
+      </span>
+      <h1 class="font-[var(--font-heading)] text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6">
         コーヒーを、<br />
-        <span class="text-[var(--color-accent)]">もっと深く。</span>
+        <span style="color: #bd490f;">もっと深く。</span>
       </h1>
-      <p class="text-lg md:text-xl text-[var(--color-text-light)] max-w-xl leading-relaxed">
-        {t(lang, 'home.hero_subtitle')}
+      <p class="text-lg md:text-xl text-white/65 max-w-lg leading-relaxed mb-10">
+        産地・抽出・化学・精製——スペシャルティコーヒーの世界を体系的に学ぶ。
       </p>
+      <div class="flex flex-wrap gap-4">
+        <a
+          href={`${base}/${lang}/origins`}
+          class="inline-flex items-center gap-2 text-white font-bold px-8 py-3.5 rounded-xl transition-all hover:brightness-110"
+          style="background-color: #bd490f;"
+        >
+          探索を始める
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a
+          href={`${base}/${lang}/tools`}
+          class="inline-flex items-center gap-2 text-white font-semibold px-8 py-3.5 rounded-xl border border-white/25 backdrop-blur-sm transition-all hover:bg-white/10"
+        >
+          レシピ計算機
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <Decorations type="divider" />
+  <!-- ==================== Sections ==================== -->
+  <section class="py-24 bg-[var(--color-background)]">
+    <div class="max-w-7xl mx-auto px-6">
 
-  <!-- Menu label — hand-drawn feel -->
-  <div class="text-center my-10">
-    <p class="font-[var(--font-accent)] text-3xl text-[var(--color-primary)] mb-1">
-      Menu
-    </p>
-    <p class="text-xs text-[var(--color-text-light)] tracking-[0.3em] uppercase">
-      what would you like to explore?
-    </p>
-  </div>
+      <!-- Heading -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color: #bd490f;">Explore</p>
+          <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)]">
+            テーマ別に学ぶ
+          </h2>
+        </div>
+        <p class="text-[var(--color-text-muted)] text-sm max-w-xs leading-relaxed">
+          5つのテーマから、コーヒーの奥深い世界を探求しましょう。
+        </p>
+      </div>
 
-  <!-- Bento-style irregular grid -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-    <!-- Featured: Origins (large, spans 2 cols + 2 rows) -->
-    <SectionCard
-      title={t(lang, 'home.section_origins')}
-      description={t(lang, 'home.section_origins_desc')}
-      href={`${base}/${lang}/origins`}
-      icon={icons.origins}
-      accentLabel="Terroir & Farms"
-      variant="featured"
-      gradient="from-emerald-900/8 to-amber-900/3"
-    />
+      <!-- Featured card -->
+      <div class="mb-6">
+        <a
+          href={featured.href}
+          class="group block rounded-2xl overflow-hidden relative shadow-lg hover:shadow-2xl transition-all duration-500"
+          style="height: 420px;"
+        >
+          <img
+            src={featured.image}
+            alt={featured.title}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          />
+          <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(34,22,16,0.85) 0%, rgba(34,22,16,0.4) 60%, transparent 100%);" />
+          <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+            <span
+              class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide mb-4 text-white w-fit"
+              style="background-color: #bd490f;"
+            >{featured.badge}</span>
+            <h3 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-white mb-2">
+              {featured.title}
+            </h3>
+            <p class="text-white/65 max-w-md text-sm leading-relaxed mb-5">{featured.desc}</p>
+            <span class="inline-flex items-center gap-2 text-white/50 text-sm font-semibold group-hover:text-white transition-colors">
+              詳しく見る
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
 
-    <!-- Science (standard, single cell) -->
-    <SectionCard
-      title={t(lang, 'home.section_science')}
-      description={t(lang, 'home.section_science_desc')}
-      href={`${base}/${lang}/science`}
-      icon={icons.science}
-      accentLabel="Chemistry & Physics"
-      gradient="from-blue-900/5 to-transparent"
-    />
-
-    <!-- Brewing (standard) -->
-    <SectionCard
-      title={t(lang, 'home.section_brewing')}
-      description={t(lang, 'home.section_brewing_desc')}
-      href={`${base}/${lang}/brewing`}
-      icon={icons.brewing}
-      accentLabel="Pour Over & Immersion"
-      gradient="from-cyan-900/5 to-transparent"
-    />
-  </div>
-
-  <Decorations type="beans" />
-
-  <!-- Second row: 2-column -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-    <SectionCard
-      title={t(lang, 'home.section_processing')}
-      description={t(lang, 'home.section_processing_desc')}
-      href={`${base}/${lang}/processing`}
-      icon={icons.processing}
-      accentLabel="Washed · Natural · Honey"
-      gradient="from-orange-900/5 to-transparent"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_tools')}
-      description={t(lang, 'home.section_tools_desc')}
-      href={`${base}/${lang}/tools`}
-      icon={icons.tools}
-      accentLabel="Recipe Calculator"
-      gradient="from-amber-800/5 to-transparent"
-    />
-  </div>
-
-  <!-- Third row: 3-column compact -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-    <SectionCard
-      title={t(lang, 'home.section_cupping')}
-      description={t(lang, 'home.section_cupping_desc')}
-      href={`${base}/${lang}/cupping`}
-      icon={icons.cupping}
-      variant="compact"
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-rose-900/5 to-transparent"
-    />
-    <SectionCard
-      title={t(lang, 'home.section_varieties')}
-      description={t(lang, 'home.section_varieties_desc')}
-      href={`${base}/${lang}/varieties`}
-      icon={icons.varieties}
-      variant="compact"
-      comingSoon
-      accentLabel={t(lang, 'common.coming_soon')}
-      gradient="from-green-900/5 to-transparent"
-    />
-
-    <!-- Easter egg card -->
-    <div class="rounded-2xl border border-dashed border-[var(--color-secondary)]/30 p-5 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[var(--color-secondary)]/5 to-transparent">
-      <span class="text-2xl mb-2">✨</span>
-      <p class="font-[var(--font-accent)] text-lg text-[var(--color-secondary)]">
-        More coming soon...
-      </p>
-      <p class="text-xs text-[var(--color-text-light)] mt-1">
-        新しいコンテンツを準備中
-      </p>
+      <!-- Grid: other 4 sections -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {grid.map((section) => (
+          <a
+            href={section.href}
+            class="group block rounded-xl overflow-hidden relative shadow hover:shadow-xl transition-all duration-500"
+            style="aspect-ratio: 4/3;"
+          >
+            <img
+              src={section.image}
+              alt={section.title}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            />
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(34,22,16,0.88) 0%, rgba(34,22,16,0.2) 60%, transparent 100%);" />
+            <div class="absolute inset-0 flex flex-col justify-end p-5">
+              <span class="text-[10px] font-bold uppercase tracking-widest mb-1.5" style="color: #bd490f;">{section.badge}</span>
+              <h3 class="font-[var(--font-heading)] text-base font-bold text-white leading-snug">{section.title}</h3>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
-  </div>
+  </section>
 
-  <Decorations type="divider" />
+  <!-- ==================== Philosophy ==================== -->
+  <section class="py-24" style="background-color: #221610;">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
 
-  <!-- Bottom quote -->
-  <div class="text-center py-8">
-    <blockquote class="font-[var(--font-heading)] text-xl md:text-2xl italic text-[var(--color-primary)]/70 max-w-lg mx-auto">
-      "Coffee is a lot more than just a drink; it's something happening."
-    </blockquote>
-    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] mt-3 text-lg">
-      — Gertrude Stein
-    </p>
-  </div>
+        <!-- Image -->
+        <div class="relative">
+          <div class="rounded-2xl overflow-hidden shadow-2xl aspect-square">
+            <img
+              src={`${base}/images/science/roasting.jpg`}
+              alt="Roasting"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="absolute -bottom-5 -right-5 hidden md:block">
+            <div class="rounded-2xl p-6 text-white shadow-2xl" style="background-color: #bd490f; max-width: 200px;">
+              <p class="text-sm font-[var(--font-heading)] italic leading-snug">
+                "豆の声を聴き、秒単位で対話する。それが焙煎です。"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="text-white">
+          <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color: #bd490f;">Deep Dive</p>
+          <h2 class="font-[var(--font-heading)] text-4xl font-bold mb-6 leading-tight">
+            なぜコーヒーは<br />
+            <span style="color: #bd490f;">こんなに複雑なのか。</span>
+          </h2>
+          <p class="text-white/55 mb-10 leading-relaxed text-lg">
+            コーヒーには1000種類以上の芳香成分が含まれます。ワインよりも複雑とも言われるこの飲み物を、科学・産地・人の視点から深く理解しましょう。
+          </p>
+          <div class="space-y-7">
+            {[
+              {
+                title: '産地のテロワール',
+                desc: '土壌・標高・気候が生み出す、唯一無二のフレーバー。',
+                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+              },
+              {
+                title: '化学反応の美学',
+                desc: 'メイラード反応、カラメル化——熱が引き出す複雑な香味。',
+                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
+              },
+              {
+                title: '抽出の物理学',
+                desc: '水温・粒度・時間のバランスが、一杯の味を決める。',
+                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+              },
+            ].map((item) => (
+              <div class="flex gap-5">
+                <div
+                  class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-white"
+                  style="background-color: rgba(189,73,15,0.25);"
+                  set:html={item.icon}
+                />
+                <div>
+                  <h5 class="font-bold text-white mb-1">{item.title}</h5>
+                  <p class="text-white/45 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="py-20 bg-[var(--color-background)]">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">
+        どこから始めますか？
+      </h2>
+      <p class="text-[var(--color-text-muted)] mb-10 max-w-md mx-auto leading-relaxed">
+        産地から読む？抽出の科学から学ぶ？興味のある入口から始めてください。
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a
+          href={`${base}/${lang}/origins`}
+          class="px-8 py-3 rounded-xl font-bold text-white transition-all hover:brightness-110"
+          style="background-color: #bd490f;"
+        >産地を探索する</a>
+        <a
+          href={`${base}/${lang}/science`}
+          class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all"
+        >科学を学ぶ</a>
+        <a
+          href={`${base}/${lang}/tools`}
+          class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all"
+        >計算機を使う</a>
+      </div>
+    </div>
+  </section>
+
 </BaseLayout>
