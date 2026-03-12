@@ -6,8 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ivy-bacchus.github.io',
-  base: '/coffee-site',
+  site: 'https://coffee-site.pages.dev',
   output: 'static',
   integrations: [react()],
 
