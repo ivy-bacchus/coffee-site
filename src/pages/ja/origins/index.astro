@@ -1,50 +1,91 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Decorations from '../../../components/Decorations.astro';
 import OriginsMap from '../../../components/OriginsMap';
-import { t } from '../../../i18n';
 
 const lang = 'ja';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const countries = [
+const regions = [
   {
-    slug: 'ethiopia',
-    name: 'エチオピア',
-    nameEn: 'Ethiopia',
-    flag: '🇪🇹',
-    tagline: 'コーヒー発祥の地',
-    flavors: ['フローラル', 'ベリー', 'シトラス'],
-    color: 'from-green-800/10 to-amber-800/5',
-    image: `${base}/images/origins/ethiopia.jpg`,
+    region: 'アフリカ',
+    regionEn: 'Africa',
+    countries: [
+      {
+        slug: 'ethiopia',
+        name: 'エチオピア',
+        nameEn: 'Ethiopia',
+        flagCode: 'et',
+        tagline: 'コーヒー発祥の地',
+        flavors: ['フローラル', 'ベリー', 'シトラス'],
+      },
+      {
+        slug: 'kenya',
+        name: 'ケニア',
+        nameEn: 'Kenya',
+        flagCode: 'ke',
+        tagline: '鮮烈な酸とジューシーさ',
+        flavors: ['ブラックカラント', 'トマト', 'グレープフルーツ'],
+      },
+    ],
   },
   {
-    slug: 'kenya',
-    name: 'ケニア',
-    nameEn: 'Kenya',
-    flag: '🇰🇪',
-    tagline: '鮮烈な酸とジューシーさ',
-    flavors: ['ブラックカラント', 'トマト', 'グレープフルーツ'],
-    color: 'from-red-800/10 to-green-800/5',
-    image: `${base}/images/origins/kenya.jpg`,
-  },
-  {
-    slug: 'colombia',
-    name: 'コロンビア',
-    nameEn: 'Colombia',
-    flag: '🇨🇴',
-    tagline: 'バランスの芸術',
-    flavors: ['キャラメル', 'ナッツ', 'レッドアップル'],
-    color: 'from-yellow-800/10 to-blue-800/5',
-    image: `${base}/images/origins/colombia.jpg`,
+    region: '中南米',
+    regionEn: 'Latin America',
+    countries: [
+      {
+        slug: 'colombia',
+        name: 'コロンビア',
+        nameEn: 'Colombia',
+        flagCode: 'co',
+        tagline: 'バランスの芸術',
+        flavors: ['キャラメル', 'ナッツ', 'レッドアップル'],
+      },
+      {
+        slug: 'brazil',
+        name: 'ブラジル',
+        nameEn: 'Brazil',
+        flagCode: 'br',
+        tagline: '世界最大のコーヒー生産国',
+        flavors: ['ナッツ', 'チョコレート', 'キャラメル'],
+      },
+      {
+        slug: 'guatemala',
+        name: 'グアテマラ',
+        nameEn: 'Guatemala',
+        flagCode: 'gt',
+        tagline: '火山性土壌と古代マヤの大地',
+        flavors: ['ダークチョコ', 'スパイス', 'ドライフルーツ'],
+      },
+    ],
   },
 ];
 
-const comingSoon = [
-  { name: 'ブラジル', flag: '🇧🇷' },
-  { name: 'グアテマラ', flag: '🇬🇹' },
-  { name: 'パナマ', flag: '🇵🇦' },
-  { name: 'イエメン', flag: '🇾🇪' },
+const comingSoonRegions = [
+  {
+    region: 'アフリカ',
+    countries: [
+      { name: 'タンザニア', nameEn: 'Tanzania', flagCode: 'tz' },
+    ],
+  },
+  {
+    region: '中南米',
+    countries: [
+      { name: 'パナマ',        nameEn: 'Panama',      flagCode: 'pa' },
+      { name: 'コスタリカ',    nameEn: 'Costa Rica',  flagCode: 'cr' },
+      { name: 'エルサルバドル', nameEn: 'El Salvador', flagCode: 'sv' },
+      { name: 'ペルー',        nameEn: 'Peru',        flagCode: 'pe' },
+      { name: 'ホンジュラス',  nameEn: 'Honduras',    flagCode: 'hn' },
+      { name: 'ニカラグア',    nameEn: 'Nicaragua',   flagCode: 'ni' },
+      { name: 'ジャマイカ',    nameEn: 'Jamaica',     flagCode: 'jm' },
+    ],
+  },
+  {
+    region: 'アジア・中東',
+    countries: [
+      { name: 'インドネシア', nameEn: 'Indonesia', flagCode: 'id' },
+      { name: 'イエメン',     nameEn: 'Yemen',     flagCode: 'ye' },
+    ],
+  },
 ];
 ---
 
@@ -63,8 +104,6 @@ const comingSoon = [
     </p>
   </div>
 
-  <Decorations type="divider" />
-
   <!-- Interactive Map -->
   <div class="mb-12">
     <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-3">
@@ -73,65 +112,119 @@ const comingSoon = [
     <OriginsMap client:load lang={lang} base={base} />
   </div>
 
-  <Decorations type="divider" />
+  <!-- Country cards by region -->
+  {regions.map((regionGroup) => (
+    <div class="mb-14">
+      <!-- Region label -->
+      <div class="flex items-center gap-4 mb-6">
+        <div class="flex-1 h-px bg-[var(--color-border)]" />
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold tracking-widest uppercase text-[var(--color-text-muted)]">{regionGroup.regionEn}</span>
+          <span class="text-xs font-bold text-[var(--color-text-muted)]">·</span>
+          <span class="text-xs font-bold text-[var(--color-text-muted)]">{regionGroup.region}</span>
+        </div>
+        <div class="flex-1 h-px bg-[var(--color-border)]" />
+      </div>
 
-  <!-- Country cards -->
-  <div class="space-y-6 mb-12">
-    {countries.map((country, i) => (
-      <a
-        href={`${base}/${lang}/origins/${country.slug}`}
-        class="block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-      >
-        <div class="flex flex-col md:flex-row">
-          <!-- Image -->
-          <div class="md:w-56 h-44 md:h-auto overflow-hidden flex-shrink-0 relative">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {regionGroup.countries.map((country) => (
+          <a
+            href={`${base}/${lang}/origins/${country.slug}`}
+            class="group relative overflow-hidden rounded-2xl block"
+            style="aspect-ratio: 3/2;"
+          >
+            <!-- Flag image -->
             <img
-              src={country.image}
-              alt={country.name}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              src={`https://flagcdn.com/w640/${country.flagCode}.png`}
+              alt={`${country.name}国旗`}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+              loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[var(--color-card)]/60 hidden md:block" />
-          </div>
-
-          <!-- Content -->
-          <div class:list={['flex-1 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5 bg-gradient-to-r', country.color]}>
-            <div class="md:min-w-[180px]">
-              <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-1">{country.nameEn}</p>
-              <h2 class="text-2xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] group-hover:text-[var(--color-accent)] transition-colors">
-                {country.name}
-              </h2>
-              <p class="text-[var(--color-text-light)] text-sm mt-1">{country.tagline}</p>
+            <!-- Diagonal half-shadow gradient -->
+            <div
+              class="absolute inset-0"
+              style="background: linear-gradient(160deg, transparent 20%, rgba(20,10,5,0.6) 48%, rgba(20,10,5,0.97) 78%);"
+            />
+            <!-- Hover arrow -->
+            <div
+              class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0"
+              style="background-color: rgba(189,73,15,0.85);"
+            >
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </div>
-
-            <div class="flex flex-wrap gap-2 flex-1">
-              {country.flavors.map((f) => (
-                <span class="text-xs px-3 py-1 rounded-full bg-[var(--color-primary)]/8 text-[var(--color-primary)] font-medium border border-[var(--color-primary)]/10">
-                  {f}
-                </span>
-              ))}
+            <!-- Text content at bottom -->
+            <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+              <p
+                class="text-xs font-bold uppercase tracking-widest mb-1"
+                style="color: rgba(255,255,255,0.5); text-shadow: 0 1px 3px rgba(0,0,0,0.8);"
+              >{country.nameEn}</p>
+              <h2
+                class="text-2xl font-black text-white mb-1 leading-tight"
+                style="font-family: 'Work Sans', sans-serif; text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 1px 2px rgba(0,0,0,1);"
+              >{country.name}</h2>
+              <p
+                class="text-sm mb-3"
+                style="color: rgba(255,255,255,0.75); text-shadow: 0 1px 4px rgba(0,0,0,0.9);"
+              >{country.tagline}</p>
+              <div class="flex flex-wrap gap-1.5">
+                {country.flavors.map((f) => (
+                  <span
+                    class="text-xs px-2.5 py-0.5 rounded-full font-semibold"
+                    style="background-color: rgba(189,73,15,0.35); color: #fcd9c0; border: 1px solid rgba(189,73,15,0.5); text-shadow: 0 1px 2px rgba(0,0,0,0.6);"
+                  >
+                    {f}
+                  </span>
+                ))}
+              </div>
             </div>
-
-            <svg class="w-5 h-5 text-[var(--color-accent)] opacity-0 group-hover:opacity-100 transition-all shrink-0 hidden md:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </div>
-        </div>
-      </a>
-    ))}
-  </div>
-
-  <Decorations type="beans" />
-
-  <!-- Coming soon -->
-  <div class="mb-8">
-    <p class="font-[var(--font-accent)] text-xl text-[var(--color-text-light)] mb-4">Coming soon...</p>
-    <div class="flex flex-wrap gap-3">
-      {comingSoon.map((c) => (
-        <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border border-[var(--color-border)] opacity-50">
-          <span class="text-xl">{c.flag}</span>
-          <span class="text-sm text-[var(--color-text-light)]">{c.name}</span>
-        </div>
-      ))}
+          </a>
+        ))}
+      </div>
     </div>
+  ))}
+
+  <!-- Coming soon section by region -->
+  <div class="mb-4">
+    <div class="flex items-center gap-4 mb-8">
+      <div class="flex-1 h-px bg-[var(--color-border)]" />
+      <p class="text-xs font-bold tracking-widest uppercase text-[var(--color-text-muted)]">Coming Soon</p>
+      <div class="flex-1 h-px bg-[var(--color-border)]" />
+    </div>
+
+    {comingSoonRegions.map((regionGroup) => (
+      <div class="mb-6">
+        <p class="text-xs font-bold uppercase tracking-widest text-[var(--color-text-muted)] mb-3 pl-1">{regionGroup.region}</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+          {regionGroup.countries.map((c) => (
+            <div class="relative overflow-hidden rounded-xl cursor-default" style="aspect-ratio: 3/2;">
+              <img
+                src={`https://flagcdn.com/w320/${c.flagCode}.png`}
+                alt={`${c.name}国旗`}
+                class="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div class="absolute inset-0" style="background: rgba(20,10,5,0.68);" />
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(20,10,5,0.95) 0%, transparent 60%);" />
+              <div class="absolute top-2 right-2">
+                <span
+                  class="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                  style="background-color: rgba(20,10,5,0.7); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12);"
+                >
+                  準備中
+                </span>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 p-3">
+                <p
+                  class="text-xs font-bold leading-tight"
+                  style="color: rgba(255,255,255,0.65); text-shadow: 0 1px 3px rgba(0,0,0,0.9);"
+                >{c.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
   </div>
 </BaseLayout>

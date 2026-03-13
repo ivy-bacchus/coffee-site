@@ -105,11 +105,11 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
       <div className="flex items-center gap-6 mb-4 text-sm">
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-[#C1553B] inline-block" />
-          <span style={{ color: 'var(--color-text-light)' }}>記事あり</span>
+          <span style={{ color: 'var(--color-text-light)' }}>{lang === 'ja' ? '記事あり' : 'Available'}</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-[#D4A574] inline-block" />
-          <span style={{ color: 'var(--color-text-light)' }}>準備中</span>
+          <span style={{ color: 'var(--color-text-light)' }}>{lang === 'ja' ? '準備中' : 'Coming Soon'}</span>
         </div>
       </div>
 
@@ -225,11 +225,11 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
             </p>
             {tooltip.country.ready ? (
               <p style={{ color: '#C1553B', fontSize: '0.7rem', marginTop: '2px' }}>
-                クリックして詳細へ →
+                {lang === 'ja' ? 'クリックして詳細へ →' : 'Click to explore →'}
               </p>
             ) : (
               <p style={{ color: 'rgba(212,165,116,0.6)', fontSize: '0.7rem', marginTop: '2px' }}>
-                準備中
+                {lang === 'ja' ? '準備中' : 'Coming Soon'}
               </p>
             )}
           </div>
@@ -244,43 +244,6 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
         </div>
       </div>
 
-      {/* Country cards below map */}
-      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
-        {coffeeCountries.filter(c => c.ready).map((country) => (
-          <a
-            key={country.id}
-            href={`${base}/${lang}/origins/${country.slug}`}
-            className="group flex items-center gap-3 p-3 rounded-xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-            style={{
-              borderColor: 'var(--color-border)',
-              background: 'linear-gradient(135deg, rgba(193,85,59,0.05) 0%, transparent 100%)',
-            }}
-          >
-            <span
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{ background: '#C1553B' }}
-            />
-            <div>
-              <p
-                className="font-bold text-sm group-hover:text-[#C1553B] transition-colors"
-                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}
-              >
-                {country.nameJa}
-              </p>
-              <p className="text-xs" style={{ color: 'var(--color-text-light)' }}>
-                {country.region}
-              </p>
-            </div>
-            <svg
-              className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ color: '#C1553B' }}
-              fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        ))}
-      </div>
     </div>
   );
 }
