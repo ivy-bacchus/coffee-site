@@ -55,11 +55,13 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
   }, []);
 
   const width = 800;
-  const height = 420;
+  const height = 400;
 
+  // Zoom into the coffee belt region — center on Africa/Middle East longitude, slight southern offset
   const projection = geoNaturalEarth1()
-    .scale(130)
-    .translate([width / 2, height / 2]);
+    .scale(175)
+    .rotate([-20, 0])
+    .translate([width / 2, height / 2 + 20]);
 
   const pathGenerator = geoPath(projection);
 
@@ -125,23 +127,29 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
           onMouseMove={handleMouseMove}
           onMouseLeave={() => { setHovered(null); setTooltip(null); }}
         >
-          {/* Tropics lines */}
+          {/* Coffee belt band + tropic lines */}
           {(() => {
             const tropicCancer = projection([0, 23.5]);
             const tropicCapricorn = projection([0, -23.5]);
             if (!tropicCancer || !tropicCapricorn) return null;
+            const bandY = tropicCancer[1];
+            const bandH = tropicCapricorn[1] - tropicCancer[1];
             return (
               <>
+                {/* Coffee belt fill */}
+                <rect x={0} y={bandY} width={width} height={bandH}
+                  fill="#D4A574" fillOpacity={0.07} />
+                {/* Tropic lines */}
                 <line x1={0} y1={tropicCancer[1]} x2={width} y2={tropicCancer[1]}
-                  stroke="#D4A574" strokeOpacity={0.15} strokeDasharray="4,6" strokeWidth={1} />
+                  stroke="#D4A574" strokeOpacity={0.3} strokeDasharray="4,6" strokeWidth={1} />
                 <line x1={0} y1={tropicCapricorn[1]} x2={width} y2={tropicCapricorn[1]}
-                  stroke="#D4A574" strokeOpacity={0.15} strokeDasharray="4,6" strokeWidth={1} />
+                  stroke="#D4A574" strokeOpacity={0.3} strokeDasharray="4,6" strokeWidth={1} />
                 <text x={width - 8} y={tropicCancer[1] - 4}
-                  fill="#D4A574" fillOpacity={0.4} fontSize={9} textAnchor="end">
+                  fill="#D4A574" fillOpacity={0.55} fontSize={9} textAnchor="end">
                   Tropic of Cancer
                 </text>
                 <text x={width - 8} y={tropicCapricorn[1] - 4}
-                  fill="#D4A574" fillOpacity={0.4} fontSize={9} textAnchor="end">
+                  fill="#D4A574" fillOpacity={0.55} fontSize={9} textAnchor="end">
                   Tropic of Capricorn
                 </text>
               </>
