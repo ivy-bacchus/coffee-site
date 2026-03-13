@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import OriginsMap from '../../../components/OriginsMap';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const countries = [
+  {
+    slug: 'ethiopia',
+    name: 'Ethiopia',
+    nameEn: 'Ethiopia',
+    flagCode: 'et',
+    tagline: 'Birthplace of Coffee',
+    flavors: ['Floral', 'Berry', 'Citrus'],
+  },
+  {
+    slug: 'kenya',
+    name: 'Kenya',
+    nameEn: 'Kenya',
+    flagCode: 'ke',
+    tagline: 'Vivid Acidity & Complexity',
+    flavors: ['Blackcurrant', 'Tomato', 'Grapefruit'],
+  },
+  {
+    slug: 'colombia',
+    name: 'Colombia',
+    nameEn: 'Colombia',
+    flagCode: 'co',
+    tagline: 'The Art of Balance',
+    flavors: ['Caramel', 'Nutty', 'Red Apple'],
+  },
+  {
+    slug: 'brazil',
+    name: 'Brazil',
+    nameEn: 'Brazil',
+    flagCode: 'br',
+    tagline: "World's Largest Producer",
+    flavors: ['Nutty', 'Chocolate', 'Caramel'],
+  },
+  {
+    slug: 'guatemala',
+    name: 'Guatemala',
+    nameEn: 'Guatemala',
+    flagCode: 'gt',
+    tagline: 'Volcanic Soil & Ancient Maya Land',
+    flavors: ['Dark Chocolate', 'Spice', 'Dried Fruit'],
+  },
+];
+
+const comingSoon = [
+  { name: 'Panama',      nameEn: 'Panama',      flagCode: 'pa' },
+  { name: 'Yemen',       nameEn: 'Yemen',       flagCode: 'ye' },
+  { name: 'Costa Rica',  nameEn: 'Costa Rica',  flagCode: 'cr' },
+  { name: 'El Salvador', nameEn: 'El Salvador', flagCode: 'sv' },
+  { name: 'Peru',        nameEn: 'Peru',        flagCode: 'pe' },
+  { name: 'Indonesia',   nameEn: 'Indonesia',   flagCode: 'id' },
+  { name: 'Honduras',    nameEn: 'Honduras',    flagCode: 'hn' },
+  { name: 'Nicaragua',   nameEn: 'Nicaragua',   flagCode: 'ni' },
+  { name: 'Tanzania',    nameEn: 'Tanzania',    flagCode: 'tz' },
+  { name: 'Jamaica',     nameEn: 'Jamaica',     flagCode: 'jm' },
+];
+---
+
+<BaseLayout lang={lang} currentPath={`/${lang}/origins`}>
+  <!-- Header -->
+  <div class="mb-12">
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl mb-2 -rotate-1">
+      Terroir & Farms
+    </p>
+    <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-tight mb-4">
+      Origins & Farms
+    </h1>
+    <p class="text-lg text-[var(--color-text-light)] max-w-2xl leading-relaxed">
+      Coffee flavor is shaped by where it grows. Altitude, climate, soil, variety, and processing —
+      explore how terroir creates diverse flavors across the world's key origins.
+    </p>
+  </div>
+
+  <!-- Interactive Map -->
+  <div class="mb-12">
+    <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-3">
+      ↓ Click a country to explore
+    </p>
+    <OriginsMap client:load lang={lang} base={base} />
+  </div>
+
+  <!-- Section label -->
+  <div class="flex items-center gap-4 mb-8">
+    <div class="flex-1 h-px bg-[var(--color-border)]" />
+    <p class="text-xs font-bold tracking-widest uppercase text-[var(--color-text-muted)]">Available Origins</p>
+    <div class="flex-1 h-px bg-[var(--color-border)]" />
+  </div>
+
+  <!-- Country cards — uniform flag grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+    {countries.map((country) => (
+      <a
+        href={`${base}/${lang}/origins/${country.slug}`}
+        class="group relative overflow-hidden rounded-2xl block"
+        style="aspect-ratio: 3/2;"
+      >
+        <!-- Flag image -->
+        <img
+          src={`https://flagcdn.com/w640/${country.flagCode}.png`}
+          alt={`${country.name} flag`}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+          loading="lazy"
+        />
+        <!-- Diagonal half-shadow gradient -->
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(160deg, transparent 25%, rgba(34,22,16,0.55) 52%, rgba(34,22,16,0.96) 80%);"
+        />
+        <!-- Hover arrow -->
+        <div class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0" style="background-color: rgba(189,73,15,0.85);">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
+        <!-- Text content at bottom -->
+        <div class="absolute bottom-0 left-0 right-0 p-5 md:p-6">
+          <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color: rgba(255,255,255,0.45);">{country.nameEn}</p>
+          <h2
+            class="text-2xl font-black text-white mb-1 leading-tight"
+            style="font-family: 'Work Sans', sans-serif;"
+          >{country.name}</h2>
+          <p class="text-sm mb-3" style="color: rgba(255,255,255,0.65);">{country.tagline}</p>
+          <div class="flex flex-wrap gap-1.5">
+            {country.flavors.map((f) => (
+              <span
+                class="text-xs px-2.5 py-0.5 rounded-full font-semibold"
+                style="background-color: rgba(189,73,15,0.3); color: #fcd9c0; border: 1px solid rgba(189,73,15,0.4);"
+              >
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- Coming soon section -->
+  <div class="mb-4">
+    <div class="flex items-center gap-4 mb-8">
+      <div class="flex-1 h-px bg-[var(--color-border)]" />
+      <p class="text-xs font-bold tracking-widest uppercase text-[var(--color-text-muted)]">Coming Soon</p>
+      <div class="flex-1 h-px bg-[var(--color-border)]" />
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+      {comingSoon.map((c) => (
+        <div class="relative overflow-hidden rounded-xl cursor-default" style="aspect-ratio: 3/2;">
+          <img
+            src={`https://flagcdn.com/w320/${c.flagCode}.png`}
+            alt={`${c.name} flag`}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+          <!-- Strong overlay for coming-soon dimming -->
+          <div class="absolute inset-0" style="background: rgba(34,22,16,0.65);" />
+          <!-- Bottom gradient -->
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(34,22,16,0.92) 0%, transparent 60%);" />
+          <!-- Lock badge -->
+          <div class="absolute top-2 right-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background-color: rgba(34,22,16,0.7); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12);">
+              Soon
+            </span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-3">
+            <p class="text-xs font-bold text-white/60 leading-tight">{c.name}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
