@@ -1,0 +1,107 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ArticleLayout
+  title="The Science of Espresso"
+  subtitle="9 bars, 30 seconds, 25ml — the principles behind high-pressure extraction and the concentrated shot."
+  accentLabel="Espresso"
+  lang={lang}
+  currentPath={`/${lang}/brewing/espresso`}
+>
+
+<h2>What Is Espresso?</h2>
+
+<p>
+  Espresso is produced by forcing <strong>hot water through finely-ground coffee at high pressure</strong>. The defining difference from drip brewing is pressure — approximately 9 bars (atmospheres) — which extracts 25–30ml of concentrated coffee in just 25–30 seconds.
+</p>
+
+<p>
+  This high-pressure, short-duration process emulsifies <strong>coffee oils into the liquid as crema</strong>, creating the characteristic texture and mouthfeel unique to espresso. Espresso is consumed straight or used as the base for lattes, cappuccinos, americanos, and most café drinks.
+</p>
+
+<div class="info-box">
+  <h4>Espresso Parameters (The Golden Ratio)</h4>
+  <p>
+    <strong>Input (dose):</strong> 18–20g (double shot)<br />
+    <strong>Output (yield):</strong> 36–42g (~2× the input)<br />
+    <strong>Extraction time:</strong> 25–32 seconds<br />
+    <strong>Pressure:</strong> 9 bar (fixed)<br />
+    <strong>Water temperature:</strong> 90–96°C (varies by roast level)<br />
+    <strong>Grind:</strong> Extra fine (espresso-dedicated)
+  </p>
+</div>
+
+<h2>What Is Crema?</h2>
+
+<p>
+  The cream-colored foam floating on espresso — <strong>crema</strong> — is an emulsion of coffee oils and CO₂ gas under high pressure, dispersed as a colloidal suspension. Crema indicates both correct extraction and bean freshness (CO₂ content correlates with time since roasting).
+</p>
+
+<p>
+  More crema isn't always better. Beans roasted very recently release excess CO₂, which can actually disrupt even extraction. The general consensus: <strong>5–14 days post-roast</strong> is optimal for the best crema balance of oils and CO₂.
+</p>
+
+<img
+  src={`${base}/images/brewing/espresso.jpg`}
+  alt="Espresso extraction"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;max-height:320px;"
+/>
+
+<h2>Dialing In</h2>
+
+<p>
+  The process of optimizing an espresso shot is called <strong>dialing in</strong>. The three primary variables:
+</p>
+
+<table>
+  <thead>
+    <tr><th>Variable</th><th>Adjustment Direction</th><th>Effect</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Grind size</strong></td><td>Finer</td><td>Slower extraction, more concentrated — over-extraction risk increases</td></tr>
+    <tr><td><strong>Grind size</strong></td><td>Coarser</td><td>Faster extraction, thinner — under-extraction risk increases</td></tr>
+    <tr><td><strong>Dose</strong></td><td>Increase</td><td>More resistance, slower extraction</td></tr>
+    <tr><td><strong>Temperature</strong></td><td>Higher</td><td>Better acid extraction — suits lighter roasts</td></tr>
+    <tr><td><strong>Tamping</strong></td><td>Even pressure</td><td>Prevents channeling, improves extraction uniformity</td></tr>
+  </tbody>
+</table>
+
+<p>
+  The goal: achieve your target output weight in <strong>25–32 seconds</strong>. If the shot runs too fast, grind finer. Too slow, grind coarser. This iterative adjustment is the core of dialing in.
+</p>
+
+<h2>Channeling and Even Extraction</h2>
+
+<p>
+  Espresso's primary quality enemy is <strong>channeling</strong>. When the coffee puck isn't packed evenly, high-pressure water finds the path of least resistance — flowing through one area (over-extracting it) while bypassing others (leaving them under-extracted). The result: a shot that tastes simultaneously sour and bitter.
+</p>
+
+<p>
+  To prevent channeling: ① <strong>WDT (Weiss Distribution Technique)</strong> — use a thin needle or WDT tool to break up clumps and distribute grounds evenly before tamping; ② <strong>Level tamping</strong> — apply consistent, horizontal pressure with even force; ③ <strong>Quality grinder</strong> — a grinder with low fines and uniform particle distribution reduces channeling dramatically.
+</p>
+
+<div class="info-box">
+  <h4>Espresso Flavor Diagnosis</h4>
+  <p>
+    <strong>Sour / thin (under-extracted)</strong> → Grind finer / raise temperature / extend time<br />
+    <strong>Bitter / harsh (over-extracted)</strong> → Grind coarser / lower temperature / shorten time<br />
+    <strong>Suspected channeling</strong> → Apply WDT / check tamping evenness<br />
+    <strong>Thin crema</strong> → Check bean freshness / use beans 5–14 days post-roast
+  </p>
+</div>
+
+<h2>Machine Anatomy</h2>
+
+<p>
+  From home machines to commercial workhorses, the core structure is consistent: a <strong>boiler</strong> heats and holds water at temperature; a <strong>pump</strong> generates 9-bar pressure; a <strong>group head</strong> (where the portafilter locks in) delivers pressurized water through the coffee puck.
+</p>
+
+<p>
+  Higher-end machines add features like <strong>pre-infusion</strong> — a brief low-pressure soak of the puck before full pressure is applied, which helps water distribute evenly before extraction begins — and <strong>pressure profiling</strong>, which allows manual control of pressure curves throughout the shot for finer creative control.
+</p>
+
+</ArticleLayout>

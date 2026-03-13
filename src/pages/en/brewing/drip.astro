@@ -1,0 +1,191 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+---
+
+<ArticleLayout
+  title="The Science of Pour Over"
+  subtitle="Dripper shape, hole count, flow rate — how design philosophy translates into what's in your cup."
+  accentLabel="Pour Over"
+  lang={lang}
+  currentPath={`/${lang}/brewing/drip`}
+>
+
+<h2>How Pour Over Works</h2>
+
+<p>
+  Pour over (percolation) brewing works by pouring water over a bed of coffee grounds and letting gravity pull it through. Unlike immersion methods (such as French press), the water is <strong>constantly fresh as it contacts the coffee</strong>. As water passes through the grounds and picks up dissolved compounds, the concentration gradient between grounds and water is maintained — driving continuous extraction.
+</p>
+
+<p>
+  The most critical variable in pour over is the relationship between <strong>flow rate and contact time</strong>. Longer contact means higher extraction; faster flow means lower extraction. Flow rate is determined by dripper shape, number of holes, and filter material. Ideal pour over achieves even saturation across the entire coffee bed — avoiding "channeling," where water finds a path of least resistance and causes uneven extraction (over-extracted in channels, under-extracted elsewhere).
+</p>
+
+<div class="info-box">
+  <h4>Pour Over Fundamentals</h4>
+  <p>
+    <strong>Brew ratio:</strong> 1:15–1:17 (1g coffee to 15–17g water)<br />
+    <strong>Water temperature:</strong> 85–96°C (lower for dark roasts, higher for light)<br />
+    <strong>Grind size:</strong> Medium-fine to medium (varies by dripper)<br />
+    <strong>Total brew time:</strong> 2:30–4:00 minutes<br />
+    <strong>Target TDS:</strong> 1.2–1.45% / Extraction yield: 18–22%
+  </p>
+</div>
+
+<h2>Dripper Shape Comparison</h2>
+
+<p>
+  The three main dripper shapes — cone, trapezoid, and flat-bottom — each produce different results due to how they distribute water through the coffee bed.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Examples</th>
+      <th>Holes</th>
+      <th>Flow Control</th>
+      <th>Even Extraction</th>
+      <th>Difficulty</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Cone</strong></td>
+      <td>V60, Origami</td>
+      <td>1 large</td>
+      <td>Pour technique</td>
+      <td>Skill-dependent</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td><strong>Trapezoid</strong></td>
+      <td>Melitta, Kalita (3-hole)</td>
+      <td>1–3 small</td>
+      <td>Dripper-controlled</td>
+      <td>Relatively even</td>
+      <td>Low–Medium</td>
+    </tr>
+    <tr>
+      <td><strong>Flat Bottom</strong></td>
+      <td>Kalita Wave, Fellow Stagg</td>
+      <td>3 holes</td>
+      <td>Filter shape</td>
+      <td>High</td>
+      <td>Low–Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  The cone shape concentrates water at the apex, creating a thicker coffee bed in the center — meaning slightly stronger extraction there. Flat-bottom drippers spread grounds evenly for theoretically the most uniform extraction. Trapezoid drippers sit between these: small holes restrict flow rate, giving the dripper itself more control over contact time.
+</p>
+
+<h2>Hario V60 — Deep Dive</h2>
+
+<p>
+  The Hario V60 is a 60-degree conical dripper with <strong>spiral ribs</strong> running up the interior wall. These ribs create a gap between filter and dripper, allowing air to escape freely and promoting even water distribution. Its single large opening imposes no restriction on flow — so pour speed, volume, and timing are entirely the brewer's responsibility. This is why V60 is described as "expressive but demanding."
+</p>
+
+<p>
+  V60 faithfully reflects the brewer's intent. Pouring slow and low increases contact time, enhancing sweetness and body. Faster pours emphasize bright acidity. For specialty coffee baristas who want to highlight a bean's terroir and variety characteristics, V60 is the reference standard.
+</p>
+
+<div class="info-box">
+  <h4>V60 Base Recipe (1 cup / ~240ml)</h4>
+  <p>
+    <strong>Coffee:</strong> 15g / <strong>Water:</strong> 240g (1:16)<br />
+    <strong>Temperature:</strong> 92–94°C (medium roast) / 88–91°C (dark roast)<br />
+    <strong>Grind:</strong> Medium-fine (finer than standard drip, coarser than espresso)<br />
+    <strong>Bloom:</strong> 30g water, 30-second rest<br />
+    <strong>Pours:</strong> 60g → 60g → 90g in circular motions<br />
+    <strong>Total time:</strong> ~2:45–3:15
+  </p>
+</div>
+
+<h2>Kalita Wave — Deep Dive</h2>
+
+<p>
+  The Kalita Wave is a flat-bottom dripper featuring <strong>three evenly-spaced holes</strong> and a distinctive wave-patterned filter. The flat base causes grounds to spread evenly, and water passes through the entire bed uniformly. The wave filter minimizes contact between filter and dripper walls, reducing heat loss during brewing.
+</p>
+
+<p>
+  The Wave's greatest strength is <strong>consistency</strong>. Unlike V60, results are far less sensitive to pour technique — control water volume and time, and you get stable results. Ideal for cafés that need reliable cup quality and home brewers who want confidence over creative expression.
+</p>
+
+<div class="info-box">
+  <h4>Kalita Wave Base Recipe (1 cup / ~240ml)</h4>
+  <p>
+    <strong>Coffee:</strong> 15g / <strong>Water:</strong> 240g (1:16)<br />
+    <strong>Temperature:</strong> 90–93°C<br />
+    <strong>Grind:</strong> Medium (slightly coarser than V60)<br />
+    <strong>Bloom:</strong> 30g water, 35-second rest<br />
+    <strong>Pours:</strong> Circular from center outward, 2–3 pours<br />
+    <strong>Total time:</strong> ~3:00–3:30
+  </p>
+</div>
+
+<h2>Melitta</h2>
+
+<p>
+  Melitta is the original pour over dripper — invented by Melitta Bentz in 1908. It uses a trapezoid shape with a <strong>single small hole</strong> that restricts flow. Water accumulates in the bed before draining, creating semi-immersion behavior. This restriction means even if you pour all the water at once, a consistent brew time is maintained by the dripper itself.
+</p>
+
+<p>
+  The result: <strong>very low skill dependency</strong>, ideal for beginners who want a reliable everyday cup. The trade-off is limited control over subtle flavor nuances — but for convenience-first brewing, Melitta delivers.
+</p>
+
+<h2>Water Temperature and Bloom</h2>
+
+<p>
+  Higher water temperature increases dissolution speed and pulls out more volatile aromatics — but also extracts more tannins and harsh bitterness. Light roasts (dense cell structure, harder to extract) need higher temperatures (93–96°C). Dark roasts (porous, easy to extract) are tamed with lower temperatures (88–91°C).
+</p>
+
+<p>
+  The bloom isn't theater — it's chemistry. Roasting traps <strong>CO₂ gas</strong> inside the bean. When water first contacts the grounds, CO₂ releases rapidly, and if that gas is present during extraction, it impedes compound dissolution. The bloom step expels CO₂ first, dramatically improving extraction efficiency and evenness. Fresher beans bloom more dramatically — a sign of higher CO₂ content.
+</p>
+
+<h2>Grind Size and Extraction</h2>
+
+<p>
+  Grind size is the single most impactful variable in pour over. Finer grinds <strong>increase surface area</strong>, raising extraction rate and slowing flow. Coarser grinds speed up flow and lower extraction rate.
+</p>
+
+<p>
+  <strong>Uniformity</strong> is equally critical. If grind particles vary widely in size, fine particles over-extract while coarse ones under-extract — creating a cup with the flaws of both. This is why professional baristas prefer flat-burr grinders over conical ones: the particle distribution is more consistent.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dripper</th>
+      <th>Recommended Grind</th>
+      <th>Reference Size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>V60</td>
+      <td>Medium-fine</td>
+      <td>Slightly finer than table salt</td>
+    </tr>
+    <tr>
+      <td>Kalita Wave</td>
+      <td>Medium</td>
+      <td>Coarse salt</td>
+    </tr>
+    <tr>
+      <td>Melitta</td>
+      <td>Medium to medium-fine</td>
+      <td>Between fine salt and coarse salt</td>
+    </tr>
+    <tr>
+      <td>Chemex</td>
+      <td>Medium-coarse</td>
+      <td>Coarse salt to sea salt</td>
+    </tr>
+  </tbody>
+</table>
+
+</ArticleLayout>

@@ -1,0 +1,106 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ArticleLayout
+  title="Washed Processing"
+  subtitle="Pulping, fermentation, washing — the precise process that creates coffee's most transparent flavor expression."
+  accentLabel="Washed / Wet Process"
+  lang={lang}
+  currentPath={`/${lang}/processing/washed`}
+>
+
+<h2>What Is Washed Processing?</h2>
+
+<img
+  src={`${base}/images/processing/washed.jpg`}
+  alt="Washed coffee processing"
+  style="width:100%;border-radius:12px;margin:1rem 0 1.5rem;object-fit:cover;max-height:360px;"
+/>
+
+<p>
+  Washed (or wet) processing removes the coffee cherry's pulp mechanically, then uses water fermentation and washing to strip the remaining mucilage (sticky fruit residue) from the seed (parchment). The result is a clean, fermentation-free seed that reflects its terroir — variety, altitude, and soil — with maximum clarity.
+</p>
+
+<p>
+  This is the world's most widely used specialty coffee processing method, dominant across Africa (Ethiopia, Kenya, Rwanda) and Latin America (Colombia, Costa Rica, Guatemala). The impact on flavor is profound: <strong>same farm, same variety, same harvest — washed vs. natural produces a fundamentally different cup</strong>.
+</p>
+
+<div class="info-box">
+  <h4>Washed Processing at a Glance</h4>
+  <p>
+    <strong>Key characteristic:</strong> Clean, transparent flavor — origin character leads<br />
+    <strong>Mucilage removal:</strong> Complete (via water fermentation + washing)<br />
+    <strong>Water usage:</strong> High<br />
+    <strong>Drying time:</strong> 2–4 weeks (shorter than natural)
+  </p>
+</div>
+
+<h2>Step-by-Step Process</h2>
+
+<table>
+  <thead>
+    <tr><th>Step</th><th>Description</th><th>Duration</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Harvest</strong></td><td>Hand-picked at full ripeness (selective picking)</td><td>—</td></tr>
+    <tr><td><strong>Flotation sorting</strong></td><td>Submerge in water — unripe, defective beans float and are removed</td><td>Hours</td></tr>
+    <tr><td><strong>Pulping</strong></td><td>Machine removes the fruit skin and most of the pulp</td><td>Hours</td></tr>
+    <tr><td><strong>Fermentation</strong></td><td>Seeds soak in water tanks; natural yeast/bacteria break down remaining mucilage</td><td>12–72 hours</td></tr>
+    <tr><td><strong>Washing</strong></td><td>Seeds washed in fresh water channels until completely clean</td><td>Hours</td></tr>
+    <tr><td><strong>Drying</strong></td><td>Spread on raised beds or patios until moisture reaches 11–12%</td><td>2–4 weeks</td></tr>
+    <tr><td><strong>Milling & sorting</strong></td><td>Parchment removed mechanically; density and color sorting</td><td>Days</td></tr>
+  </tbody>
+</table>
+
+<h2>Fermentation — The Critical Variable</h2>
+
+<p>
+  The fermentation step is where washed processing's greatest complexity lies. <strong>Fermentation duration</strong> is the primary controllable variable: short fermentation (12–24 hours) produces a very clean, neutral-mucilage result; longer fermentation (36–72+ hours) may develop subtle complexity — but risk of off-flavors rises dramatically.
+</p>
+
+<p>
+  Temperature, water pH, and ambient microorganism population all influence fermentation speed. A tank that takes 24 hours at 20°C might need only 12 hours at 30°C. Experienced producers monitor fermentation by touch (mucilage slips cleanly when complete) and smell (any sour or vinegar odors signal problems).
+</p>
+
+<h2>Flavor Characteristics</h2>
+
+<p>
+  Washed processing's defining cup character is <strong>clarity</strong>. Because no fruit material contacts the seed during drying, the cup expresses the bean's intrinsic properties: varietal aromatics, terroir-driven acidity, the influence of altitude.
+</p>
+
+<div class="info-box">
+  <h4>Washed vs. Natural — Flavor Comparison</h4>
+  <p>
+    <strong>Washed:</strong> Clean, bright acidity, floral, transparent — origin and variety expressed clearly<br />
+    <strong>Natural:</strong> Fruity, sweet, fermented complexity, heavy body — processing character leads<br /><br />
+    Washed coffee is the audiophile's recording — the signal is as pure as possible. Natural is more like a tube amplifier adding its own warm color to the sound.
+  </p>
+</div>
+
+<p>
+  Washed Ethiopian Yirgacheffe's famous jasmine and bergamot aromatics only emerge so clearly because the washed process removes everything except the bean itself. The same beans processed naturally produce a very different cup — blueberry and wine dominate instead.
+</p>
+
+<h2>Regional Variations</h2>
+
+<p>
+  Not all washed processing is identical. Notable regional approaches:
+</p>
+
+<ul>
+  <li><strong>Kenya:</strong> "Double-washed" — beans are fermented, washed, then soaked overnight in fresh water before drying. This additional soak produces Kenya's exceptionally clean, bright, high-toned acidity.</li>
+  <li><strong>Colombia:</strong> Single fermentation typically 24–36 hours; wash stations (beneficios) are central to rural communities. Colombia's consistent washed quality comes from decades of infrastructure investment.</li>
+  <li><strong>Ethiopia (Yirgacheffe):</strong> Washing stations serve thousands of smallholders who deliver ripe cherries daily. Fermentation is tank-based, usually 36–72 hours depending on altitude and temperature.</li>
+</ul>
+
+<h2>Environmental Considerations</h2>
+
+<p>
+  Washed processing requires significant water — typically 30–40 liters per kilogram of green coffee. The wastewater (pulping effluent and fermentation water) contains high organic load and can damage waterways if untreated. Modern specialty producers increasingly invest in water recycling, biogas capture from effluent, and composting of pulp waste.
+</p>
+
+</ArticleLayout>

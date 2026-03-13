@@ -1,0 +1,278 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+---
+
+<ArticleLayout
+  title="Extraction Science"
+  subtitle="About 30% of roasted coffee's mass is water-soluble. The goal of extraction is to dissolve exactly the right 30%."
+  accentLabel="Extraction Science"
+  lang={lang}
+  currentPath={`/${lang}/science/extraction-science`}
+>
+
+<h2>What Is Extraction?</h2>
+
+<p>
+  Coffee extraction is the process of <strong>dissolving soluble compounds from ground coffee into water</strong>. Roasted coffee contains approximately 28–30% water-soluble material by dry weight. When water contacts grounds, these compounds dissolve into the liquid — and that liquid becomes coffee.
+</p>
+
+<p>
+  But not all 30% tastes good. Early-extracting compounds and late-extracting compounds taste very different. <strong>How far you extract</strong> — and which compounds you capture — is the entire art of brewing.
+</p>
+
+<h2>The Dissolution Sequence</h2>
+
+<p>
+  Soluble compounds leave the coffee in a predictable order, determined by their solubility and molecular size:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Extraction Stage</th>
+      <th>Primary Compounds</th>
+      <th>Taste Character</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Early (≤18%)</td>
+      <td>Organic acids, fruity aromatics, caffeine</td>
+      <td>High acidity, sharp, bright flavors</td>
+    </tr>
+    <tr>
+      <td>Mid (18–22%)</td>
+      <td>Sugars, Maillard reaction products</td>
+      <td>Sweetness, caramel, balance</td>
+    </tr>
+    <tr>
+      <td>Late (22%+)</td>
+      <td>High-molecular tannins, bitterness compounds, woody material</td>
+      <td>Astringency, dryness, harsh bitterness</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Too little extraction → <strong>under-extraction</strong>: sour, sharp, thin — dominated by early acids without the sweetness to balance. Too much → <strong>over-extraction</strong>: astringent, dry, bitterly harsh — late compounds overwhelm everything pleasant. <strong>The target is the middle: 18–22%</strong>.
+</p>
+
+<h2>TDS — Total Dissolved Solids</h2>
+
+<p>
+  <strong>TDS</strong> is the percentage of dissolved solids in your brewed coffee — essentially, a measure of <strong>coffee strength</strong>. A 1.3% TDS means 1.3g of dissolved coffee material per 100g of liquid.
+</p>
+
+<p>
+  TDS is measured with a <strong>refractometer</strong> (VST and ATAGO are standard tools). A drop of coffee on the prism, and the device calculates TDS from how light bends through the liquid.
+</p>
+
+<div class="info-box">
+  <h4>TDS Reference Ranges</h4>
+  <p>
+    <strong>SCA Recommended Range (drip coffee): 1.15–1.35%</strong><br /><br />
+    Below 1.00%: Watery, thin<br />
+    1.15–1.35%: Balanced strength<br />
+    Above 1.40%: Intense (may be too strong for some)<br /><br />
+    Note: Espresso typically runs 8–12%; cold brew concentrate varies by intended use.
+  </p>
+</div>
+
+<h2>Extraction Yield</h2>
+
+<p>
+  Extraction yield is the percentage of your coffee's dry mass that actually dissolved into your cup:
+</p>
+
+<p>
+  <strong>Extraction Yield (%) = (TDS × Brewed Volume) ÷ Coffee Dose × 100</strong>
+</p>
+
+<p>
+  Example: 18g of coffee, 300ml brewed, TDS = 1.30%:
+</p>
+
+<p>
+  Yield = (0.013 × 300) ÷ 18 × 100 = <strong>21.7%</strong> — squarely in the ideal range.
+</p>
+
+<div class="info-box">
+  <h4>Ideal Extraction Yield</h4>
+  <p>
+    <strong>SCA Recommended: 18–22%</strong><br /><br />
+    Below 18%: Under-extracted — sour, thin, sharp<br />
+    18–22%: On target — sweetness, acidity, and bitterness in balance<br />
+    Above 22%: Over-extracted — astringent, harsh, dry<br /><br />
+    These are guidelines, not laws. Specialty coffee research increasingly shows that yields of 22–24% can produce excellent results with the right beans and technique.
+  </p>
+</div>
+
+<h2>The SCA Brewing Control Chart</h2>
+
+<p>
+  The SCA (Specialty Coffee Association) publishes a <strong>Brewing Control Chart</strong> that plots TDS (y-axis) against extraction yield (x-axis), with an "ideal zone" marked as a rectangle. This chart provides a shared language for objectively evaluating brew quality.
+</p>
+
+<p>
+  Your position on the chart moves when you change the brew ratio. Increase water volume → yield rises but TDS drops. Increase coffee dose → TDS rises but yield tends to fall.
+</p>
+
+<h2>Five Variables That Control Extraction</h2>
+
+<p>
+  These five variables interact — <strong>change one, and the others likely need adjustment</strong>.
+</p>
+
+<h3>1. Grind Size</h3>
+
+<p>
+  The most impactful single variable. Finer grinds increase surface area, raising extraction rate and slowing flow. Coarser grinds do the opposite.
+</p>
+
+<p>
+  <strong>Uniformity</strong> matters as much as size. Wide particle distribution means fine particles over-extract while coarse particles under-extract simultaneously — you get the flaws of both in one cup. This is why flat-burr grinders command a premium: their particle size distributions are far more consistent.
+</p>
+
+<h3>2. Water Temperature</h3>
+
+<p>
+  Higher temperature → faster dissolution. Basic chemistry, directly applicable to coffee.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Temperature Range</th>
+      <th>Character</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>85–88°C</td>
+      <td>Softer acidity, sweetness-forward</td>
+      <td>Dark roasts</td>
+    </tr>
+    <tr>
+      <td>88–93°C</td>
+      <td>Balanced, versatile</td>
+      <td>Medium roasts</td>
+    </tr>
+    <tr>
+      <td>93–96°C</td>
+      <td>Bright acidity, aromatic clarity</td>
+      <td>Light roasts</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Light roasts have dense cell structures — compounds are harder to extract, requiring higher temperatures. Dark roasts are porous and extract easily, so lower temperatures prevent over-extraction.
+</p>
+
+<h3>3. Brew Time</h3>
+
+<p>
+  Contact time between water and coffee directly drives extraction. Pour over: 2–4 minutes. French press: 4 minutes. Espresso: 25–30 seconds. Brew time interacts tightly with grind size — adjust one, and you'll often need to compensate with the other.
+</p>
+
+<h3>4. Brew Ratio</h3>
+
+<p>
+  The ratio of coffee to water is your primary lever for controlling TDS (strength). Standard pour over: <strong>1:15–1:17</strong> (1g coffee to 15–17g water). Increasing the ratio (more water) raises yield but drops TDS. Decreasing it (more coffee) raises TDS but may lower yield.
+</p>
+
+<div class="info-box">
+  <h4>Common Brew Ratios</h4>
+  <p>
+    <strong>Pour over:</strong> 1:15–1:17 (e.g., 18g → 270–306ml)<br />
+    <strong>French press:</strong> 1:14–1:16<br />
+    <strong>Espresso:</strong> 1:1.5–1:2.5 (e.g., 18g → 27–45ml)<br />
+    <strong>Cold brew:</strong> 1:12–1:15 (concentrate: 1:5–1:8)
+  </p>
+</div>
+
+<h3>5. Agitation</h3>
+
+<p>
+  Pour pattern, stirring, and swirling are all forms of agitation. Physically moving water removes saturated liquid from the grounds' surface and replaces it with fresh water — accelerating extraction. The spiral pour in pour over and the bloom stir aren't rituals; they're rational techniques for improving extraction uniformity.
+</p>
+
+<p>
+  That said, excessive agitation stirs up fines, which can clog filters and create channeling. Calibrate agitation to your dripper and technique.
+</p>
+
+<h2>Reading Your Cup — Under vs. Over Extraction</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Under-Extracted</th>
+      <th>Ideal</th>
+      <th>Over-Extracted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Acidity</td>
+      <td>Sharp, sour, aggressive</td>
+      <td>Bright, pleasant</td>
+      <td>Dull, flat</td>
+    </tr>
+    <tr>
+      <td>Sweetness</td>
+      <td>Absent or hidden</td>
+      <td>Present, clear</td>
+      <td>Hidden by bitterness</td>
+    </tr>
+    <tr>
+      <td>Bitterness</td>
+      <td>Weak</td>
+      <td>Balanced</td>
+      <td>Harsh, unpleasant</td>
+    </tr>
+    <tr>
+      <td>Finish</td>
+      <td>Short, disappears quickly</td>
+      <td>Long, pleasant</td>
+      <td>Astringent, mouth-drying</td>
+    </tr>
+    <tr>
+      <td>Body</td>
+      <td>Thin, watery</td>
+      <td>Appropriate weight</td>
+      <td>Heavy, muddy</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>Sour / no sweetness → under-extracted:</strong> Grind finer, raise temperature, or increase brew time.<br />
+  <strong>Astringent / harsh bitterness → over-extracted:</strong> Grind coarser, lower temperature, or shorten time.<br />
+  <strong>Flat / flavorless → low TDS:</strong> Increase dose or reduce water volume.
+</p>
+
+<h2>Bypass</h2>
+
+<p>
+  <strong>Bypass</strong> refers to water that passes through a brewer without contacting coffee grounds — typically dripping down filter walls. This water dilutes the extraction without contributing flavor, lowering TDS without affecting yield.
+</p>
+
+<p>
+  Bypass can be deliberately used to achieve <strong>high yield with lower TDS</strong>: extract the coffee at full intensity (high yield), then dilute to taste with additional hot water. This approach can produce very clean, sweet cups — a technique used intentionally by skilled baristas.
+</p>
+
+<h2>Summary</h2>
+
+<p>
+  Extraction science reduces to understanding <strong>TDS, yield, and five key variables</strong>. Every brewing method — pour over, immersion, espresso — operates by manipulating the same principles.
+</p>
+
+<p>
+  What theory can't give you is the taste of a good cup. The SCA's recommended ranges are a starting point. Your palate is the final arbiter. Use the framework to find your target faster — then trust what you taste.
+</p>
+
+</ArticleLayout>

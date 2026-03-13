@@ -37,81 +37,107 @@ const sections = [
     image: `${base}/images/processing/natural.jpg`,
     badge: 'Washed · Natural · Honey',
   },
+  {
+    key: 'tools',
+    title: 'レシピ計算機',
+    desc: '器具と杯数を選ぶだけ。最適な豆量・湯量・手順を即算出。',
+    href: `${base}/${lang}/tools`,
+    image: `${base}/images/brewing/espresso.jpg`,
+    badge: 'Recipe Calculator',
+  },
 ];
 
 const featured = sections[0];
 const grid = sections.slice(1);
+
+const features = [
+  {
+    title: '産地のテロワール',
+    desc: '土壌・標高・気候が生み出す、唯一無二のフレーバー。エチオピアからコロンビアまで徹底解説。',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+  },
+  {
+    title: '化学反応の美学',
+    desc: 'メイラード反応、カラメル化——熱が引き出す複雑な香味の科学的メカニズム。',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
+  },
+  {
+    title: '抽出の物理学',
+    desc: '水温・粒度・時間のバランスが一杯の味を決める。TDSと抽出収率から理解する最適化。',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
+  },
+];
 ---
 
 <BaseLayout lang={lang} currentPath={`/${lang}`} fullWidth={true}>
 
-  <!-- ==================== Hero ==================== -->
-  <section class="relative h-[88vh] min-h-[540px] flex items-end overflow-hidden">
-    <div class="absolute inset-0">
-      <img
-        src={`${base}/images/home/hero.jpg`}
-        alt="Coffee"
-        class="w-full h-full object-cover"
-      />
-      <!-- Stronger gradient for text readability -->
-      <div class="absolute inset-0" style="background: linear-gradient(to top, #221610 0%, rgba(34,22,16,0.78) 45%, rgba(34,22,16,0.25) 75%, rgba(34,22,16,0.05) 100%);" />
-    </div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-6 pb-16 md:pb-24 w-full">
-      <span class="inline-block px-4 py-1 border border-white/25 rounded-full text-xs font-bold tracking-widest uppercase mb-6 text-white/80 backdrop-blur-sm">
-        Specialty Coffee Guide
-      </span>
-      <h1
-        class="font-[var(--font-heading)] text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6"
-        style="text-shadow: 0 2px 20px rgba(0,0,0,0.6), 0 4px 40px rgba(0,0,0,0.4);"
-      >
-        コーヒーを、<br />
-        <span style="color: #bd490f;">もっと深く。</span>
-      </h1>
-      <p
-        class="text-lg md:text-xl text-white/80 max-w-lg leading-relaxed mb-10"
-        style="text-shadow: 0 1px 8px rgba(0,0,0,0.5);"
-      >
-        産地・抽出・化学・精製——スペシャルティコーヒーの世界を体系的に学ぶ。
-      </p>
-      <div class="flex flex-wrap gap-4">
-        <a
-          href={`${base}/${lang}/origins`}
-          class="inline-flex items-center gap-2 text-white font-bold px-8 py-3.5 rounded-xl transition-all hover:brightness-110"
-          style="background-color: #bd490f;"
-        >
-          探索を始める
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-        <a
-          href={`${base}/${lang}/tools`}
-          class="inline-flex items-center gap-2 text-white font-semibold px-8 py-3.5 rounded-xl border border-white/30 backdrop-blur-sm transition-all hover:bg-white/10"
-        >
-          レシピ計算機
-        </a>
+  <!-- Hero -->
+  <section class="relative h-[85vh] w-full overflow-hidden" style="min-height: 560px;">
+    <div
+      class="absolute inset-0 bg-cover bg-center"
+      style={`background-image: linear-gradient(to right, rgba(34,22,16,0.88) 0%, rgba(34,22,16,0.5) 55%, rgba(34,22,16,0.15) 100%), url('${base}/images/home/hero.jpg');`}
+    />
+    <div class="relative h-full flex items-center px-6 md:px-20 max-w-[1400px] mx-auto">
+      <div class="max-w-2xl space-y-8">
+        <div class="space-y-5">
+          <span
+            class="inline-block px-3 py-1 text-xs font-bold tracking-widest uppercase rounded"
+            style="background-color: rgba(189,73,15,0.25); color: #bd490f;"
+          >
+            Specialty Coffee Guide
+          </span>
+          <h1
+            class="text-6xl md:text-8xl font-black leading-tight text-white"
+            style="font-family: 'Work Sans', sans-serif; text-shadow: 0 2px 4px rgba(0,0,0,0.4);"
+          >
+            コーヒーを、<br />
+            <span style="color: #bd490f; font-style: italic;">もっと深く。</span>
+          </h1>
+          <p class="text-lg md:text-xl font-light max-w-lg leading-relaxed" style="color: rgba(255,255,255,0.7);">
+            産地・抽出・化学・精製——スペシャルティコーヒーの世界を体系的に学ぶ。
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a
+            href={`${base}/${lang}/origins`}
+            class="inline-flex items-center gap-2 text-white text-base font-bold px-10 py-4 rounded-full transition-all hover:brightness-110"
+            style="background-color: #bd490f;"
+          >
+            探索を始める
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a
+            href={`${base}/${lang}/tools`}
+            class="inline-flex items-center gap-2 text-white text-base font-medium px-10 py-4 rounded-full border backdrop-blur-sm transition-all hover:bg-white/10"
+            style="border-color: rgba(255,255,255,0.25);"
+          >
+            レシピ計算機
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== Knowledge Sections ==================== -->
-  <section class="py-24 bg-[var(--color-background)]">
-    <div class="max-w-7xl mx-auto px-6">
+  <!-- Theme-based Learning -->
+  <section class="py-24 px-6 md:px-20 bg-[var(--color-background)]">
+    <div class="max-w-[1200px] mx-auto">
 
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-        <div>
-          <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color: #bd490f;">Explore</p>
-          <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)]">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div class="max-w-xl">
+          <p class="text-xs font-bold tracking-widest uppercase mb-3" style="color: #bd490f;">Explore</p>
+          <h2
+            class="text-4xl md:text-5xl font-black tracking-tight text-[var(--color-dark)]"
+            style="font-family: 'Work Sans', sans-serif;"
+          >
             テーマ別に学ぶ
           </h2>
+          <p class="text-[var(--color-text-muted)] text-lg mt-3">5つのテーマから、コーヒーの奥深い世界を探求しましょう。</p>
         </div>
-        <p class="text-[var(--color-text-muted)] text-sm max-w-xs leading-relaxed">
-          4つのテーマから、コーヒーの奥深い世界を探求しましょう。
-        </p>
       </div>
 
-      <!-- Featured card: Origins -->
+      <!-- Featured card (Origins) -->
       <div class="mb-6">
         <a
           href={featured.href}
@@ -121,7 +147,7 @@ const grid = sections.slice(1);
           <img
             src={featured.image}
             alt={featured.title}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           />
           <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(34,22,16,0.92) 0%, rgba(34,22,16,0.55) 55%, rgba(34,22,16,0.1) 100%);" />
           <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -130,11 +156,11 @@ const grid = sections.slice(1);
               style="background-color: #bd490f;"
             >{featured.badge}</span>
             <h3
-              class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-white mb-2"
-              style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);"
+              class="text-3xl md:text-4xl font-black text-white mb-3"
+              style="font-family: 'Work Sans', sans-serif;"
             >{featured.title}</h3>
-            <p class="text-white/75 max-w-md text-sm leading-relaxed mb-5">{featured.desc}</p>
-            <span class="inline-flex items-center gap-2 text-white/55 text-sm font-semibold group-hover:text-white transition-colors">
+            <p class="max-w-md text-sm leading-relaxed mb-5" style="color: rgba(255,255,255,0.65);">{featured.desc}</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold transition-colors group-hover:text-white" style="color: rgba(255,255,255,0.5);">
               詳しく見る
               <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -144,26 +170,27 @@ const grid = sections.slice(1);
         </a>
       </div>
 
-      <!-- Grid: other 3 sections -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <!-- Vertical cards grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {grid.map((section) => (
           <a
             href={section.href}
-            class="group block rounded-xl overflow-hidden relative shadow hover:shadow-xl transition-all duration-500"
-            style="aspect-ratio: 4/3;"
+            class="group relative overflow-hidden rounded-xl bg-slate-800 transition-all duration-300 hover:-translate-y-2 block"
+            style="aspect-ratio: 3/4;"
           >
             <img
               src={section.image}
               alt={section.title}
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(34,22,16,0.92) 0%, rgba(34,22,16,0.35) 55%, rgba(34,22,16,0.0) 100%);" />
-            <div class="absolute inset-0 flex flex-col justify-end p-5">
-              <span class="text-[10px] font-bold uppercase tracking-widest mb-1.5" style="color: #bd490f;">{section.badge}</span>
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(34,22,16,0.92) 0%, rgba(34,22,16,0.3) 55%, transparent 100%);" />
+            <div class="absolute bottom-0 left-0 right-0 p-6">
+              <span class="text-[10px] font-bold uppercase tracking-widest block mb-2" style="color: rgba(255,255,255,0.45);">{section.badge}</span>
               <h3
-                class="font-[var(--font-heading)] text-base font-bold text-white leading-snug"
-                style="text-shadow: 0 1px 8px rgba(0,0,0,0.6);"
+                class="text-xl font-bold text-white mb-1"
+                style="font-family: 'Work Sans', sans-serif;"
               >{section.title}</h3>
+              <p class="text-sm leading-relaxed" style="color: rgba(255,255,255,0.6);">{section.desc}</p>
             </div>
           </a>
         ))}
@@ -171,127 +198,88 @@ const grid = sections.slice(1);
     </div>
   </section>
 
-  <!-- ==================== Recipe Calculator Widget ==================== -->
-  <section style="background-color: #2d1a10;">
-    <div class="max-w-7xl mx-auto px-6 py-12">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
-        <div class="flex items-center gap-6">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0" style="background-color: #bd490f;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 4h12l-3 13H9L6 4z"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-              <line x1="10" y1="21" x2="14" y2="21"/>
-              <path d="M4 8h2M18 8h2"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-xs font-bold tracking-widest uppercase mb-1" style="color: #bd490f;">Quick Tool</p>
-            <h3 class="font-[var(--font-heading)] text-xl font-bold text-white mb-1">レシピ計算機</h3>
-            <p class="text-white/50 text-sm">器具と杯数を選ぶだけ。最適な豆量・湯量・手順を即算出。</p>
-          </div>
-        </div>
-        <a
-          href={`${base}/${lang}/tools`}
-          class="inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl border border-white/20 text-white shrink-0 transition-all hover:bg-white/10"
-        >
-          計算機を使う
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- Deepen Your Knowledge -->
+  <section class="py-24 px-6 md:px-20" style="background-color: rgba(189,73,15,0.07);">
+    <div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-  <!-- ==================== Philosophy ==================== -->
-  <section class="py-24" style="background-color: #221610;">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-
-        <div class="relative">
-          <div class="rounded-2xl overflow-hidden shadow-2xl aspect-square">
-            <img
-              src={`${base}/images/science/roasting.jpg`}
-              alt="Roasting"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <div class="absolute -bottom-5 -right-5 hidden md:block">
-            <div class="rounded-2xl p-6 text-white shadow-2xl" style="background-color: #bd490f; max-width: 200px;">
-              <p class="text-sm font-[var(--font-heading)] italic leading-snug">
-                "豆の声を聴き、秒単位で対話する。それが焙煎です。"
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="text-white">
+      <div class="space-y-8">
+        <div>
           <p class="text-xs font-bold tracking-widest uppercase mb-4" style="color: #bd490f;">Deep Dive</p>
-          <h2 class="font-[var(--font-heading)] text-4xl font-bold mb-6 leading-tight">
+          <h2
+            class="text-4xl md:text-5xl font-black tracking-tight leading-tight text-[var(--color-dark)]"
+            style="font-family: 'Work Sans', sans-serif;"
+          >
             なぜコーヒーは<br />
             <span style="color: #bd490f;">こんなに複雑なのか。</span>
           </h2>
-          <p class="text-white/55 mb-10 leading-relaxed text-lg">
-            コーヒーには1000種類以上の芳香成分が含まれます。ワインよりも複雑とも言われるこの飲み物を、科学・産地・人の視点から深く理解しましょう。
+          <p class="text-[var(--color-text-muted)] text-lg mt-4 leading-relaxed">
+            コーヒーには1000種類以上の芳香成分が含まれます。ワインよりも複雑なこの飲み物を、科学・産地・人の視点から深く理解しましょう。
           </p>
-          <div class="space-y-7">
-            {[
-              {
-                title: '産地のテロワール',
-                desc: '土壌・標高・気候が生み出す、唯一無二のフレーバー。',
-                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-              },
-              {
-                title: '化学反応の美学',
-                desc: 'メイラード反応、カラメル化——熱が引き出す複雑な香味。',
-                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 7h14l-4-7V3"/></svg>`,
-              },
-              {
-                title: '抽出の物理学',
-                desc: '水温・粒度・時間のバランスが、一杯の味を決める。',
-                icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>`,
-              },
-            ].map((item) => (
-              <div class="flex gap-5">
-                <div
-                  class="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-white"
-                  style="background-color: rgba(189,73,15,0.25);"
-                  set:html={item.icon}
-                />
-                <div>
-                  <h5 class="font-bold text-white mb-1">{item.title}</h5>
-                  <p class="text-white/45 text-sm leading-relaxed">{item.desc}</p>
-                </div>
+        </div>
+
+        <div class="space-y-7">
+          {features.map((item) => (
+            <div class="flex gap-5 items-start">
+              <div
+                class="p-3 rounded-lg shrink-0 text-white"
+                style="background-color: #bd490f;"
+                set:html={item.icon}
+              />
+              <div>
+                <h4 class="font-bold text-[var(--color-dark)] mb-1">{item.title}</h4>
+                <p class="text-[var(--color-text-muted)] text-sm leading-relaxed">{item.desc}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+          <img
+            src={`${base}/images/science/roasting.jpg`}
+            alt="Roasting"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          class="absolute -bottom-6 -left-6 p-6 rounded-xl shadow-xl hidden md:block"
+          style="background-color: white; border: 1px solid rgba(189,73,15,0.2);"
+        >
+          <p class="text-3xl font-black" style="color: #bd490f; font-family: 'Work Sans', sans-serif;">1,000+</p>
+          <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mt-1">芳香成分</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== CTA ==================== -->
-  <section class="py-20 bg-[var(--color-background)]">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="font-[var(--font-heading)] text-3xl md:text-4xl font-bold text-[var(--color-dark)] mb-4">
+  <!-- CTA -->
+  <section class="py-20 px-6" style="background-color: #221610;">
+    <div class="max-w-[1200px] mx-auto text-center">
+      <h2
+        class="text-3xl md:text-4xl font-black tracking-tight text-white mb-4"
+        style="font-family: 'Work Sans', sans-serif;"
+      >
         どこから始めますか？
       </h2>
-      <p class="text-[var(--color-text-muted)] mb-10 max-w-md mx-auto leading-relaxed">
+      <p class="mb-10 max-w-md mx-auto leading-relaxed" style="color: rgba(255,255,255,0.45);">
         産地から読む？抽出の科学から学ぶ？興味のある入口から始めてください。
       </p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a
           href={`${base}/${lang}/origins`}
-          class="px-8 py-3 rounded-xl font-bold text-white transition-all hover:brightness-110"
+          class="px-8 py-3.5 rounded-full font-bold text-white transition-all hover:brightness-110"
           style="background-color: #bd490f;"
         >産地を探索する</a>
         <a
           href={`${base}/${lang}/science`}
-          class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all"
+          class="px-8 py-3.5 rounded-full font-semibold border text-white hover:bg-white/10 transition-all"
+          style="border-color: rgba(255,255,255,0.2);"
         >科学を学ぶ</a>
         <a
           href={`${base}/${lang}/tools`}
-          class="px-8 py-3 rounded-xl font-semibold border-2 border-[var(--color-border)] text-[var(--color-dark)] hover:border-[#bd490f] transition-all"
+          class="px-8 py-3.5 rounded-full font-semibold border text-white hover:bg-white/10 transition-all"
+          style="border-color: rgba(255,255,255,0.2);"
         >計算機を使う</a>
       </div>
     </div>

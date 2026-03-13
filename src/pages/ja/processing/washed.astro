@@ -2,6 +2,7 @@
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 
 const lang = 'ja';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <ArticleLayout
@@ -13,6 +14,12 @@ const lang = 'ja';
 >
 
 <h2>ウォッシュドとは</h2>
+
+<img
+  src={`${base}/images/processing/washed.jpg`}
+  alt="ウォッシュド精製法"
+  style="width:100%;border-radius:12px;margin:1rem 0 1.5rem;object-fit:cover;max-height:360px;"
+/>
 
 <p>
   ウォッシュド（水洗式）精製法とは、コーヒーチェリーから果肉を機械的に除去した後、発酵タンクでの水中発酵と水洗いにより、種子（パーチメント）に付着した粘液質（ミューシレージ）を完全に取り除く方法である。世界のスペシャルティコーヒー生産量の過半数を占め、特にアフリカ（エチオピア・ケニア・ルワンダ）、中南米（コロンビア・コスタリカ・グアテマラ）で広く採用されている。

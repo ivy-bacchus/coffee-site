@@ -1,80 +1,61 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Decorations from '../../../components/Decorations.astro';
-import { t } from '../../../i18n';
 
-const lang = 'ja';
+const lang = 'en';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const articles = [
   {
-    slug: 'drip',
-    title: 'ドリップ',
-    titleEn: 'Pour Over',
-    description: 'V60、カリタウェーブ、メリタ——ドリッパー形状の違いが抽出に与える影響と、それぞれの最適な淹れ方。',
-    color: 'from-amber-900/10 to-orange-900/5',
-    image: `${base}/images/brewing/v60.jpg`,
+    slug: 'washed',
+    title: 'Washed',
+    titleEn: 'Washed / Wet Process',
+    description: 'Pulp removed, fermented in water, washed clean. The method known for clarity and bright acidity. Widely used in Ethiopia, Kenya, and Colombia.',
+    color: 'from-blue-900/10 to-cyan-900/5',
+    image: `${base}/images/processing/washed.jpg`,
     ready: true,
   },
   {
-    slug: 'immersion',
-    title: '浸漬式',
-    titleEn: 'Immersion',
-    description: 'フレンチプレス、クレバードリッパー——コーヒー粉を湯に浸して抽出する方法の原理と実践。',
-    color: 'from-teal-900/10 to-emerald-900/5',
-    image: `${base}/images/brewing/french-press.jpg`,
+    slug: 'natural',
+    title: 'Natural',
+    titleEn: 'Natural / Dry Process',
+    description: 'The oldest method — drying the whole cherry intact. Creates fruity, fermented complexity. Common in Ethiopia and Brazil.',
+    color: 'from-orange-900/10 to-amber-900/5',
+    image: `${base}/images/processing/natural.jpg`,
     ready: true,
   },
   {
-    slug: 'espresso',
-    title: 'エスプレッソ',
-    titleEn: 'Espresso',
-    description: '高圧抽出の原理、マシンの構造、ダイヤルイン。9気圧が生み出す濃密な一杯の科学。',
-    color: 'from-red-900/10 to-rose-900/5',
-    image: `${base}/images/brewing/espresso.jpg`,
+    slug: 'honey',
+    title: 'Honey',
+    titleEn: 'Honey / Pulped Natural',
+    description: 'Pulp removed but mucilage left on during drying. A middle ground between washed and natural in flavor profile.',
+    color: 'from-yellow-900/10 to-amber-900/5',
+    image: `${base}/images/processing/natural.jpg`,
     ready: true,
   },
   {
-    slug: 'others',
-    title: 'コールドブリュー・モカポット',
-    titleEn: 'Cold Brew & More',
-    description: '水出し（コールドブリュー）、モカポット、イブリック——温度・圧力の異なる個性的な抽出法の原理と魅力。',
-    color: 'from-purple-900/10 to-indigo-900/5',
-    image: `${base}/images/brewing/aeropress.jpg`,
-    ready: true,
-  },
-  {
-    slug: 'drippers',
-    title: 'ドリッパー比較大全',
-    titleEn: 'Dripper Encyclopedia',
-    description: 'V60からケメックスまで——主要ドリッパーの歴史・設計思想・抽出特性を徹底比較。あなたに合う一台を見つける。',
-    color: 'from-amber-900/10 to-orange-900/5',
-    image: `${base}/images/brewing/v60.jpg`,
-    ready: true,
-  },
-  {
-    slug: 'grinders',
-    title: 'グラインダー選びの科学',
-    titleEn: 'Grinder Guide',
-    description: 'フラットバー vs コニカル、手動 vs 電動——粒度均一性がコーヒーに与える影響と、予算別おすすめグラインダー。',
-    color: 'from-stone-900/10 to-gray-900/5',
-    image: `${base}/images/brewing/french-press.jpg`,
+    slug: 'experimental',
+    title: 'Experimental',
+    titleEn: 'Experimental Processing',
+    description: 'Anaerobic fermentation, carbonic maceration — the cutting-edge techniques at the frontier of specialty coffee.',
+    color: 'from-purple-900/10 to-pink-900/5',
+    image: `${base}/images/processing/washed.jpg`,
     ready: true,
   },
 ];
 ---
 
-<BaseLayout lang={lang} currentPath={`/${lang}/brewing`}>
+<BaseLayout lang={lang} currentPath={`/${lang}/processing`}>
   <div class="mb-12">
     <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-xl mb-2 rotate-[-1deg]">
-      Brewing Guide
+      Processing Methods
     </p>
     <h1 class="text-4xl md:text-5xl font-bold font-[var(--font-heading)] text-[var(--color-primary)] leading-tight mb-4">
-      抽出ガイド
+      Processing Methods
     </h1>
     <p class="text-lg text-[var(--color-text-light)] max-w-2xl leading-relaxed">
-      同じ豆でも、抽出方法が変われば味は劇的に変わる。ドリップ、浸漬、エスプレッソ——
-      それぞれの原理を理解し、器具ごとの最適なアプローチを学ぶ。
+      How harvested coffee cherries are processed is one of the biggest factors shaping cup flavor,
+      alongside terroir. Understand the differences between washed, natural, and honey processes.
     </p>
   </div>
 
@@ -83,7 +64,7 @@ const articles = [
   <div class="space-y-5">
     {articles.map((article) => (
       <a
-        href={article.ready ? `${base}/${lang}/brewing/${article.slug}` : undefined}
+        href={article.ready ? `${base}/${lang}/processing/${article.slug}` : undefined}
         class:list={[
           'block group rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-300',
           `bg-gradient-to-r ${article.color}`,
@@ -93,7 +74,6 @@ const articles = [
         ]}
       >
         <div class="flex flex-col md:flex-row">
-          <!-- Thumbnail -->
           <div class="md:w-48 h-36 md:h-auto overflow-hidden flex-shrink-0">
             <img
               src={article.image}
@@ -101,7 +81,6 @@ const articles = [
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
-          <!-- Content -->
           <div class="flex-1 p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-5">
             <div class="flex-1">
               <p class="font-[var(--font-accent)] text-[var(--color-secondary)] text-sm mb-1">{article.titleEn}</p>
@@ -112,7 +91,7 @@ const articles = [
             </div>
             {!article.ready && (
               <span class="text-xs px-3 py-1 rounded-full bg-[var(--color-secondary)]/15 text-[var(--color-text-light)] border border-[var(--color-secondary)]/20 shrink-0">
-                {t(lang, 'common.coming_soon')}
+                Coming Soon
               </span>
             )}
             {article.ready && (

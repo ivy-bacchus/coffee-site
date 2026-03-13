@@ -1,0 +1,160 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+---
+
+<ArticleLayout
+  title="Water Chemistry"
+  subtitle="Water is 98% of your cup. Hardness, pH, and mineral composition shape flavor in ways most people never consider."
+  accentLabel="Water Chemistry"
+  lang={lang}
+  currentPath={`/${lang}/science/water-chemistry`}
+>
+
+<h2>Water Is 98% of Your Coffee</h2>
+
+<p>
+  Coffee enthusiasts obsess over bean origins, roast levels, and brewing devices — yet the substance that makes up <strong>98% of every cup by weight</strong> is frequently ignored. Water is not merely a passive solvent. Its mineral composition actively participates in the chemistry of extraction, determining which flavor compounds are drawn out of the bean, in what quantities, and in what balance.
+</p>
+
+<p>
+  Poor water can sabotage exceptional beans and precise technique. Conversely, optimal water chemistry can dramatically elevate the same beans brewed with identical parameters. The World Barista Championship recognized this reality years ago — competitors routinely bring their own carefully prepared water to competitions to ensure consistent results regardless of venue.
+</p>
+
+<h2>Water Hardness</h2>
+
+<p>
+  "Hardness" refers to the total concentration of <strong>calcium (Ca²⁺) and magnesium (Mg²⁺) ions</strong> dissolved in water. It's measured in mg/L (ppm), expressed as calcium carbonate (CaCO₃) equivalents.
+</p>
+
+<p>
+  Hardness categories and their effect on coffee:
+</p>
+<ul>
+  <li><strong>Soft (&lt;50 ppm):</strong> Insufficient mineral content weakens extraction — coffee tastes flat, thin, and lacking complexity</li>
+  <li><strong>Medium (50–150 ppm):</strong> The ideal range for coffee brewing. Minerals actively assist extraction without overwhelming it</li>
+  <li><strong>Hard (150–300 ppm):</strong> High calcium begins to suppress acidity and can cause limescale buildup in equipment</li>
+  <li><strong>Very Hard (&gt;300 ppm):</strong> Not suitable for coffee. Produces flat, metallic-tasting cups and rapidly scales equipment</li>
+</ul>
+
+<h2>The Distinct Roles of Calcium and Magnesium</h2>
+
+<p>
+  A landmark 2014 study by Hendon et al. (published in the Journal of Agricultural and Food Chemistry) established that calcium and magnesium are not interchangeable as "hardness minerals" — they <strong>bind preferentially to different flavor compounds</strong> in coffee.
+</p>
+
+<ul>
+  <li><strong>Calcium (Ca²⁺):</strong> Tends to enhance extraction of bitter and body-contributing compounds (including caffeine and certain acids). Higher calcium levels produce fuller body and more structure, but can suppress delicate aromatics at high concentrations</li>
+  <li><strong>Magnesium (Mg²⁺):</strong> Particularly effective at extracting floral, fruity, and aromatic organic acids. Water with higher magnesium relative to calcium tends to highlight bright, fruit-forward flavors in light roast specialty coffees</li>
+</ul>
+
+<p>
+  SCA recommends approximately <strong>68 ppm calcium and 10 ppm magnesium</strong> as target values. For light roasts where floral and fruity characteristics are prized, a slightly elevated magnesium-to-calcium ratio can be advantageous. This is why some specialty water products and brewing water recipes emphasize magnesium specifically.
+</p>
+
+<h2>The Role of pH</h2>
+
+<p>
+  Water pH affects both extraction chemistry and equipment longevity. The ideal brewing water pH falls in the range of <strong>6.5–7.5 (near neutral)</strong>.
+</p>
+
+<ul>
+  <li><strong>Acidic water (pH &lt; 6):</strong> Accelerates corrosion of metal brewing equipment. Can interfere with extraction chemistry, and may make the cup taste inappropriately sour</li>
+  <li><strong>Alkaline water (pH &gt; 8):</strong> Contains excess bicarbonate (HCO₃⁻), which neutralizes coffee's natural acids. The result is flat, undefined flavor with suppressed acidity. Also contributes to limescale formation and equipment damage</li>
+</ul>
+
+<p>
+  Bicarbonate (alkalinity) deserves specific attention. Moderate bicarbonate levels (40–75 ppm) provide a buffering effect — softening coffee's sharpest acidic edges without erasing acidity entirely. This buffering can actually improve cup quality with very acidic coffees. However, excessive bicarbonate (common in tap water in many regions) crushes acidity and erases the characteristic brightness of specialty light roasts.
+</p>
+
+<h2>SCA Water Quality Standards</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Target Value</th>
+      <th>Acceptable Range</th>
+      <th>Why It Matters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Total Hardness (as CaCO₃)</strong></td>
+      <td>68 ppm</td>
+      <td>17–85 ppm</td>
+      <td>Minerals are the primary extraction agents for flavor compounds</td>
+    </tr>
+    <tr>
+      <td><strong>Total Dissolved Solids (TDS)</strong></td>
+      <td>150 ppm</td>
+      <td>75–250 ppm</td>
+      <td>Overall measure of dissolved mineral content</td>
+    </tr>
+    <tr>
+      <td><strong>pH</strong></td>
+      <td>7.0</td>
+      <td>6.5–7.5</td>
+      <td>Near-neutral enables stable, predictable extraction chemistry</td>
+    </tr>
+    <tr>
+      <td><strong>Bicarbonate / Alkalinity</strong></td>
+      <td>40–75 ppm</td>
+      <td>—</td>
+      <td>Buffering agent — controls acid balance without suppressing it</td>
+    </tr>
+    <tr>
+      <td><strong>Sodium (Na⁺)</strong></td>
+      <td>&lt;10 ppm</td>
+      <td>&lt;30 ppm</td>
+      <td>Excess sodium imparts salty, metallic aftertaste</td>
+    </tr>
+    <tr>
+      <td><strong>Chlorine / Chloramines</strong></td>
+      <td>Zero</td>
+      <td>—</td>
+      <td>Disinfectants react with coffee aromatics, producing musty or chemical off-flavors</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Practical Advice</h2>
+
+<h3>Activated Carbon Filtration</h3>
+<p>
+  The simplest and most impactful improvement for tap water users. Filters like Brita remove chlorine, chloramines, and organic compounds while leaving beneficial minerals intact. This alone can substantially improve cup quality by eliminating the chemical off-flavors these disinfectants introduce. Cost-effective and easy to implement.
+</p>
+
+<h3>Reverse Osmosis (RO) Water</h3>
+<p>
+  RO systems remove nearly all dissolved substances, producing near-pure water. This is too soft for coffee — it requires remineralization with a precise mineral blend to reach SCA targets. RO + remineralization gives the highest level of control over water chemistry, and is common in high-end specialty cafés and competition settings. Higher cost and complexity.
+</p>
+
+<h3>Distilled Water</h3>
+<p>
+  Essentially zero minerals. Unsuitable for coffee as-is — produces flat, hollow-tasting cups with poor extraction. If used, must be combined with a mineral additive. Not a practical daily option.
+</p>
+
+<h3>Third Wave Water and Mineral Packets</h3>
+<p>
+  Products like <strong>Third Wave Water</strong> supply pre-measured mineral capsules or powders designed to be dissolved in distilled or RO water, producing water that closely matches SCA targets. This is the most reliable way to ensure consistent, optimal water chemistry regardless of location — useful for competitions, café setup, or serious home brewing. Cost per liter is higher than filtered tap water but far less than bottled water.
+</p>
+
+<h3>Bottled Mineral Water as a Proxy</h3>
+<p>
+  Many commercially available mineral waters fall within acceptable brewing ranges. Look for waters with TDS between 75–200 ppm, hardness 50–120 ppm, and minimal bicarbonate. Comparing a few mineral water brands against filtered tap water with the same beans and recipe is an illuminating experiment — flavor differences are often striking.
+</p>
+
+<div class="info-box">
+  <h4>Water Improvement: A Step-by-Step Approach</h4>
+  <p>
+    <strong>Step 1:</strong> Remove chlorine — use an activated carbon filter pitcher (low cost, high impact)<br />
+    <strong>Step 2:</strong> Try a medium-hardness mineral water (50–100 ppm) side-by-side with filtered tap water<br />
+    <strong>Step 3:</strong> If you have very soft tap water, blend it with a harder mineral water to hit the 50–100 ppm range<br />
+    <strong>Step 4 (advanced):</strong> Use Third Wave Water mineral packets with distilled water for precise, repeatable control<br /><br />
+    Improving your water quality can produce flavor improvements equivalent to or greater than switching to a better bean grade. If your coffee tastes flat despite good beans and careful technique, water chemistry is the first variable to investigate.
+  </p>
+</div>
+
+</ArticleLayout>

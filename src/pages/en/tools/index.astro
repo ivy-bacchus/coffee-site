@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BrewCalc from '../../../components/BrewCalc';
+
+const lang = 'en';
+---
+
+<BaseLayout lang={lang} currentPath={`/${lang}/tools`} title="Recipe Calculator" fullWidth={true}>
+  <BrewCalc client:load lang="en" />
+</BaseLayout>

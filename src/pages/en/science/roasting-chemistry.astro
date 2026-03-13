@@ -1,0 +1,250 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ArticleLayout
+  title="Roasting Chemistry"
+  subtitle="When green beans turn brown, over 1,000 aromatic compounds are created. Here's the chemistry behind it."
+  accentLabel="Roasting Chemistry"
+  lang={lang}
+  currentPath={`/${lang}/science/roasting-chemistry`}
+>
+
+<h2>What Is Roasting?</h2>
+
+<p>
+  Coffee roasting applies heat to green beans, triggering chemical reactions that transform them into the aromatic, flavorful product we brew. Green beans smell like grass — there's nothing coffee-like about them. Roasting creates the flavor from scratch.
+</p>
+
+<p>
+  During roasting, <strong>hundreds of chemical reactions occur simultaneously</strong>: water evaporation, organic acid breakdown and formation, sugar caramelization, Maillard reactions between amino acids and sugars, lipid oxidation, chlorogenic acid degradation. Together, these reactions produce brown beans containing <strong>over 1,000 volatile aromatic compounds</strong>.
+</p>
+
+<div class="info-box">
+  <h4>Roasting by the Numbers</h4>
+  <p>
+    Roasting temperature: ~180–230°C / Time: 8–20 minutes (varies by method)<br />
+    Green bean moisture: 10–12% → Post-roast: 1–2.5%<br />
+    Weight loss: 12–20% (moisture + volatile organic compounds)<br />
+    Volume increase: 50–100% (internal gas expansion)
+  </p>
+</div>
+
+<h2>The Three Phases of Roasting</h2>
+
+<h3>1. Drying Phase</h3>
+
+<p>
+  From loading until the bean reaches ~150°C — typically 4–8 minutes. Primary activity: <strong>moisture evaporation</strong>. Bean color shifts from green to yellow. This phase looks uneventful, but it's foundational: uneven drying causes "baked" beans, where interior and exterior roast at different rates. Even drying ensures subsequent reactions develop uniformly throughout the bean.
+</p>
+
+<h3>2. Maillard Reaction Phase</h3>
+
+<p>
+  Around 150–190°C, the heart of roasting chemistry begins: the <strong>Maillard reaction</strong> — amino acids and reducing sugars react to form brown pigments (melanoidins) and an enormous variety of aromatic compounds.
+</p>
+
+<p>
+  First described by French chemist Louis-Camille Maillard in 1912, this reaction is responsible for most of the "appealing brown" in food: bread crust, seared steak, dark beer. In coffee, the Maillard reaction is the <strong>single largest driver of flavor development</strong>.
+</p>
+
+<div class="info-box">
+  <h4>The Maillard Cascade</h4>
+  <p>
+    <strong>① Initial stage:</strong> Amino group (−NH₂) from amino acids condenses with carbonyl group (C=O) from reducing sugars to form Schiff bases → Amadori rearrangement → Amadori compounds.<br />
+    <strong>② Intermediate stage:</strong> Amadori compounds undergo dehydration, fragmentation, and cyclization, generating reductones, furfurals, and other intermediates.<br />
+    <strong>③ Final stage:</strong> Intermediates react with each other and amino acids (including Strecker degradation) → melanoidins (brown polymers) + hundreds of volatile aroma compounds.
+  </p>
+</div>
+
+<h3>3. Development Phase</h3>
+
+<p>
+  At ~196°C, accumulated steam and CO₂ pressure physically crack the bean — <strong>First Crack</strong>. A popcorn-like snapping sound. This marks a pivotal transition.
+</p>
+
+<p>
+  After first crack, <strong>caramelization</strong> accelerates — sugars break down into caramel-like sweetness and bitter compounds. Organic acids (especially chlorogenic acid) degrade rapidly; perceived acidity drops.
+</p>
+
+<p>
+  Continuing to ~224°C brings <strong>Second Crack</strong> — cellulose in cell walls fractures, producing a finer crackling sound. Past second crack, smoky, bittersweet, dark-chocolate flavors dominate, and origin-specific character diminishes rapidly.
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Roast Level</th>
+      <th>Bean Temp</th>
+      <th>Timing</th>
+      <th>Flavor Profile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Light Roast</td>
+      <td>196–205°C</td>
+      <td>Just after first crack</td>
+      <td>Fruity, floral, bright acidity</td>
+    </tr>
+    <tr>
+      <td>Medium Roast</td>
+      <td>210–220°C</td>
+      <td>After first crack ends</td>
+      <td>Balanced, caramel, nutty</td>
+    </tr>
+    <tr>
+      <td>Medium-Dark</td>
+      <td>220–225°C</td>
+      <td>Approaching second crack</td>
+      <td>Chocolate, roasty, low acidity</td>
+    </tr>
+    <tr>
+      <td>Dark Roast</td>
+      <td>225–240°C</td>
+      <td>Into second crack</td>
+      <td>Smoky, bitter, carbonized notes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Key Reactions in Detail</h2>
+
+<h3>Strecker Degradation</h3>
+
+<p>
+  Within the Maillard cascade, <strong>Strecker degradation</strong> is particularly important for aroma. α-dicarbonyl Maillard intermediates react with amino acids, generating amino-acid-specific aldehydes called Strecker aldehydes. These form the backbone of coffee's aromatic profile:
+</p>
+
+<p>
+  Leucine → <strong>3-methylbutanal</strong> (chocolate-like) / Isoleucine → <strong>2-methylbutanal</strong> (fruity) / Valine → <strong>2-methylpropanal</strong> (nutty).
+</p>
+
+<h3>Caramelization</h3>
+
+<p>
+  Unlike the Maillard reaction (which requires amino acids), <strong>caramelization</strong> proceeds with sugar alone. Sucrose melts and decomposes at ~186°C, undergoing dehydration, cyclization, and polymerization to produce hundreds of compounds — including <strong>diacetyl</strong> (buttery), <strong>furanones</strong> (caramel-like), and <strong>maltol</strong> (sweet aroma). Darker roasts mean more caramelization and increasing bittersweet character.
+</p>
+
+<h3>Chlorogenic Acid Degradation</h3>
+
+<p>
+  Green beans contain 6–10% chlorogenic acid (CGA) by dry weight. Roasting degrades most of it, especially in dark roasts. CGA breaks down into <strong>quinic acid</strong> and <strong>caffeic acid</strong>; further degradation creates <strong>phenylindanes</strong>, the primary source of dark roast's characteristic harsh bitterness.
+</p>
+
+<div class="info-box">
+  <h4>Acidity and Roast Level</h4>
+  <p>
+    Light roast coffee is "acidic" — but not just sharp or sour. Early in roasting, CGA breakdown generates organic acids (acetic, formic, lactic), temporarily increasing acidity. As roasting continues, these acids themselves degrade. So light roast coffee doesn't taste "sour" — it has <strong>complex acidity from diverse organic acids</strong>. The difference is between sharp tartness and bright, nuanced, fruit-like acidity.
+  </p>
+</div>
+
+<h2>Coffee's Aromatic Compound Library</h2>
+
+<p>
+  Roasted coffee contains <strong>1,000+ identified volatile compounds</strong> — more than wine (~500) and among the highest of any food. Key categories:
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Compound Class</th>
+      <th>Key Compound</th>
+      <th>Aroma Character</th>
+      <th>Origin Reaction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Furans</td>
+      <td>2-Furfurylthiol</td>
+      <td>Classic "coffee" aroma</td>
+      <td>Maillard reaction</td>
+    </tr>
+    <tr>
+      <td>Pyrazines</td>
+      <td>2-Ethyl-3,5-dimethylpyrazine</td>
+      <td>Nutty, roasty</td>
+      <td>Maillard reaction</td>
+    </tr>
+    <tr>
+      <td>Aldehydes</td>
+      <td>3-Methylbutanal</td>
+      <td>Chocolate</td>
+      <td>Strecker degradation</td>
+    </tr>
+    <tr>
+      <td>Ketones</td>
+      <td>Diacetyl</td>
+      <td>Buttery, caramel</td>
+      <td>Caramelization</td>
+    </tr>
+    <tr>
+      <td>Phenols</td>
+      <td>4-Vinylguaiacol</td>
+      <td>Spicy, clove-like</td>
+      <td>Ferulic acid degradation</td>
+    </tr>
+    <tr>
+      <td>Thiols</td>
+      <td>Methanethiol</td>
+      <td>Sulfurous, potent</td>
+      <td>Sulfur amino acid breakdown</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  <strong>2-Furfurylthiol</strong> deserves special attention — detectable at concentrations of just a few parts per trillion, it's considered the primary "coffee aroma" compound. Its detection threshold is so low that it dominates the scent profile even in tiny quantities.
+</p>
+
+<h2>Roast Profile Design</h2>
+
+<p>
+  Modern specialty roasters treat roasting as a function of <strong>temperature and time</strong>, monitoring drum temperature, bean surface temperature, and <strong>RoR (Rate of Rise)</strong> in real time, adjusting heat to hit a target flavor profile.
+</p>
+
+<p>
+  <strong>Turning Point:</strong> When beans first enter the hot drum, temperature briefly drops (cold beans absorb heat) before rising again — typically reached 1–2 minutes after loading.
+</p>
+
+<p>
+  <strong>RoR (Rate of Rise):</strong> Temperature increase per unit time. A smoothly declining RoR through the roast ("downward slope") is generally considered ideal. A sudden RoR spike ("flick") or a crash followed by a spike ("crash and flick") are defect indicators.
+</p>
+
+<div class="info-box">
+  <h4>DTR — Development Time Ratio</h4>
+  <p>
+    DTR = Time after first crack ÷ Total roast time × 100<br /><br />
+    General guidelines:<br />
+    <strong>15–20%:</strong> Light roast. Bright acidity, origin character pronounced.<br />
+    <strong>20–25%:</strong> Medium. Balanced, sweetness well-developed.<br />
+    <strong>25%+:</strong> Dark. Heavy body, dominant bitterness.<br /><br />
+    DTR is a guideline, not a rule. The same DTR can produce very different cups depending on the heat curve that led there.
+  </p>
+</div>
+
+<h2>Roast Level and Origin Character</h2>
+
+<p>
+  In specialty coffee, roasting serves to <strong>reveal origin character</strong>, not to override it. Lighter roasts let origin-specific acids and aromatics lead. Darker roasts increasingly express roast-derived character (chocolate, caramel, smoke), suppressing terroir flavors.
+</p>
+
+<p>
+  Ethiopian Yirgacheffe's jasmine and bergamot aromatics sing brightest at <strong>light to medium-light</strong>. Brazil's nutty, chocolatey profile finds its best expression at <strong>medium to medium-dark</strong>. But "lighter is always better" is wrong too — underdeveloped roasts produce cereal-like, grassy flavors from incomplete Maillard reactions. The craft is in balancing origin expression with sufficient sweetness and body development.
+</p>
+
+<h2>Summary</h2>
+
+<p>
+  Roasting is the orchestration of Maillard reactions, caramelization, and organic acid degradation — hundreds of reactions unfolding simultaneously. The roaster's job is to understand these reactions well enough to guide them precisely toward the target: the fullest possible expression of what's inside a single green bean.
+</p>
+
+<p>
+  Continue to <a href="/en/science/extraction-science" class="text-[var(--color-accent)] hover:underline font-medium">Extraction Science</a> — once the bean is roasted, how do flavor compounds actually dissolve into water?
+</p>
+
+</ArticleLayout>

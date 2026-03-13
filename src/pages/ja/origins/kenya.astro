@@ -1,5 +1,7 @@
 ---
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <ArticleLayout
@@ -12,6 +14,12 @@ import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 
 <!-- 概要 -->
 <h2>概要</h2>
+
+<img
+  src={`${base}/images/origins/kenya.jpg`}
+  alt="ケニアのコーヒー農園"
+  style="width:100%;border-radius:12px;margin:1rem 0 1.5rem;object-fit:cover;max-height:360px;"
+/>
 
 <p>
   ケニアは、世界のスペシャルティコーヒー市場において最も高い評価を受ける生産国のひとつです。

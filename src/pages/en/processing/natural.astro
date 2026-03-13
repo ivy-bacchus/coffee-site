@@ -1,0 +1,106 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ArticleLayout
+  title="Natural Processing"
+  subtitle="The oldest method — drying the whole cherry intact. The source of coffee's most dramatic fruit-forward flavors."
+  accentLabel="Natural / Dry Process"
+  lang={lang}
+  currentPath={`/${lang}/processing/natural`}
+>
+
+<h2>What Is Natural Processing?</h2>
+
+<p>
+  Natural (or dry) processing is the world's oldest coffee processing method: the <strong>entire coffee cherry is dried intact</strong>, skin, pulp, mucilage, and all. Spread on raised beds or patios in the sun, the cherries slowly lose moisture over several weeks. Once dry, a hulling machine strips away the dried outer layers to reveal the green bean.
+</p>
+
+<p>
+  Where washed processing uses water to quickly remove fruit and minimize its influence on flavor, natural processing allows <strong>extended contact between fruit and seed during drying</strong>. Sugars, organic acids, and yeasts from the cherry slowly penetrate and ferment around the seed. This long contact is the source of natural processing's distinctive, complex sweetness.
+</p>
+
+<img
+  src={`${base}/images/processing/natural.jpg`}
+  alt="Natural processed coffee cherries drying on raised beds"
+  style="width:100%;border-radius:12px;margin:1.5rem 0;object-fit:cover;max-height:360px;"
+/>
+
+<h2>The Process</h2>
+
+<table>
+  <thead>
+    <tr><th>Step</th><th>Description</th><th>Duration</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Harvest</strong></td><td>Selective hand-picking at peak ripeness — critical for natural quality</td><td>—</td></tr>
+    <tr><td><strong>Flotation sorting</strong></td><td>Water sorting removes unripe and defective cherries</td><td>Hours</td></tr>
+    <tr><td><strong>Drying</strong></td><td>Whole cherries spread on raised African beds or concrete patios; turned by hand multiple times daily</td><td>2–6 weeks</td></tr>
+    <tr><td><strong>Moisture monitoring</strong></td><td>Dried to 11–12% moisture content</td><td>Ongoing</td></tr>
+    <tr><td><strong>Hulling & sorting</strong></td><td>Machine removes all dried fruit layers; density and color grading</td><td>Days</td></tr>
+  </tbody>
+</table>
+
+<p>
+  Daily turning (typically 4–6 times) is not optional — it's what prevents the fatal flaw of naturals. If cherries pile up or aren't turned, the bottom layers stay moist while the top dries, creating conditions for uneven fermentation, mold, and off-flavors. High-quality naturals require meticulous hands-on management through the entire drying period.
+</p>
+
+<h2>Flavor Characteristics</h2>
+
+<p>
+  Natural processing produces coffee's most dramatic cup profiles. The extended fruit contact creates flavors that have no parallel in washed processing:
+</p>
+
+<div class="info-box">
+  <h4>Natural vs. Washed — Flavor Comparison</h4>
+  <p>
+    <strong>Natural:</strong> Fruity, sweet, fermented complexity, wine-like, heavy body, high complexity<br />
+    <strong>Washed:</strong> Clean, bright, transparent acidity, floral, variety and terroir forward<br /><br />
+    Natural coffee often surprises people who aren't expecting it — blueberry, strawberry, tropical fruit, and wine-like fermentation notes create a cup that can seem almost nothing like "coffee" in the conventional sense.
+  </p>
+</div>
+
+<p>
+  Typical natural descriptors include: blueberry, strawberry, mango, tropical fruit, raisin, grape, wine, jam. The sweetness is structural — it's not added, it's inherent to the process. Body tends to be heavier and more viscous than washed equivalents from the same origin.
+</p>
+
+<h2>Climate and Origin</h2>
+
+<p>
+  Natural processing requires <strong>dry climate</strong>. Too much ambient humidity and the cherries won't dry fast enough before mold and over-fermentation set in. This is why naturals historically came from:
+</p>
+
+<ul>
+  <li><strong>Ethiopia (Harrar, Sidama):</strong> Some of the oldest natural processing in the world. Harrar naturals are distinctively wild — blueberry, wine, spice, dark chocolate with an earthy, untamed complexity.</li>
+  <li><strong>Brazil:</strong> The world's largest natural coffee producer. Vast farms use mechanical drying as well as sun drying; Brazil's classic profile (nuts, chocolate, low acidity) is largely a product of natural and pulped-natural processing.</li>
+  <li><strong>Yemen:</strong> Perhaps the world's most ancient coffee production tradition, all naturally processed in remote mountain terraces. Exceptionally rare, unique flavor profile.</li>
+</ul>
+
+<p>
+  In contrast, high-rainfall origins like Kenya or wetter Ethiopian regions (Yirgacheffe wet season) favor washed processing because natural drying is logistically difficult and quality-risky. Understanding the relationship between climate and processing method is a key to predicting flavor profiles by origin.
+</p>
+
+<h2>Quality Control Challenges</h2>
+
+<p>
+  Natural processing is harder to control than washed. Every environmental variable during the 2–6 week drying period affects the final cup — ambient temperature, humidity, sunlight intensity, turning frequency. Even small management errors cause defects: over-fermentation (vinegary, rotten fruit flavors), mold (musty, earthy off-notes), and inconsistent drying (uneven flavors within a lot).
+</p>
+
+<p>
+  This difficulty is precisely why exceptional naturals command premium prices. When everything goes right — ripe cherries, consistent dry weather, meticulous turning, experienced monitoring — a natural can reach <strong>flavor complexity and sweetness that no other processing method achieves</strong>. The risk is inseparable from the reward.
+</p>
+
+<div class="info-box">
+  <h4>Buying and Brewing Naturals</h4>
+  <p>
+    <strong>Origins to seek:</strong> Ethiopia, Brazil, Yemen<br />
+    <strong>Roast level:</strong> Light to medium — fruity notes peak here; dark roasting masks them<br />
+    <strong>Brew method:</strong> V60 or AeroPress at slower pour — patience brings out the complexity<br />
+    <strong>Freshness:</strong> Use soon after opening — fruity aromatics are volatile and fade faster than washed coffee
+  </p>
+</div>
+
+</ArticleLayout>

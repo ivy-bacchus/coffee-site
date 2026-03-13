@@ -1,0 +1,139 @@
+---
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+
+const lang = 'en';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<ArticleLayout
+  title="Kenya"
+  subtitle="Vivid acidity, complex layered flavor, and an auction system that sets the global standard."
+  accentLabel="Kenya"
+  lang={lang}
+  currentPath={`/${lang}/origins/kenya`}
+>
+
+<h2>Overview</h2>
+
+<img
+  src={`${base}/images/origins/kenya.jpg`}
+  alt="Kenyan coffee farm"
+  style="width:100%;border-radius:12px;margin:1rem 0 1.5rem;object-fit:cover;max-height:360px;"
+/>
+
+<p>
+  Kenya is consistently one of the highest-rated origins in the specialty coffee world. Its coffee is defined by <strong>vivid, wine-like acidity, complex layered flavors, and exceptional clarity</strong> — a combination that commands some of the highest prices at auction and captivates sommeliers, baristas, and coffee drinkers worldwide.
+</p>
+
+<p>
+  What distinguishes Kenya's coffee industry as much as its terroir is its <strong>grading and auction system</strong>. The Nairobi Coffee Exchange (NCE) runs weekly auctions where every lot is cupped and graded before sale. Transparency is structural — buyers bid on quality they've verified, producers are rewarded for quality, and the system creates strong incentives to maintain standards. This institutional rigor is a major reason Kenyan coffee quality is so consistently high.
+</p>
+
+<div class="info-box">
+  <h4>Kenya at a Glance</h4>
+  <p>
+    <strong>Key varieties:</strong> SL28, SL34, Ruiru 11, Batian<br />
+    <strong>Processing:</strong> Washed (double-washed)<br />
+    <strong>Harvest:</strong> Main crop (Oct–Dec), Fly crop (Jun–Aug)<br />
+    <strong>Altitude:</strong> 1,400–2,100m<br />
+    <strong>Farmers:</strong> ~700,000 smallholder farms
+  </p>
+</div>
+
+<h2>History</h2>
+
+<p>
+  Commercial coffee production in Kenya began during British colonial rule in the late 19th century — French missionaries introduced Bourbon-variety seedlings around 1893. Commercial cultivation expanded significantly in the early 20th century, with British settlers establishing estates on the fertile volcanic soils of the central highlands.
+</p>
+
+<p>
+  The decisive development in Kenya's coffee identity came in the 1930s, when the Scott Laboratories (now the Coffee Research Institute) began systematic variety development. The <strong>SL (Scott Laboratories) varieties</strong> they identified and selected — particularly SL28 and SL34 — became the foundation of Kenya's reputation. These varieties were chosen for yield, drought resistance, and cup quality. Their ability to express Kenya's terroir in the cup is exceptional.
+</p>
+
+<p>
+  After independence in 1963, Kenya maintained its colonial-era quality infrastructure — the auction system, cooperative structure, and variety research — rather than dismantling it. This continuity is part of why Kenya's quality trajectory has remained strong while other formerly colonial coffee industries struggled.
+</p>
+
+<h2>Geography and Climate</h2>
+
+<p>
+  Kenyan specialty coffee grows primarily in the central highlands surrounding Mount Kenya and the Aberdare Range, as well as in the Nyanza and Western regions. Key growing areas include <strong>Nyeri, Kirinyaga, Murang'a, Embu, Kiambu</strong>, and <strong>Machakos</strong>.
+</p>
+
+<p>
+  Altitude ranges from 1,400–2,100m above sea level. The volcanic soils — particularly the deep red volcanic loam around Mount Kenya — are rich in minerals and exceptionally well-drained. Kenya's position near the equator means relatively consistent temperatures year-round, while altitude ensures the cool nights that slow cherry maturation and concentrate flavor development.
+</p>
+
+<p>
+  Kenya has two distinct growing seasons: the <strong>Main Crop</strong> (October–December) and the <strong>Fly Crop</strong> (June–August). Main crop lots tend to be more complex; fly crop volumes are smaller but can deliver exceptional quality from higher-altitude farms.
+</p>
+
+<h2>Varieties — The SL Legacy</h2>
+
+<p>
+  Kenya's cup profile is inseparable from its varieties:
+</p>
+
+<p>
+  <strong>SL28</strong> — the prestige variety. Known for its blackcurrant, tomato, and grapefruit flavors with exceptional brightness. SL28 is drought-tolerant but susceptible to coffee berry disease (CBD) and leaf rust. When grown at optimal altitude with careful farm management, it produces perhaps the world's most distinctive coffee.
+</p>
+
+<p>
+  <strong>SL34</strong> — heavier body than SL28, with similar bright acidity. More disease-resistant. Often blended with SL28 in cooperative lots.
+</p>
+
+<p>
+  <strong>Ruiru 11</strong> — bred at the Coffee Research Institute in the 1980s for disease resistance. Produces good yields and respectable quality, though generally considered less complex than the SL varieties.
+</p>
+
+<p>
+  <strong>Batian</strong> — newer variety (2010) combining CBD and leaf rust resistance with improved cup quality. Increasingly used in higher-altitude farms.
+</p>
+
+<h2>Processing — The Double Wash</h2>
+
+<p>
+  Kenya's processing method is the world's most meticulous washed process: the <strong>double-washed (or Kenyan-washed)</strong> system. After pulping and standard water fermentation (24–36 hours), beans are washed and then placed in "soaking tanks" with fresh, clean water for an additional 12–24 hours. This second soak further removes soluble compounds that can create off-flavors, resulting in a cup of remarkable clarity and cleanliness.
+</p>
+
+<p>
+  Most Kenyan coffee is processed through <strong>farmer cooperative washing stations (factories)</strong>. Smallholders deliver ripe cherries daily; the factory pulps, ferments, washes, and dries on raised beds. Cooperative membership is the norm — over 90% of Kenya's production passes through cooperative structures.
+</p>
+
+<h2>Grading System</h2>
+
+<p>
+  Kenya's coffee grading is based on <strong>bean size</strong>, measured by screen size (hole diameter in 1/64-inch increments). Size is an imperfect but useful proxy for quality — larger beans tend to develop more flavor during roasting.
+</p>
+
+<table>
+  <thead>
+    <tr><th>Grade</th><th>Screen Size</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>AA</strong></td><td>Screen 18+</td><td>Largest beans; highest auction prices; specialty standard</td></tr>
+    <tr><td><strong>AB</strong></td><td>Screen 15–16</td><td>Blend of A and B; significant volume; excellent value</td></tr>
+    <tr><td><strong>PB (Peaberry)</strong></td><td>Round screen</td><td>Single seed per cherry; often more concentrated flavor</td></tr>
+    <tr><td><strong>C, E, TT, T</strong></td><td>Various</td><td>Lower grades; smaller or lower-quality beans</td></tr>
+  </tbody>
+</table>
+
+<h2>Flavor Profile</h2>
+
+<p>
+  Kenya's cup profile is among the most recognizable in the specialty world:
+</p>
+
+<p>
+  <strong>Acidity:</strong> The defining characteristic — often described as "wine-like," "juicy," or "bright." The acidity is phosphoric and malic rather than citric, giving it a rounded, complex quality distinct from Ethiopian brightness. Some describe it as akin to biting into a very ripe, acidic plum or cherry.
+</p>
+
+<p>
+  <strong>Flavor descriptors:</strong> Blackcurrant, cassis, tomato, grapefruit, red currant, cranberry, dark cherry. High-altitude SL28 lots from Nyeri or Kirinyaga regularly deliver all of these in a single complex cup.
+</p>
+
+<p>
+  <strong>Body and finish:</strong> Full body with a long, wine-like finish. The aftertaste can persist for several minutes — one of the reasons Kenya commands premium prices and dedicated followings among coffee connoisseurs.
+</p>
+
+</ArticleLayout>
