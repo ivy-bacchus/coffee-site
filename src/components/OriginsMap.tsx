@@ -183,6 +183,43 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
             );
           })}
 
+          {/* Region zone labels */}
+          {[
+            { label: 'AFRICA', labelJa: 'アフリカ', coords: [22, 12] as [number, number], w: 50 },
+            { label: 'LATIN AMERICA', labelJa: '中南米', coords: [-58, -18] as [number, number], w: 78 },
+            { label: 'ASIA & M.E.', labelJa: 'アジア・中東', coords: [88, 18] as [number, number], w: 68 },
+          ].map(({ label, labelJa, coords, w }) => {
+            const pos = projection(coords);
+            if (!pos) return null;
+            const text = lang === 'ja' ? labelJa : label;
+            return (
+              <g key={label} style={{ pointerEvents: 'none' }}>
+                <rect
+                  x={pos[0] - w / 2}
+                  y={pos[1] - 10}
+                  width={w}
+                  height={18}
+                  rx={4}
+                  fill="rgba(212,165,116,0.10)"
+                  stroke="rgba(212,165,116,0.22)"
+                  strokeWidth={0.6}
+                />
+                <text
+                  x={pos[0]}
+                  y={pos[1] + 4}
+                  textAnchor="middle"
+                  fill="#D4A574"
+                  fillOpacity={0.7}
+                  fontSize={8}
+                  fontWeight="700"
+                  letterSpacing="1.2"
+                >
+                  {text}
+                </text>
+              </g>
+            );
+          })}
+
           {/* Country pins for labeled markers */}
           {coffeeCountries.map((country) => {
             const pos = projection(country.coords);
@@ -226,10 +263,10 @@ export default function OriginsMap({ lang = 'ja', base = '' }: { lang?: string; 
             }}
           >
             <p className="font-bold" style={{ fontFamily: 'var(--font-heading)' }}>
-              {tooltip.country.nameJa}
+              {lang === 'ja' ? tooltip.country.nameJa : tooltip.country.name}
             </p>
             <p style={{ color: 'var(--color-secondary)', fontSize: '0.75rem' }}>
-              {tooltip.country.name}
+              {lang === 'ja' ? tooltip.country.name : tooltip.country.nameJa}
             </p>
             {tooltip.country.ready ? (
               <p style={{ color: '#C1553B', fontSize: '0.7rem', marginTop: '2px' }}>
