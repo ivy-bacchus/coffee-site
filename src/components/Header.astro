@@ -10,46 +10,38 @@ const { lang, currentPath } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navItems = [
-  { key: 'origins', href: `${base}/${lang}/origins` },
-  { key: 'brewing', href: `${base}/${lang}/brewing` },
-  { key: 'science', href: `${base}/${lang}/science` },
+  { key: 'origins',    href: `${base}/${lang}/origins` },
+  { key: 'brewing',    href: `${base}/${lang}/brewing` },
+  { key: 'science',    href: `${base}/${lang}/science` },
   { key: 'processing', href: `${base}/${lang}/processing` },
-  { key: 'tools', href: `${base}/${lang}/tools` },
+  { key: 'tools',      href: `${base}/${lang}/tools` },
 ];
 
 const normalizedCurrent = `${base}${currentPath}`;
 ---
 
-<header class="fixed top-0 z-50 w-full border-b backdrop-blur-md" style="background-color: rgba(34,22,16,0.85); border-color: rgba(255,255,255,0.08);">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
+<header class="fixed top-0 z-50 w-full backdrop-blur-md" style="background-color: rgba(250,249,246,0.88); border-bottom: 1px solid rgba(212,195,191,0.4); box-shadow: 0 20px 40px rgba(26,28,26,0.04);">
+  <div class="max-w-screen-2xl mx-auto px-8 h-16 flex items-center justify-between gap-8">
+
     <!-- Logo -->
-    <a href={`${base}/${lang}`} class="flex items-center gap-2.5 shrink-0 group">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bd490f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-        <line x1="6" y1="1" x2="6" y2="4"/>
-        <line x1="10" y1="1" x2="10" y2="4"/>
-        <line x1="14" y1="1" x2="14" y2="4"/>
-      </svg>
-      <span class="text-base font-black tracking-tight text-white uppercase" style="font-family: 'Work Sans', sans-serif;">
-        Coffee Study
+    <a href={`${base}/${lang}`} class="shrink-0">
+      <span class="text-xl font-black italic tracking-tight" style="font-family: 'Noto Serif JP', serif; color: #361f1a;">
+        The Elevated Alchemist
       </span>
     </a>
 
-    <!-- Nav links — desktop -->
-    <nav class="hidden md:flex items-center gap-1 flex-1 justify-center">
+    <!-- Nav — desktop -->
+    <nav class="hidden md:flex items-center gap-10">
       {navItems.map((item) => {
         const isActive = normalizedCurrent === item.href ||
           (item.key !== 'home' && normalizedCurrent.startsWith(item.href));
         return (
           <a
             href={item.href}
-            class:list={[
-              'px-3 py-1.5 rounded-lg text-sm font-medium transition-colors',
-              isActive
-                ? 'text-white bg-white/10'
-                : 'text-white/55 hover:text-white hover:bg-white/8',
-            ]}
+            class="text-sm transition-colors duration-200"
+            style={isActive
+              ? 'color: #361f1a; border-bottom: 2px solid #456555; padding-bottom: 2px; font-family: Noto Serif JP, serif;'
+              : 'color: #504442; font-family: Noto Serif JP, serif;'}
           >
             {t(lang, `nav.${item.key}`)}
           </a>
@@ -58,33 +50,27 @@ const normalizedCurrent = `${base}${currentPath}`;
     </nav>
 
     <!-- Right: Lang toggle + hamburger -->
-    <div class="flex items-center gap-3 shrink-0">
+    <div class="flex items-center gap-4 shrink-0">
       <!-- Language Toggle -->
-      <div class="flex rounded-full overflow-hidden border text-xs font-bold" style="border-color: rgba(255,255,255,0.15);">
+      <div class="flex rounded-full overflow-hidden text-xs font-bold border" style="border-color: rgba(212,195,191,0.6);">
         <a
           href={currentPath.replace(`/${lang}`, `${base}/ja`)}
-          class:list={[
-            'px-3 py-1.5 transition-colors',
-            lang === 'ja'
-              ? 'text-white'
-              : 'text-white/40 hover:text-white/70',
-          ]}
-          style={lang === 'ja' ? 'background-color: #bd490f;' : ''}
+          class="px-3 py-1.5 transition-colors"
+          style={lang === 'ja'
+            ? 'background-color: #361f1a; color: #ffffff;'
+            : 'color: #827471;'}
         >JA</a>
         <a
           href={currentPath.replace(`/${lang}`, `${base}/en`)}
-          class:list={[
-            'px-3 py-1.5 transition-colors',
-            lang === 'en'
-              ? 'text-white'
-              : 'text-white/40 hover:text-white/70',
-          ]}
-          style={lang === 'en' ? 'background-color: #bd490f;' : ''}
+          class="px-3 py-1.5 transition-colors"
+          style={lang === 'en'
+            ? 'background-color: #361f1a; color: #ffffff;'
+            : 'color: #827471;'}
         >EN</a>
       </div>
 
       <!-- Mobile hamburger -->
-      <button id="mobile-menu-btn" class="md:hidden p-1.5 text-white/70 hover:text-white" aria-label="Menu">
+      <button id="mobile-menu-btn" class="md:hidden p-1.5" aria-label="Menu" style="color: #504442;">
         <svg id="menu-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -96,19 +82,17 @@ const normalizedCurrent = `${base}${currentPath}`;
   </div>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t" style="background-color: #221610; border-color: rgba(255,255,255,0.08);">
-    <nav class="px-6 py-4 flex flex-col gap-1">
+  <div id="mobile-menu" class="hidden md:hidden" style="background-color: #faf9f6; border-top: 1px solid rgba(212,195,191,0.4);">
+    <nav class="px-8 py-4 flex flex-col gap-1">
       {navItems.map((item) => {
         const isActive = normalizedCurrent === item.href || normalizedCurrent.startsWith(item.href);
         return (
           <a
             href={item.href}
-            class:list={[
-              'px-3 py-2.5 rounded-lg text-sm font-medium transition-colors',
-              isActive
-                ? 'text-white bg-white/10'
-                : 'text-white/55 hover:text-white',
-            ]}
+            class="px-3 py-2.5 text-sm transition-colors"
+            style={isActive
+              ? 'color: #361f1a; font-weight: 700; font-family: Noto Serif JP, serif;'
+              : 'color: #504442; font-family: Noto Serif JP, serif;'}
           >
             {t(lang, `nav.${item.key}`)}
           </a>

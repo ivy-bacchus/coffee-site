@@ -9,59 +9,45 @@ const { lang } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<footer class="mt-auto" style="background-color: #221610;">
-  <div class="max-w-7xl mx-auto px-6 py-16">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+<footer class="mt-20 w-full" style="border-top: 1px solid rgba(212,195,191,0.3); background-color: #faf9f6;">
+  <div class="max-w-screen-2xl mx-auto px-8 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-10">
       <!-- Brand -->
-      <div class="lg:col-span-2">
-        <div class="flex items-center gap-2.5 mb-5">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bd490f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-            <line x1="6" y1="1" x2="6" y2="4"/>
-            <line x1="10" y1="1" x2="10" y2="4"/>
-            <line x1="14" y1="1" x2="14" y2="4"/>
-          </svg>
-          <h2 class="font-[var(--font-heading)] text-lg font-bold text-white">Coffee Study</h2>
+      <div>
+        <p class="text-xl font-black italic" style="font-family: 'Noto Serif JP', serif; color: #361f1a;">
+          The Elevated Alchemist
+        </p>
+        <p class="text-sm mt-2 leading-relaxed max-w-xs" style="color: #504442;">
+          {lang === 'ja'
+            ? 'スペシャルティコーヒーの科学と感性が交差する場所。'
+            : 'Where the science and sensibility of specialty coffee converge.'}
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div class="flex gap-16">
+        <div>
+          <h5 class="text-xs font-bold uppercase tracking-widest mb-4" style="color: #361f1a; font-family: Manrope, sans-serif;">
+            {lang === 'ja' ? 'コンテンツ' : 'Content'}
+          </h5>
+          <ul class="space-y-2.5 text-sm" style="color: #504442;">
+            <li><a href={`${base}/${lang}/origins`} class="hover:text-[#361f1a] transition-colors">{lang === 'ja' ? '産地・農園' : 'Origins'}</a></li>
+            <li><a href={`${base}/${lang}/brewing`} class="hover:text-[#361f1a] transition-colors">{lang === 'ja' ? '抽出ガイド' : 'Brewing Guide'}</a></li>
+            <li><a href={`${base}/${lang}/science`} class="hover:text-[#361f1a] transition-colors">{lang === 'ja' ? 'コーヒーの化学' : 'Coffee Science'}</a></li>
+            <li><a href={`${base}/${lang}/processing`} class="hover:text-[#361f1a] transition-colors">{lang === 'ja' ? '精製プロセス' : 'Processing'}</a></li>
+            <li><a href={`${base}/${lang}/tools`} class="hover:text-[#361f1a] transition-colors">{lang === 'ja' ? 'レシピ計算機' : 'Calculator'}</a></li>
+          </ul>
         </div>
-        <p class="text-sm text-white/50 leading-relaxed max-w-xs">
-          {lang === 'ja'
-            ? 'スペシャルティコーヒーの産地・化学・抽出を体系的に学ぶための、中〜上級者向けリソース。'
-            : 'A resource for intermediate to advanced learners exploring the science, origins, and craft of specialty coffee.'}
-        </p>
-        <p class="font-[var(--font-heading)] text-sm italic text-white/25 mt-4">
-          {lang === 'ja' ? 'コーヒーを、もっと深く。' : 'Dive deeper into coffee.'}
-        </p>
-      </div>
-
-      <!-- Content links -->
-      <div>
-        <h5 class="text-white font-bold mb-5 uppercase tracking-widest text-xs">
-          {lang === 'ja' ? 'コンテンツ' : 'Content'}
-        </h5>
-        <ul class="space-y-3 text-sm text-white/50">
-          <li><a href={`${base}/${lang}/origins`} class="hover:text-white transition-colors">{lang === 'ja' ? '産地・農園' : 'Origins'}</a></li>
-          <li><a href={`${base}/${lang}/brewing`} class="hover:text-white transition-colors">{lang === 'ja' ? '抽出ガイド' : 'Brewing Guide'}</a></li>
-          <li><a href={`${base}/${lang}/science`} class="hover:text-white transition-colors">{lang === 'ja' ? 'コーヒーの化学' : 'Coffee Science'}</a></li>
-          <li><a href={`${base}/${lang}/processing`} class="hover:text-white transition-colors">{lang === 'ja' ? '精製プロセス' : 'Processing'}</a></li>
-          <li><a href={`${base}/${lang}/tools`} class="hover:text-white transition-colors">{lang === 'ja' ? 'レシピ計算機' : 'Recipe Calculator'}</a></li>
-        </ul>
-      </div>
-
-      <!-- About -->
-      <div>
-        <h5 class="text-white font-bold mb-5 uppercase tracking-widest text-xs">About</h5>
-        <p class="text-sm text-white/50 leading-relaxed">
-          {lang === 'ja'
-            ? 'スペシャルティコーヒーの世界を、科学的・文化的・感覚的な視点から探求するプロジェクトです。'
-            : 'A project exploring specialty coffee from scientific, cultural, and sensory perspectives.'}
-        </p>
       </div>
     </div>
 
-    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/25">
-      <p>&copy; 2026 Coffee Study. All rights reserved.</p>
-      <p>Powered by curiosity & caffeine.</p>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-8" style="border-top: 1px solid rgba(212,195,191,0.3);">
+      <p class="text-xs italic" style="color: #827471; font-family: 'Noto Serif JP', serif;">
+        © 2026 The Elevated Alchemist | Digital Sommelier Archive
+      </p>
+      <p class="text-xs uppercase tracking-widest" style="color: #d4c3bf; font-family: Manrope, sans-serif;">
+        Powered by curiosity & caffeine.
+      </p>
     </div>
   </div>
 </footer>
