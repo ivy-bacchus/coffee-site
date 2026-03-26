@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
-type Method = 'v60' | 'kalita' | 'french_press' | 'aeropress' | 'chemex';
+type Method = 'v60' | 'kalita' | 'melitta' | 'french_press' | 'clever' | 'aeropress' | 'chemex' | 'siphon';
 type Roast = 'light' | 'medium' | 'dark';
+type WaterType = 'soft' | 'medium' | 'hard';
 
 const PRIMARY = '#bd490f';
 const DARK = '#221610';
@@ -10,18 +11,38 @@ const clamp = (v: number, mn: number, mx: number) => Math.max(mn, Math.min(mx, v
 // ── Method data ──────────────────────────────────────────────────────────────
 interface MethodData {
   label: { en: string; ja: string };
+  category: { en: string; ja: string };
   defaultRatio: number;
   defaultTemp: number;
   defaultWater: number;
   grind: { en: string; ja: string };
+  grindIndex: number; // 0–11 for visual scale (fine→coarse)
+  filterType: { en: string; ja: string };
 }
 
 const METHODS: Record<Method, MethodData> = {
-  v60:          { label: { en: 'V60',          ja: 'V60'          }, defaultRatio: 15, defaultTemp: 93, defaultWater: 300, grind: { en: 'Medium-Fine',   ja: '中細挽き'     } },
-  kalita:       { label: { en: 'Kalita Wave',  ja: 'カリタウェーブ' }, defaultRatio: 15, defaultTemp: 92, defaultWater: 300, grind: { en: 'Medium',        ja: '中挽き'       } },
-  french_press: { label: { en: 'French Press', ja: 'フレンチプレス' }, defaultRatio: 14, defaultTemp: 95, defaultWater: 300, grind: { en: 'Coarse',        ja: '粗挽き'       } },
-  aeropress:    { label: { en: 'AeroPress',    ja: 'エアロプレス'  }, defaultRatio: 13, defaultTemp: 88, defaultWater: 200, grind: { en: 'Fine-Medium',   ja: '細〜中細挽き'  } },
-  chemex:       { label: { en: 'Chemex',       ja: 'ケメックス'    }, defaultRatio: 16, defaultTemp: 94, defaultWater: 400, grind: { en: 'Medium-Coarse', ja: '中粗挽き'     } },
+  v60:          { label: { en: 'V60',            ja: 'V60'           }, category: { en: 'Pour-Over (Cone)',      ja: 'ドリップ（円錐）'         }, defaultRatio: 15,   defaultTemp: 93, defaultWater: 300, grind: { en: 'Medium-Fine',   ja: '中細挽き'          }, grindIndex: 5,  filterType: { en: 'Paper (cone)',     ja: 'ペーパー（円錐）'    } },
+  kalita:       { label: { en: 'Kalita Wave',    ja: 'カリタウェーブ'  }, category: { en: 'Pour-Over (Flat)',      ja: 'ドリップ（フラット）'     }, defaultRatio: 15,   defaultTemp: 92, defaultWater: 300, grind: { en: 'Medium',        ja: '中挽き'            }, grindIndex: 6,  filterType: { en: 'Paper (wave)',     ja: 'ペーパー（ウェーブ）' } },
+  melitta:      { label: { en: 'Melitta',        ja: 'メリタ'         }, category: { en: 'Pour-Over (Wedge)',     ja: 'ドリップ（台形1つ穴）'   }, defaultRatio: 15,   defaultTemp: 91, defaultWater: 300, grind: { en: 'Medium',        ja: '中挽き'            }, grindIndex: 6,  filterType: { en: 'Paper (wedge)',    ja: 'ペーパー（台形）'    } },
+  french_press: { label: { en: 'French Press',   ja: 'フレンチプレス'  }, category: { en: 'Immersion',            ja: '浸漬式'                 }, defaultRatio: 14,   defaultTemp: 95, defaultWater: 300, grind: { en: 'Coarse',        ja: '粗挽き'            }, grindIndex: 10, filterType: { en: 'Metal mesh',       ja: '金属メッシュ'       } },
+  clever:       { label: { en: 'Clever Dripper', ja: 'クレバー'       }, category: { en: 'Immersion + Drip',     ja: '浸漬式＋透過式'          }, defaultRatio: 15,   defaultTemp: 93, defaultWater: 300, grind: { en: 'Medium-Coarse', ja: '中粗挽き'          }, grindIndex: 7,  filterType: { en: 'Paper (wedge)',    ja: 'ペーパー（台形）'    } },
+  aeropress:    { label: { en: 'AeroPress',      ja: 'エアロプレス'   }, category: { en: 'Pressure Immersion',   ja: '加圧浸漬式'              }, defaultRatio: 13,   defaultTemp: 88, defaultWater: 200, grind: { en: 'Fine-Medium',   ja: '細〜中細挽き'       }, grindIndex: 3,  filterType: { en: 'Paper (round)',    ja: 'ペーパー（丸型）'    } },
+  chemex:       { label: { en: 'Chemex',         ja: 'ケメックス'     }, category: { en: 'Pour-Over (Chemex)',   ja: 'ドリップ（ケメックス）'   }, defaultRatio: 16,   defaultTemp: 94, defaultWater: 400, grind: { en: 'Medium-Coarse', ja: '中粗挽き'          }, grindIndex: 8,  filterType: { en: 'Paper (thick)',    ja: 'ペーパー（厚手）'    } },
+  siphon:       { label: { en: 'Siphon',         ja: 'サイフォン'     }, category: { en: 'Vacuum',              ja: '真空式'                  }, defaultRatio: 14.5, defaultTemp: 92, defaultWater: 300, grind: { en: 'Medium',        ja: '中挽き'            }, grindIndex: 6,  filterType: { en: 'Cloth / Paper',    ja: 'ネル / ペーパー'     } },
+};
+
+// ── Water hardness data ──────────────────────────────────────────────────────
+interface WaterData {
+  label: { en: string; ja: string };
+  tds: string;
+  note: { en: string; ja: string };
+  extractionMod: number; // multiplier for extraction estimate
+}
+
+const WATER_TYPES: Record<WaterType, WaterData> = {
+  soft:   { label: { en: 'Soft',   ja: '軟水'  }, tds: '50–80 ppm',  note: { en: 'Higher acidity, more clarity',   ja: '酸味が際立ち、クリアな味わい'   }, extractionMod: 0.97 },
+  medium: { label: { en: 'Medium', ja: '中硬水' }, tds: '80–150 ppm', note: { en: 'Balanced extraction (SCA ideal)', ja: 'バランスの良い抽出（SCA推奨）'  }, extractionMod: 1.00 },
+  hard:   { label: { en: 'Hard',   ja: '硬水'  }, tds: '150–250 ppm', note: { en: 'Muted acidity, more body',       ja: '酸味が抑えられ、ボディが増す'   }, extractionMod: 1.03 },
 };
 
 // ── Method icons ─────────────────────────────────────────────────────────────
@@ -30,9 +51,12 @@ function MethodIcon({ method }: { method: Method }) {
   switch (method) {
     case 'v60':          return <svg {...p}><path d="M5 4h14l-4 13H9L5 4z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="10" y1="21" x2="14" y2="21"/></svg>;
     case 'kalita':       return <svg {...p}><rect x="4" y="4" width="16" height="11" rx="1"/><line x1="4" y1="11" x2="20" y2="11"/><line x1="9" y1="15" x2="9" y2="19"/><line x1="15" y1="15" x2="15" y2="19"/></svg>;
+    case 'melitta':      return <svg {...p}><path d="M6 4h12l-3 13H9L6 4z"/><line x1="12" y1="17" x2="12" y2="21"/></svg>;
     case 'french_press': return <svg {...p}><rect x="7" y="3" width="10" height="16" rx="1"/><line x1="5" y1="3" x2="19" y2="3"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="12" y1="3" x2="12" y2="9"/></svg>;
+    case 'clever':       return <svg {...p}><path d="M6 4h12l-2 13H8L6 4z"/><path d="M10 17h4v2h-4z"/><line x1="12" y1="19" x2="12" y2="21"/></svg>;
     case 'aeropress':    return <svg {...p}><rect x="8" y="5" width="8" height="14" rx="1"/><rect x="9" y="2" width="6" height="3" rx="0.5"/><line x1="8" y1="11" x2="16" y2="11"/></svg>;
     case 'chemex':       return <svg {...p}><path d="M8 3h8l-2 8H10L8 3z"/><path d="M10 11v2a4 4 0 0 0 4 0v-2"/><path d="M8 17h8"/><line x1="12" y1="13" x2="12" y2="17"/></svg>;
+    case 'siphon':       return <svg {...p}><circle cx="12" cy="6" r="4"/><line x1="12" y1="10" x2="12" y2="13"/><ellipse cx="12" cy="17" rx="5" ry="4"/></svg>;
   }
 }
 
@@ -43,7 +67,8 @@ function getSteps(method: Method, beans: number, water: number): Step[] {
   const bloom = Math.round(beans * 2);
   switch (method) {
     case 'v60':
-    case 'kalita': {
+    case 'kalita':
+    case 'melitta': {
       const rem = water - bloom;
       const p1 = Math.round(rem * 0.45);
       const p2 = rem - p1;
@@ -75,6 +100,13 @@ function getSteps(method: Method, beans: number, water: number): Step[] {
         { time: 240, label: { en: 'Press plunger down slowly',             ja: 'プランジャーをゆっくり押し下げる'     }, water: null       },
         { time: 255, label: { en: 'Pour immediately to avoid over-extraction', ja: 'すぐにカップへ（過抽出を防ぐ）'  }, water: null       },
       ];
+    case 'clever':
+      return [
+        { time: 0,   label: { en: 'Pour all water (valve closed)',          ja: '全量を注ぐ（ドリッパーは閉じた状態）'  }, water: `${water}ml` },
+        { time: 10,  label: { en: 'Stir gently 3–4 times',                 ja: 'スプーンで軽く撹拌'                    }, water: null       },
+        { time: 150, label: { en: 'Place on server to start drawdown',     ja: 'サーバーにセットして排出開始'            }, water: null       },
+        { time: 210, label: { en: 'Drawdown complete',                      ja: '排出完了'                              }, water: null       },
+      ];
     case 'aeropress':
       return [
         { time: 0,   label: { en: 'Invert AeroPress, add grounds',          ja: '逆向きにセットし粉を投入'            }, water: null       },
@@ -82,27 +114,64 @@ function getSteps(method: Method, beans: number, water: number): Step[] {
         { time: 30,  label: { en: 'Attach cap with filter',                 ja: 'フィルターキャップを取り付ける'       }, water: null       },
         { time: 60,  label: { en: 'Flip over cup, press slowly (30 sec)',   ja: 'カップに反転し、30秒かけてプレス'    }, water: null       },
       ];
+    case 'siphon':
+      return [
+        { time: 0,   label: { en: 'Heat water in lower chamber until it rises', ja: '下ボールの湯が上がったら粉を投入'  }, water: `${water}ml` },
+        { time: 5,   label: { en: 'Stir with bamboo paddle in cross pattern',   ja: '竹べらで十字に撹拌'                }, water: null       },
+        { time: 50,  label: { en: 'Remove heat source, stir once',              ja: '火を消す → 撹拌1回'               }, water: null       },
+        { time: 80,  label: { en: 'Coffee descends — serve immediately',        ja: '下ボールに降りたら完成'             }, water: null       },
+      ];
   }
 }
 
 // ── Flavor prediction ─────────────────────────────────────────────────────────
 interface FlavorProfile { acidity: number; sweetness: number; body: number; bitterness: number; }
 
-function getFlavorProfile(ratio: number, temp: number, roast: Roast): FlavorProfile {
+function getFlavorProfile(ratio: number, temp: number, roast: Roast, waterType: WaterType): FlavorProfile {
   // ratio 10=very strong, 22=very weak → strengthFactor 0..1
   const strengthFactor = 1 - (ratio - 10) / 12;
   // temp 80..100 → heatFactor 0..1
   const heatFactor = (temp - 80) / 20;
   const rf = roast === 'light' ? 0 : roast === 'medium' ? 0.5 : 1;
+  // Water hardness modifiers
+  const wf = waterType === 'soft' ? -0.15 : waterType === 'hard' ? 0.15 : 0;
 
-  const acidity    = clamp(Math.round(85 - strengthFactor * 35 - heatFactor * 20 + (1 - rf) * 25), 5, 95);
-  const bitterness = clamp(Math.round(strengthFactor * 45 + heatFactor * 30 + rf * 30 - 10),        5, 90);
+  const acidity    = clamp(Math.round(85 - strengthFactor * 35 - heatFactor * 20 + (1 - rf) * 25 - wf * 30), 5, 95);
+  const bitterness = clamp(Math.round(strengthFactor * 45 + heatFactor * 30 + rf * 30 - 10 + wf * 15),        5, 90);
   const midS = 1 - Math.abs(strengthFactor - 0.55) * 1.6;
   const midT = 1 - Math.abs(heatFactor - 0.6)     * 1.4;
   const sweetness  = clamp(Math.round((midS * 50 + midT * 30 + (rf === 0.5 ? 20 : 5))), 10, 88);
-  const body       = clamp(Math.round(strengthFactor * 40 + heatFactor * 25 + rf * 25 + 10),         10, 95);
+  const body       = clamp(Math.round(strengthFactor * 40 + heatFactor * 25 + rf * 25 + 10 + wf * 20),         10, 95);
 
   return { acidity, sweetness, body, bitterness };
+}
+
+// ── Extraction yield & TDS estimation ─────────────────────────────────────────
+function getExtractionEstimate(ratio: number, temp: number, roast: Roast, waterType: WaterType) {
+  // Base extraction yield ~19-22% for typical brew
+  const ratioFactor = clamp(1 - (ratio - 14) * 0.02, 0.85, 1.15); // stronger ratio = more extraction
+  const tempFactor = clamp(0.8 + (temp - 80) * 0.012, 0.8, 1.1);  // higher temp = more extraction
+  const roastFactor = roast === 'dark' ? 1.05 : roast === 'light' ? 0.95 : 1.0;
+  const waterMod = WATER_TYPES[waterType].extractionMod;
+
+  const baseYield = 20.0;
+  const extractionYield = clamp(baseYield * ratioFactor * tempFactor * roastFactor * waterMod, 14, 26);
+
+  // TDS% = (beans * yield%) / water * 100
+  // Approximate: TDS ≈ extractionYield / ratio
+  const tds = clamp(extractionYield / ratio, 0.8, 2.0);
+
+  // SCA ideal range: 18-22% yield, 1.15-1.45% TDS
+  const yieldInRange = extractionYield >= 18 && extractionYield <= 22;
+  const tdsInRange = tds >= 1.15 && tds <= 1.45;
+
+  return {
+    yield: Math.round(extractionYield * 10) / 10,
+    tds: Math.round(tds * 100) / 100,
+    yieldInRange,
+    tdsInRange,
+    balanced: yieldInRange && tdsInRange,
+  };
 }
 
 function getExtractionLabel(flavor: FlavorProfile, lang: 'en' | 'ja') {
@@ -192,11 +261,12 @@ function getRatioWarning(ratio: number, lang: 'en' | 'ja'): { level: 'strong' | 
 }
 
 export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
-  const [method, setMethod] = useState<Method>('v60');
-  const [beans, setBeans]   = useState(Math.round(300 / 15 * 10) / 10); // independent
-  const [water, setWater]   = useState(300);                             // independent
-  const [temp, setTemp]     = useState(93);
-  const [roast, setRoast]   = useState<Roast>('medium');
+  const [method, setMethod]       = useState<Method>('v60');
+  const [beans, setBeans]         = useState(Math.round(300 / 15 * 10) / 10);
+  const [water, setWater]         = useState(300);
+  const [temp, setTemp]           = useState(93);
+  const [roast, setRoast]         = useState<Roast>('medium');
+  const [waterType, setWaterType] = useState<WaterType>('medium');
 
   // Timer
   const [timerState, setTimerState] = useState<'idle' | 'running' | 'paused'>('idle');
@@ -229,7 +299,8 @@ export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
 
   const bloom      = Math.round(beans * 2);
   const steps      = getSteps(method, beans, water);
-  const flavor     = getFlavorProfile(ratio, temp, roast);
+  const flavor     = getFlavorProfile(ratio, temp, roast, waterType);
+  const extraction = getExtractionEstimate(ratio, temp, roast, waterType);
   const methodData = METHODS[method];
   const warning    = getRatioWarning(ratio, lang);
 
@@ -275,6 +346,14 @@ export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
     highTemp:      ja ? '高め (100°)'  : 'High (100°)',
     smallCup:      ja ? '1杯 (150ml)'  : 'Cup (150ml)',
     largePot:      ja ? '大容量 (800ml)' : 'Pot (800ml)',
+    waterHardness: ja ? '水質'         : 'Water Quality',
+    filterLabel:   ja ? 'フィルター'   : 'Filter',
+    category:      ja ? 'カテゴリ'     : 'Category',
+    extractionYield: ja ? '抽出収率'   : 'Extraction Yield',
+    tdsLabel:      ja ? 'TDS（濃度）'  : 'TDS (Strength)',
+    scaIdeal:      ja ? 'SCA推奨範囲'  : 'SCA Ideal Range',
+    yieldRange:    ja ? '収率: 18–22%' : 'Yield: 18–22%',
+    tdsRange:      ja ? 'TDS: 1.15–1.45%' : 'TDS: 1.15–1.45%',
   };
 
   return (
@@ -413,6 +492,66 @@ export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Water quality selector */}
+          <div>
+            <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: '12px' }}>{T.waterHardness}</p>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              {(['soft', 'medium', 'hard'] as WaterType[]).map((w) => {
+                const active = waterType === w;
+                const wd = WATER_TYPES[w];
+                return (
+                  <button
+                    key={w}
+                    onClick={() => setWaterType(w)}
+                    style={{
+                      flex: 1, padding: '10px', borderRadius: '10px', fontSize: '13px', fontWeight: 700, textAlign: 'left',
+                      border: `1px solid ${active ? 'rgba(96,165,250,0.6)' : 'rgba(255,255,255,0.1)'}`,
+                      background: active ? 'rgba(96,165,250,0.1)' : 'transparent',
+                      color: active ? '#93c5fd' : 'rgba(255,255,255,0.4)',
+                      cursor: 'pointer', transition: 'all 0.2s',
+                    }}
+                  >
+                    <span style={{ display: 'block' }}>{wd.label[lang]}</span>
+                    <span style={{ display: 'block', fontSize: '10px', fontWeight: 500, opacity: 0.6, marginTop: '2px' }}>{wd.tds}</span>
+                  </button>
+                );
+              })}
+            </div>
+            <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.3)', marginTop: '8px' }}>
+              {WATER_TYPES[waterType].note[lang]}
+            </p>
+          </div>
+
+          {/* Extraction yield & TDS estimate */}
+          <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '20px 24px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <p style={{ fontSize: '13px', fontWeight: 700, color: 'white' }}>{T.extractionYield} / TDS</p>
+              <span style={{
+                fontSize: '10px', fontWeight: 700, padding: '3px 10px', borderRadius: '9999px',
+                background: extraction.balanced ? 'rgba(52,211,153,0.15)' : 'rgba(251,191,36,0.15)',
+                color: extraction.balanced ? '#6ee7b7' : '#fcd34d',
+              }}>
+                {extraction.balanced ? (ja ? 'SCA推奨範囲内' : 'In SCA range') : (ja ? 'SCA推奨範囲外' : 'Outside SCA range')}
+              </span>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)' }}>
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>{T.extractionYield}</span>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: extraction.yieldInRange ? '#6ee7b7' : '#fcd34d', fontFamily: 'Work Sans, sans-serif', marginTop: '4px' }}>
+                  {extraction.yield}%
+                </div>
+                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)' }}>{T.yieldRange}</span>
+              </div>
+              <div style={{ padding: '12px', borderRadius: '8px', background: 'rgba(255,255,255,0.04)' }}>
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)' }}>{T.tdsLabel}</span>
+                <div style={{ fontSize: '22px', fontWeight: 900, color: extraction.tdsInRange ? '#6ee7b7' : '#fcd34d', fontFamily: 'Work Sans, sans-serif', marginTop: '4px' }}>
+                  {extraction.tds}%
+                </div>
+                <span style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)' }}>{T.tdsRange}</span>
+              </div>
             </div>
           </div>
 
@@ -571,9 +710,9 @@ export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
               {/* Grind visual scale */}
               <div style={{ display: 'flex', gap: '3px', alignItems: 'flex-end', height: '32px' }}>
                 {Array.from({ length: 12 }).map((_, i) => {
-                  const grindIndex = { v60: 5, kalita: 6, french_press: 10, aeropress: 3, chemex: 8 }[method] ?? 5;
-                  const active = i === grindIndex;
-                  const nearby = Math.abs(i - grindIndex) <= 1;
+                  const grindIdx = methodData.grindIndex;
+                  const active = i === grindIdx;
+                  const nearby = Math.abs(i - grindIdx) <= 1;
                   const h = Math.min(100, 30 + i * 5.5);
                   return (
                     <div
@@ -594,14 +733,32 @@ export default function BrewCalc({ lang = 'en' }: { lang?: 'en' | 'ja' }) {
               </div>
             </div>
 
-            {/* Brew time estimate */}
-            <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>
-                {ja ? '目安抽出時間' : 'Est. brew time'}
-              </span>
-              <span style={{ fontFamily: 'Work Sans, sans-serif', fontSize: '18px', fontWeight: 900, color: 'white' }}>
-                {fmtTime(totalBrewTime + 30)}
-              </span>
+            {/* Method details */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>
+                  {ja ? '目安抽出時間' : 'Est. brew time'}
+                </span>
+                <span style={{ fontFamily: 'Work Sans, sans-serif', fontSize: '18px', fontWeight: 900, color: 'white' }}>
+                  {fmtTime(totalBrewTime + 30)}
+                </span>
+              </div>
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>
+                  {T.category}
+                </span>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.65)' }}>
+                  {methodData.category[lang]}
+                </span>
+              </div>
+              <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', fontWeight: 600 }}>
+                  {T.filterLabel}
+                </span>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.65)' }}>
+                  {methodData.filterType[lang]}
+                </span>
+              </div>
             </div>
           </div>
         </aside>
