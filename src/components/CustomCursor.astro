@@ -1,0 +1,64 @@
+---
+// Custom cursor — desktop/mouse devices only (pointer: fine)
+// Dot follows instantly; ring follows with lerp for a trailing effect
+---
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<script>
+  (() => {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    let mx = window.innerWidth  / 2;
+    let my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+    let clicking = false;
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+    }, { passive: true });
+
+    // Single rAF loop — dot is instant, ring lerps at 12% per frame
+    (function loop() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+      dot.style.transform = `translate(-50%,-50%) scale(${clicking ? 0.5 : 1})`;
+
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+
+      requestAnimationFrame(loop);
+    })();
+
+    // Hover state — enlarge ring when over interactive elements
+    document.addEventListener('mouseover', (e) => {
+      if ((e.target as Element)?.closest?.('a,button,[role="button"],.magnetic')) {
+        document.body.classList.add('cursor-hover');
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseout', (e) => {
+      if ((e.target as Element)?.closest?.('a,button,[role="button"],.magnetic')) {
+        document.body.classList.remove('cursor-hover');
+      }
+    }, { passive: true });
+
+    // Click shrink
+    document.addEventListener('mousedown', () => {
+      clicking = true;
+      document.body.classList.add('cursor-click');
+    });
+    document.addEventListener('mouseup', () => {
+      clicking = false;
+      document.body.classList.remove('cursor-click');
+    });
+  })();
+</script>
