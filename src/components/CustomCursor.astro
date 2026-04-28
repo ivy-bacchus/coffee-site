@@ -1,17 +1,13 @@
 ---
-// Custom cursor — desktop/mouse devices only (pointer: fine)
-// Dot follows instantly; ring follows with lerp for a trailing effect
+// Custom cursor — desktop/mouse only (pointer: fine)
+// transition:persist keeps the elements alive across Astro View Transitions
 ---
-<div id="cursor-dot" aria-hidden="true"></div>
-<div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-dot"  aria-hidden="true" transition:persist></div>
+<div id="cursor-ring" aria-hidden="true" transition:persist></div>
 
 <script>
   (() => {
     if (!window.matchMedia('(pointer: fine)').matches) return;
-
-    const dot  = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    if (!dot || !ring) return;
 
     let mx = window.innerWidth  / 2;
     let my = window.innerHeight / 2;
@@ -23,22 +19,27 @@
       my = e.clientY;
     }, { passive: true });
 
-    // Single rAF loop — dot is instant, ring lerps at 12% per frame
+    // rAF loop — re-queries elements each frame so VT swaps don't break it
     (function loop() {
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
+      const dot  = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
 
-      dot.style.left = mx + 'px';
-      dot.style.top  = my + 'px';
-      dot.style.transform = `translate(-50%,-50%) scale(${clicking ? 0.5 : 1})`;
+      if (dot && ring) {
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
 
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
+        dot.style.left  = mx + 'px';
+        dot.style.top   = my + 'px';
+        dot.style.transform = `translate(-50%,-50%) scale(${clicking ? 0.5 : 1})`;
+
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+      }
 
       requestAnimationFrame(loop);
     })();
 
-    // Hover state — enlarge ring when over interactive elements
+    // Hover state — interactive elements enlarge & recolor the ring
     document.addEventListener('mouseover', (e) => {
       if ((e.target as Element)?.closest?.('a,button,[role="button"],.magnetic')) {
         document.body.classList.add('cursor-hover');

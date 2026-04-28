@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CustomCursor from '../components/CustomCursor.astro';
+import GSAPAnimations from '../components/GSAPAnimations.astro';
 import ClientRouter from 'astro/components/ClientRouter.astro';
 import { t, type Lang } from '../i18n';
 
@@ -36,11 +37,14 @@ const description = t(lang, 'site.description');
     <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">
-    <!-- Scroll progress bar -->
+    <!-- Scroll progress bar (persists across VT page swaps) -->
     <div id="scroll-progress-bar" transition:persist></div>
 
-    <!-- Custom cursor (desktop only) -->
+    <!-- Custom cursor — desktop only, persists across VT -->
     <CustomCursor />
+
+    <!-- GSAP ScrollTrigger animations -->
+    <GSAPAnimations />
 
     <Header lang={lang} currentPath={currentPath} />
     <main class:list={['flex-1', !fullWidth && 'max-w-5xl mx-auto w-full px-6 py-12']}>
@@ -49,90 +53,14 @@ const description = t(lang, 'site.description');
     <Footer lang={lang} />
 
     <script>
-      // ─── Module-level state (persists across VT navigations) ──────────
-      let revealObserver: IntersectionObserver | null = null;
-      let parallaxEls: { el: HTMLElement; factor: number }[] = [];
-
-      // ─── Scroll Progress ──────────────────────────────────────────────
+      // ─── Scroll Progress (lightweight, stays in BaseLayout) ───────────
       function updateProgress() {
         const bar = document.getElementById('scroll-progress-bar');
         if (!bar) return;
         const total = document.documentElement.scrollHeight - window.innerHeight;
         bar.style.width = total > 0 ? `${(window.scrollY / total) * 100}%` : '0%';
       }
-
-      // ─── Parallax update ──────────────────────────────────────────────
-      function updateParallax() {
-        const sy = window.scrollY;
-        parallaxEls.forEach(({ el, factor }) => {
-          el.style.transform = `translateY(${sy * factor}px)`;
-        });
-      }
-
-      // One-time scroll listener (handles both progress + parallax)
-      window.addEventListener('scroll', () => {
-        updateProgress();
-        updateParallax();
-      }, { passive: true });
-
-      // ─── Scroll Reveal ────────────────────────────────────────────────
-      function initReveal() {
-        if (revealObserver) revealObserver.disconnect();
-        revealObserver = new IntersectionObserver(
-          (entries) => entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('visible');
-              revealObserver!.unobserve(e.target);
-            }
-          }),
-          { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-        );
-        document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-blur')
-          .forEach((el) => revealObserver!.observe(el));
-      }
-
-      // ─── Text Split ───────────────────────────────────────────────────
-      // Wraps each character of [data-split-text] headings in animated spans
-      function initTextSplit() {
-        document.querySelectorAll('[data-split-text]').forEach((el) => {
-          if (el.getAttribute('data-split-done')) return;
-          el.setAttribute('data-split-done', '1');
-          let idx = 0;
-
-          function processNode(node: Node) {
-            if (node.nodeType === Node.TEXT_NODE) {
-              const chars = [...(node.textContent || '')];
-              const frag = document.createDocumentFragment();
-              chars.forEach((ch) => {
-                if (!ch.trim() || ch === '\n') {
-                  frag.appendChild(document.createTextNode(ch));
-                } else {
-                  const span = document.createElement('span');
-                  span.className = 'split-char';
-                  span.style.animationDelay = `${idx * 0.038}s`;
-                  span.textContent = ch;
-                  frag.appendChild(span);
-                  idx++;
-                }
-              });
-              node.parentNode!.replaceChild(frag, node);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-              [...node.childNodes].forEach(processNode);
-            }
-          }
-
-          processNode(el);
-        });
-      }
-
-      // ─── Parallax ─────────────────────────────────────────────────────
-      function initParallax() {
-        parallaxEls = [...document.querySelectorAll('[data-parallax]')].map((el) => ({
-          el: el as HTMLElement,
-          factor: parseFloat((el as HTMLElement).dataset.parallax || '0.12'),
-        }));
-        updateParallax();
-      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
 
       // ─── Magnetic Buttons ─────────────────────────────────────────────
       function initMagnetic() {
@@ -172,12 +100,9 @@ const description = t(lang, 'site.description');
         });
       }
 
-      // ─── Boot on every page load (initial + VT navigations) ──────────
+      // ─── Boot on every page (initial + VT navigations) ────────────────
       document.addEventListener('astro:page-load', () => {
         updateProgress();
-        initReveal();
-        initTextSplit();
-        initParallax();
         initMagnetic();
         initCardTilt();
       });

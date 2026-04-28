@@ -1,0 +1,142 @@
+---
+// GSAP + ScrollTrigger animations
+// Replaces the hand-written IntersectionObserver reveals and parallax
+// Re-initializes on every Astro View Transitions page load
+---
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Kill all ScrollTriggers before VT page swap
+  document.addEventListener('astro:after-swap', () => {
+    ScrollTrigger.getAll().forEach(st => st.kill());
+  });
+
+  // Re-init on every page (initial load + VT navigations)
+  document.addEventListener('astro:page-load', () => {
+    if (reduced) return;
+    initTextSplit();
+    initHeroTimeline();
+    initReveal();
+    initParallax();
+  });
+
+  // ─── Text Split ──────────────────────────────────────────────────────
+  // Splits [data-split-text] headings into per-character <span>s for GSAP stagger
+  function initTextSplit() {
+    document.querySelectorAll('[data-split-text]').forEach((el) => {
+      if (el.getAttribute('data-split-done')) return;
+      el.setAttribute('data-split-done', '1');
+      let idx = 0;
+
+      function processNode(node: Node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const chars = [...(node.textContent || '')];
+          const frag = document.createDocumentFragment();
+          chars.forEach((ch) => {
+            if (!ch.trim() || ch === '\n') {
+              frag.appendChild(document.createTextNode(ch));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'split-char';
+              span.dataset.charIdx = String(idx++);
+              span.textContent = ch;
+              frag.appendChild(span);
+            }
+          });
+          node.parentNode!.replaceChild(frag, node);
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          [...node.childNodes].forEach(processNode);
+        }
+      }
+      processNode(el);
+    });
+  }
+
+  // ─── Hero Timeline ───────────────────────────────────────────────────
+  // Badge → characters stagger → paragraph, sequential and physics-y
+  function initHeroTimeline() {
+    const badge = document.querySelector('[data-hero-badge]');
+    const chars = [...document.querySelectorAll('[data-split-text] .split-char')];
+    const sub   = document.querySelector('[data-hero-sub]');
+
+    if (!chars.length && !badge) return;
+
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+    if (badge) {
+      tl.from(badge, { opacity: 0, y: 14, scale: 0.92, duration: 0.55 });
+    }
+
+    if (chars.length) {
+      tl.from(chars, {
+        opacity: 0,
+        y: 28,
+        stagger: { each: 0.036, ease: 'power2.inOut' },
+        duration: 0.65,
+        ease: 'power3.out',
+      }, badge ? '-=0.25' : 0);
+    }
+
+    if (sub) {
+      tl.from(sub, { opacity: 0, y: 16, duration: 0.7, ease: 'power2.out' }, '-=0.35');
+    }
+  }
+
+  // ─── Scroll Reveal (ScrollTrigger.batch) ────────────────────────────
+  // Batch groups elements that enter at the same scroll position
+  // and staggers them together — much smoother than individual IntersectionObservers
+  function initReveal() {
+    // Set initial hidden states
+    gsap.set('.reveal',       { opacity: 0, y: 48 });
+    gsap.set('.reveal-left',  { opacity: 0, x: -52 });
+    gsap.set('.reveal-right', { opacity: 0, x: 52 });
+    gsap.set('.reveal-scale', { opacity: 0, scale: 0.88 });
+    gsap.set('.reveal-blur',  { opacity: 0, filter: 'blur(12px)' });
+
+    const batchOpts = { interval: 0.08, batchMax: 4 };
+
+    ScrollTrigger.batch('.reveal', {
+      ...batchOpts, start: 'top 90%',
+      onEnter: b => gsap.to(b, { opacity: 1, y: 0, stagger: 0.13, duration: 0.9, ease: 'power3.out' }),
+    });
+    ScrollTrigger.batch('.reveal-left', {
+      ...batchOpts, start: 'top 90%',
+      onEnter: b => gsap.to(b, { opacity: 1, x: 0, stagger: 0.1, duration: 0.85, ease: 'power3.out' }),
+    });
+    ScrollTrigger.batch('.reveal-right', {
+      ...batchOpts, start: 'top 90%',
+      onEnter: b => gsap.to(b, { opacity: 1, x: 0, stagger: 0.1, duration: 0.85, ease: 'power3.out' }),
+    });
+    ScrollTrigger.batch('.reveal-scale', {
+      ...batchOpts, start: 'top 92%',
+      onEnter: b => gsap.to(b, { opacity: 1, scale: 1, stagger: 0.1, duration: 0.8, ease: 'back.out(1.4)' }),
+    });
+    ScrollTrigger.batch('.reveal-blur', {
+      ...batchOpts, start: 'top 88%',
+      onEnter: b => gsap.to(b, { opacity: 1, filter: 'blur(0px)', stagger: 0.12, duration: 1.0, ease: 'power2.out' }),
+    });
+  }
+
+  // ─── Parallax (ScrollTrigger scrub) ─────────────────────────────────
+  // Smoother than hand-written scrollY * factor — GSAP lerps automatically
+  function initParallax() {
+    document.querySelectorAll('[data-parallax]').forEach((el) => {
+      const factor = parseFloat((el as HTMLElement).dataset.parallax || '0.12');
+      gsap.to(el, {
+        yPercent: factor * 100,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: el.closest('section') || el,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.8,
+        },
+      });
+    });
+  }
+</script>

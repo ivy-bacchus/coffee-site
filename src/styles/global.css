@@ -371,46 +371,16 @@ h1, h2, h3, h4 {
   }
 }
 
-/* === Text split character animation === */
+/* === Text split character — GSAP controls animation, just block-level === */
 .split-char {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: char-rise 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 
-@keyframes char-rise {
-  to { opacity: 1; transform: translateY(0); }
+/* === Reveal variants — initial hidden state set by GSAP via gsap.set() === */
+/* Classes serve as selectors only; transitions removed (GSAP handles timing) */
+.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur {
+  /* intentionally no opacity/transform here — GSAP sets initial state */
 }
-
-/* === Enhanced reveal variants === */
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
-}
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
-}
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.34,1.56,0.64,1);
-}
-.reveal-scale.visible { opacity: 1; transform: scale(1); }
-
-.reveal-blur {
-  opacity: 0;
-  filter: blur(10px);
-  transition: opacity 0.85s ease-out, filter 0.85s ease-out;
-}
-.reveal-blur.visible { opacity: 1; filter: blur(0); }
 
 /* === Card 3D tilt === */
 .card-tilt {
@@ -443,17 +413,7 @@ h1, h2, h3, h4 {
 
 /* === Respect prefers-reduced-motion === */
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
-  }
-  .split-char {
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-  }
+  /* GSAP skips all animations when this is set (checked in JS) */
   .card-tilt, .magnetic { will-change: auto; }
   .ambient-orb { animation: none; }
   ::view-transition-old(root),
